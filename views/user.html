@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>user name </title>
+</head>
+
+<body>
+
+    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">New Bill</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item ms-2">
+                        <a class="nav-link" aria-current="page" href="/all">All bills</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="nav-link bg-success" href="#">Payed</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="nav-link bg-danger" href="#">Not Payed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Log in</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <h1 class="mt-3">
+            <%= userData.buyer %>
+        </h1>
+
+        <table id="User" class="table table-dark table-hover mt-3">
+            <thead>
+                <th>User
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>1<sup>st</sup> / Week</th>
+                <th>Payed</th>
+                <th>Date</th>
+                <th>Izdal</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <% for(product of userData.products) {%>
+                        <td>
+                            <a href="/all/<%= userData._id%>/edit">
+                                <%= userData.buyer %>
+                            </a>
+                        </td>
+                        <% %>
+                            <td>
+                                <%= product.name %>
+                            </td>
+                            <td>
+                                <%= product.qty %>
+                            </td>
+                            <td>
+                                <%= product.firstOfWeek %>
+                            </td>
+                            <td>
+                                <%= userData.pay %>
+                            </td>
+                            <td>
+                                <%= userData.soldDate %>
+                            </td>
+                            <td>
+                                <%= userData.izdal %>
+                            </td>
+                            <td><a href="/all/<%= userData._id%>/edit"><button class="btn btn-warning btn-sm">
+                                        EDIT
+                                    </button>
+                                </a></td>
+                            <td>
+                                <form action="/all/<%= userData._id%>/?_method=DELETE" method="post">
+                                    <button class="btn btn-danger btn-sm">DELETE</button>
+                                </form>
+                            </td>
+                </tr>
+
+            </tbody>
+            <% } %>
+        </table>
+
+        <h1>Resolvnig
+            <%= userData._id %>
+                <%= userData.buyer %>
+        </h1>
+
+        <% for(user of userData.products) {%>
+            <br>
+            <%= user.name %>
+                <% } %>
+
+    </div>
+</body>
+
+</html>
