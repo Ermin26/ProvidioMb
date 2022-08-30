@@ -40,12 +40,12 @@
         </div>
     </nav>
 
-    <div id="container" class="containerr">
+    <div class="container">
         <div class="naslov text-center mt-1 border-bottom border-2 border-dark">
             <h3>PROVIDIO, 2000 Maribor</h4>
         </div>
         <form action="/sell" method="post">
-            <div class="kupec mt-5 ms-4">
+            <div class="kupec mt-5 ml-0">
 
                 <p>Izdal:</p>
 
@@ -59,7 +59,7 @@
             </div>
 
             <div class="row mt-3">
-                <div class="mt-5 text-left ms-4">
+                <div class="mt-5 text-left">
                     <label for="numPerYear">Številka/Leto:</label>
                     <input type="text" class="col-1 ms-4 border border-white text-left" name="numPerYear"
                         id="numPerYear" value="<%= newBill %>">
@@ -97,16 +97,16 @@
                     </ul>
                 </div>
             </div>
- 
+
             <div class=" row izdelki mt-3 text-center">
-                <table id="myTable" class="table table-borderless table-responsive text-left">
+                <table id="myTable" class="table table-borderless table-responsive">
                     <thead>
-                        <tr class="border-bottom border-dark">
+                        <tr class="border-bottom border-2 border-dark">
                             <th class="col ">Izdelek</th>
                             <th class="col ">Količina</th>
                             <th class="col ">Cena</th>
                             <th class="col ">DDV</th>
-                            <th class="col-1 ">1/week</th>
+                            <th class="col ">1/week</th>
                             <th class="col ">Neto</th>
                             <th class="col-1">Placano</th>
                         </tr>
@@ -224,25 +224,23 @@
 
             if (free.checked) {
                 if (kolicina > 1) {
-                    const cena1 = kolicina * cena + ddv;
-                    const cena2 = 1 * cena;
+                    const cena1 = kolicina * (cena + ddv);
+                    const cena2 = 1 * (cena + ddv);
                     let y = parseFloat(cena1) - parseFloat(cena2);
                     document.getElementById('total').innerHTML = y;
-                    document.getElementById('total').setAttribute('value', y);
+                    document.getElementById('total').setAttribute('value', y.toFixed(2));
+                    document.getElementById('freeProduct').setAttribute('value', 'true')
+                    document.getElementById('freeProduct').checked = true;
+                } else {
+                    document.getElementById('total').innerHTML = 0.00;
+                    document.getElementById('total').setAttribute('value', 0.00);
                     document.getElementById('freeProduct').setAttribute('value', 'true')
                     document.getElementById('freeProduct').checked = true;
                 }
-                //const cena1 = kolicina * cena + ddv;
-                //const cena2 = 1 * cena;
-                //let y = parseFloat(cena1) - parseFloat(cena2);
-                document.getElementById('total').innerHTML = 0.00;
-                document.getElementById('total').setAttribute('value', 0.00);
-                document.getElementById('freeProduct').setAttribute('value', 'true')
-                document.getElementById('freeProduct').checked = true;
                 //document.getElementById('hiddenInput').setAttribute('value', 'false')
             }
             else {
-                const cena1 = kolicina * cena + ddv;
+                const cena1 = kolicina * (cena + ddv);
                 document.getElementById('total').innerHTML = cena1.toFixed(2);
                 document.getElementById('total').setAttribute('value', cena1.toFixed(2));
                 //document.getElementById('freeProduct').setAttribute('value', 'false');
@@ -273,16 +271,16 @@
                 pay += parseFloat(x, 10);
 
             }
-            document.getElementById('payment').innerHTML = pay + "0" + " " + "€";
-            document.getElementById('payment').setAttribute('value', pay);
+            //document.getElementById('payment').innerHTML = pay.toFixed(2);
+            document.getElementById('payment').setAttribute('value', pay.toFixed(2));
             if (payed.checked) {
                 document.getElementById('pay').setAttribute('value', 'true');
                 document.getElementById('pay').checked = true;
             } else {
                 document.getElementById('pay2').setAttribute('value', 'false');
                 document.getElementById('pay2').checked = true;
-                document.getElementById('payDate').innerHTML = "__." + "___" + "." + year;
-                document.getElementById('payDate').setAttribute('value', "__." + "___" + "." + year);
+                document.getElementById('payDate').innerHTML = "__." + month + "." + year;
+                document.getElementById('payDate').setAttribute('value', "__." + month + "." + year);
 
             }
 

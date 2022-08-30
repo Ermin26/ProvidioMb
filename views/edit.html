@@ -160,9 +160,14 @@
                                         </li>
 
                                         <li id="list" class="list-group-item col-5 d-inline"><label
-                                                for="firstOfWeek">1<sup>st</sup>/week:</label>
-                                            <input type="text" id="firstOfWeek" class="form-control d-inline"
-                                                name="firstOfWeek" value="<%= product.firstOfWeek %> " required>
+                                                for="firstOfWeek">1<sup>st</sup>/week:</label><br>
+
+                                            <input class="form-check-input" type="checkbox" value="true"
+                                                id="freeProduct" name="firstOfWeek">
+
+                                            <input class="form-check-input" type="checkbox" value="false"
+                                                id="hiddenInput" name="firstOfWeek">
+
                                         </li>
 
                                         <li id="list" class="list-group-item col-5 d-inline"><label
@@ -234,8 +239,10 @@
 
     <script>
         document.getElementById('pay2').style.display = 'none';
+        document.getElementById('hiddenInput').style.display = 'none';
         function update() {
             let payed = document.getElementById('payed');
+            let free = document.getElementById('freeProduct');
             if (payed.checked) {
                 document.getElementById('payed').setAttribute('value', 'true');
                 document.getElementById('payed').checked = true;
@@ -243,6 +250,14 @@
                 document.getElementById('pay2').setAttribute('value', 'false');
                 document.getElementById('pay2').checked = true;
             }
+            if (free.checked) {
+                document.getElementById('freeProduct').setAttribute('value', 'true');
+                document.getElementById('freeProduct').checked = true;
+            } else {
+                document.getElementById('hiddenInput').setAttribute('value', 'false')
+                document.getElementById('hiddenInput').checked = true;
+            }
+
         }
     </script>
 

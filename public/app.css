@@ -13,8 +13,7 @@ body {
     padding: 0;
 }
 
-.containerr {
-    width: 100%;
+.container {
     margin: 0;
     padding: 0;
     margin-left: auto;
@@ -22,7 +21,6 @@ body {
     height: 100vh;
     overflow-x: hidden;
 }
-
 
 #info {
     display: flex;
@@ -122,9 +120,6 @@ li span {
 
     * {
         color: black;
-    }
-    #myTable {
-     
     }
 
 }

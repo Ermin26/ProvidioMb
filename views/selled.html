@@ -37,74 +37,110 @@
             </div>
         </div>
     </nav>
-     
-    <div class="text-center">
-            <table id="allUsers" class="table table-dark table-hover">
-                <thead>
-                    
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>DDV</th>
-                    <th>1<sup>st</sup> / Week</th>
-                    <th>Total</th>
-                    <th>Payed</th>
-                    <th>Num / Month</th>
-                    <th>Month</th>
-                    <th>Num / Year</th>
-                    <th>Year</th>
-                    <th>Date</th>
-                    <th>User</th>
-                    <th>Izdal</th>
-                </thead>
-                <tbody>
-                    
-                    <tr>
-                            <% for(let data of userData) { %> 
-                            
-                            
-                                            <td>
-                                                <%= data.pay %>
-                                            </td>
-                                            <td>
-                                                <%= data.numPerMonth %>
-                                            </td>
-                                            <td>
-                                                <%= data.month %>
-                                            </td>
-                                            <td>
-                                                <%= data.numPerYear %>
-                                            </td>
-                                            <td>
-                                                <%= data.year %>
-                                            </td>
-                                            <td>
-                                                <%= data.soldDate %>
-                                            </td>
-                                            <td>
-                                                <a href="/all/<%= data._id %> ">
-                                                    <%= data.buyer %>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <%= data.izdal %>
-                                            </td>
-                                            
-                                        </tr>
-                                        <% }%>
 
-                    </tbody>
-                </table>
-                <!--}else {%>
-                    <h1 class="mt-5">User and products database is empty. Nothing to show.</h1>
-                    
-                     }  
-            
-                
-                -->
+    <div class="text-center mt-5">
+
+        <table id="allUsers" class="table table-dark table-hover">
+            <thead>
+                <th class="col">User</th>
+                <th class="col">Product</th>
+                <th class="col-1">Qty</th>
+                <th class="col-1">Price</th>
+                <th class="col-1">DDV</th>
+                <th class="col">1<sup>st</sup> / Week</th>
+                <th class="col">Total</th>
+                <th class="col-1">Payed</th>
+                <th class="col-1">Num / Month</th>
+                <th class="col-1">Month</th>
+                <th class="col-1">Num / Year</th>
+                <th class="col">Year</th>
+                <th class="col">Sold Date</th>
+                <th class="col">Izdal</th>
+            </thead>
+            <tbody>
+                <% if(userData.length) {%>
+
+
+                    <% for(let data of userData) { %>
+                        <% for(let product of data.products) {%>
+                            <tr>
+                                <td>
+                                    <a href="/all/<%= data._id %> ">
+                                        <%= data.buyer %>
+                                    </a>
+                                </td>
+                                <td>
+                                    <%= product.name %> <br>
+                                </td>
+
+                                <td>
+                                    <%= product.qty %><br>
+                                </td>
+                                <td>
+                                    <%= product.price %><br>
+                                </td>
+                                <td>
+                                    1.50 €
+                                </td>
+                                <td>
+                                    <%= product.firstOfWeek%>
+                                </td>
+                                <td>
+                                    <%= product.total %>
+                                </td>
+
+
+
+                                <td>
+
+                                    <% if(data.pay=='true' ){ %>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                            fill="currentColor" class="bi bi-check2-square bg-success"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                            <path
+                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                        </svg>
+                                        <% } else { %>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                fill="currentColor" class="bi bi-check2-square bg-danger"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                                <path
+                                                    d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                            </svg>
+                                            <% } %>
+                                </td>
+                                <td>
+                                    <%= data.numPerMonth %>
+                                </td>
+                                <td>
+                                    <%= data.month %>
+                                </td>
+                                <td>
+                                    <%= data.numPerYear %>
+                                </td>
+                                <td>
+                                    <%= data.year %>
+                                </td>
+                                <td>
+                                    <%= data.soldDate %>
+                                </td>
+                                <td>
+                                    <%= data.izdal %>
+                                </td>
+                            </tr>
+                            <% } %>
+                                <% } %>
+                                    <% } else{%>
+                                        <h1 class="mt-5">User and products database is empty. Nothing to show.</h1>
+                                        <% } %>
+            </tbody>
+        </table>
 
     </div>
-
 </body>
 
 </html>
