@@ -9,8 +9,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const User = require('./models/models');
 const override = require('method-override');
+const Product = require('./models/product');
 
 const db_URL = process.env.DB_URL
+
 
 mongoose.connect(db_URL)
 
@@ -29,8 +31,8 @@ app.engine('html', require('ejs').renderFile)
 
 app.use(override('_method'))
 
-let currentWeek = [34];
-let weeks = [33]
+let currentWeek = [35];
+let weeks = [35]
 let currentMonth = [];
 
 let datum = new Date();
@@ -60,7 +62,6 @@ app.get('/', async (req, res) => {
 
 
     const perYear = await User.find().sort({ "numPerYear": -1 }).limit(1)
-    //! moras najt numPerMonth where month: -1
     const perMonth = await User.find({}).sort({ "numPerMonth": -1 }).limit(1)
     if (perYear.length && perMonth.length) {
         const newBill = perYear[0].numPerYear + 1
@@ -93,7 +94,7 @@ app.get('/delete', async (req, res) => {
     res.redirect('/')
 })
 
-<
+
 //? DELA
 
 app.post('/sell', async (req, res) => {
@@ -137,18 +138,15 @@ app.post('/sell', async (req, res) => {
 })
 
 //? DELA
-//! Separate products
+// Separate products ---> //? DONE!
 app.get('/all', async (req, res) => {
     const userData = await User.find({});
-    //! UNDEFINED
-    //console.log(userData.products, 'user data');
-    
-    
+
     return res.render('selled', { userData })
 });
 
 //? DELA
-//! Separate products
+
 app.get('/all/:id', async (req, res) => {
     const userData = await User.findById(req.params.id);
     if (!userData) {
