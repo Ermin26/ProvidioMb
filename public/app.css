@@ -13,7 +13,8 @@ body {
     padding: 0;
 }
 
-.container {
+.containerr {
+    width: 100%;
     margin: 0;
     padding: 0;
     margin-left: auto;
@@ -25,10 +26,12 @@ body {
 #info {
     display: flex;
     justify-content: end;
+
 }
 
 #info-ul {
-    width: 50%;
+    width: 400px;
+    margin-right: 60px;
 }
 
 #info-ul ul {
@@ -49,7 +52,7 @@ ul {
 
 
 #myTable {
-    width: 80%;
+    width: 85%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -97,20 +100,145 @@ li span {
 }
 
 #hiderow {
-    margin-bottom: 20vh;
+    display: inline-block;
+    flex-direction: row;
+    transform: translate(50px, 460px);
+    -webkit-transform: translate(50px, 460px);
+    -moz-transform: translate(50px, 460px);
+    -ms-transform: translate(50px, 460px);
+    -o-transform: translate(50px, 460px);
 }
+
 
 .print {
     margin-bottom: 15vh;
 }
 
-@media print {
 
-    #hideOnPrint,
-    #addrow,
-    #hideMe,
-    #hiderow,
+
+@media (max-width:480px) {
+    .containerr {
+        width: 100%;
+        height: 100%;
+        overflow-x: auto;
+
+    }
+
+    #hiderow {
+        display: inline-flex;
+        flex-direction: column;
+        transform: translate(5px, 460px);
+        -webkit-transform: translate(5px, 460px);
+        -moz-transform: translate(5px, 460px);
+        -ms-transform: translate(5px, 460px);
+        -o-transform: translate(5px, 460px);
+    }
+
+    #info-ul {
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    #info {
+        margin-left: 30px;
+    }
+}
+
+@media (max-width:600px) {
+    .containerr {
+        width: 100%;
+        height: 100%;
+        overflow-x: auto;
+
+    }
+
+    #hiderow {
+        display: inline-flex;
+        flex-direction: column;
+        transform: translate(50px, 460px);
+        -webkit-transform: translate(50px, 460px);
+        -moz-transform: translate(50px, 460px);
+        -ms-transform: translate(50px, 460px);
+        -o-transform: translate(50px, 460px);
+    }
+
+    #info-ul {
+        max-width: 150px;
+        margin-right: 10px;
+    }
+
+    #info {
+        margin-left: 30px;
+    }
+}
+
+@media (max-width:650px) {
+    .container {
+        width: 100%;
+        height: 100%;
+    }
+
+    #hiderow {
+        display: inline-flex;
+        flex-direction: column;
+        transform: translate(50px, 460px);
+        -webkit-transform: translate(50px, 460px);
+        -moz-transform: translate(50px, 460px);
+        -ms-transform: translate(50px, 460px);
+        -o-transform: translate(50px, 460px);
+    }
+
+    #info-ul {
+        max-width: 350px;
+        margin-right: 10px;
+    }
+
+    #info {
+        margin-left: 10px;
+    }
+}
+
+@media (max-width:1000px) {
+    .container {
+        width: 100%;
+        height: 100%;
+    }
+
+    #hiderow {
+        display: inline-flex;
+        flex-direction: column;
+        transform: translate(50px, 460px);
+        -webkit-transform: translate(50px, 460px);
+        -moz-transform: translate(50px, 460px);
+        -ms-transform: translate(50px, 460px);
+        -o-transform: translate(50px, 460px);
+    }
+
+    #info-ul {
+        max-width: 450px;
+        margin-right: -90px;
+    }
+
+    #info {
+        margin-left: 30px;
+    }
+}
+
+@media print {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
     #navbar {
+        display: none;
+    }
+
+    #addrow,
+    #zaključi,
+    #placaj,
+    #hideOnPrint,
+    #hiderow {
         display: none;
     }
 
@@ -122,29 +250,4 @@ li span {
         color: black;
     }
 
-}
-
-@media (max-width:400px) {
-    .container {
-        width: 100%;
-        height: 100%;
-        overflow-x: auto;
-
-    }
-
-
-    #info {
-        margin-left: 30px;
-    }
-}
-
-@media (max-width:600px) {
-    .container {
-        width: 100%;
-        height: 100%;
-    }
-
-    #info {
-        margin-left: 30px;
-    }
 }
