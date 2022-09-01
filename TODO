@@ -1,7 +1,11 @@
-za vec izdelkov dodaj da tudi ddv steje kolko je izdelkov  FIXED!!!
+za vec izdelkov dodaj da tudi ddv steje kolko je izdelkov  FIXED!!! --> DONE
 
 
 
-make payed (ok)  notPayed page check!
 
-make rePrint
+
+MAKE REPRINT
+LOG IN role [Boss, Admin, Visitor ] --> boss can do all, admin can edit, reprint, visitor only check the status of bills!
+
+media sreen for small devices
+INPUT BORDERS hide
