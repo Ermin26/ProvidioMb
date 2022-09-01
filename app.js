@@ -34,6 +34,7 @@ app.use(override('_method'))
 let currentWeek = [35];
 let weeks = [35]
 let currentMonth = [];
+let currentYear = [2022];
 
 let datum = new Date();
 const day = datum.getDay();
@@ -61,8 +62,8 @@ app.get('/', async (req, res) => {
     let month = todayDate.getMonth() + 1;
 
 
-    const perYear = await User.find().sort({ "numPerYear": -1 }).limit(1)
-    const perMonth = await User.find({}).sort({ "numPerMonth": -1 }).limit(1)
+    const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
+    const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
     if (perYear.length && perMonth.length) {
         const newBill = perYear[0].numPerYear + 1
         const billNew = perMonth[0].numPerMonth + 1
@@ -71,8 +72,16 @@ app.get('/', async (req, res) => {
             const billNew = 1;
             currentMonth.pop();
             currentMonth.push(month);
+
+            if (year != currentYear[0]) {
+                const newBill = 1;
+                currentYear.pop();
+                currentYear.push(year);
+                res.render('index', { date, year, month, newBill, billNew, currentWeek })
+            }
             res.render('index', { date, year, month, newBill, billNew, currentWeek })
         }
+
         else {
             return res.render('index', { date, year, month, newBill, billNew, currentWeek })
         }
@@ -141,8 +150,12 @@ app.post('/sell', async (req, res) => {
 // Separate products ---> //? DONE!
 app.get('/all', async (req, res) => {
     const userData = await User.find({});
-
-    return res.render('selled', { userData })
+    const yearNum = await User.find({}).sort({ "numPerYear": "descending" }).limit(1)
+    const payData = await User.find({ pay: 'true' })
+    let payedLength = payData.length;
+    const notPayData = await User.find({ pay: 'false' })
+    let notPayedLength = notPayData.length;
+    return res.render('selled', { userData, payData, notPayData, yearNum, payedLength, notPayedLength })
 });
 
 //? DELA
