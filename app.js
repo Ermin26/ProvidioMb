@@ -7,12 +7,17 @@ const mongoose = require('mongoose');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const User = require('./models/models');
 const override = require('method-override');
-const Product = require('./models/product');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const MongoDBStore = require('connect-mongodb-session')(session);
+const mongoSanitize = require('express-mongo-sanitize');
+const User = require('./models/models');
+const People = require('./models/users');
 
 const db_URL = process.env.DB_URL
-
 
 mongoose.connect(db_URL)
 
@@ -30,6 +35,38 @@ app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile)
 
 app.use(override('_method'))
+app.use(mongoSanitize());
+
+/*
+const secret = process.env.SECRET || 'mySecret';
+
+const store = new MongoDBStore({
+    url: db_URL,
+    secret: secret,
+    touchAfter: 24 * 60 * 60,
+})
+
+store.on('error', function (e) {
+    console.log("Session error", e)
+});
+
+const sessionConf = {
+    store,
+    name: 'session',
+    secret: secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+    }
+}
+*/
+//app.use(session(sessionConf));
+app.use(flash());
+
+
 
 let currentWeek = [35];
 let weeks = [35]
@@ -93,6 +130,11 @@ app.get('/', async (req, res) => {
         res.render('index', { date, year, month, billNew, newBill, currentWeek })
     }
 
+})
+
+
+app.get('/login', (req, res) => {
+    res.render('login');
 })
 
 //? DELA
@@ -196,6 +238,14 @@ app.delete('/all/:id', async (req, res) => {
     const user = await User.findByIdAndDelete(id);
     res.redirect('/all')
 });
+
+
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'Oh no, Something Went wrong!'
+    res.status(statusCode).render('error', { err });
+})
 
 
 const port = process.env.PORT || 3000

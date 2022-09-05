@@ -1,0 +1,72 @@
+@media (max-width: 3000px) {
+    #btn-func {
+        margin: 3px;
+    }
+
+    .caption {
+        margin-left: 10px;
+    }
+
+    #allUsers,
+    #placano,
+    #niPlacano {
+        display: inline-flex;
+        overflow-x: auto;
+    }
+
+    #all,
+    #payed,
+    #notPayed {
+        overflow-x: auto;
+    }
+
+    #table-data {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .caption {
+        margin-left: 10px;
+    }
+
+    #allUsers,
+    #placano,
+    #niPlacano {
+        display: inline-flex;
+        overflow-x: auto;
+    }
+
+    #all,
+    #payed,
+    #notPayed {
+        overflow-x: auto;
+    }
+
+    #table-data {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 450px) {
+    .caption {
+        margin-left: 10px;
+    }
+
+    #allUsers,
+    #placano,
+    #niPlacano {
+        display: inline-flex;
+        overflow-x: auto;
+    }
+
+    #all,
+    #payed,
+    #notPayed {
+        overflow-x: auto;
+    }
+
+    #table-data {
+        overflow-x: auto;
+    }
+}

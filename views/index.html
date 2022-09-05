@@ -28,7 +28,7 @@
                                 Bills</button></a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item ms-2">
                         <a class="nav-link disabled"><button class="btn btn-info">Log in</button></a>
                     </li>
                 </ul>
@@ -38,21 +38,21 @@
 
     <div class="containerr">
 
-        <div class="naslov text-center mt-1 border-bottom border-2 border-dark">
+        <div class="naslov text-center mt-1 mb-3 border-bottom border-2 border-dark">
             <h3>PROVIDIO, 2000 Maribor</h4>
         </div>
 
-        <div id="hiderow" class="">
-            <button type="submit" class="d-inline btn btn-outline-primary" id="addrow" onclick="addRow()">Dodaj
+        <div id="hiderow" class="mb-0">
+            <button type="submit" class="d-inline btn btn-outline-primary ms-1" id="addrow" onclick="addRow()">Dodaj
                 izdelek</button>
-            <button class="d-inline btn btn-outline-primary" id="zaključi" onclick="zakjuci()"
+            <button class="d-inline btn btn-outline-primary ms-1" id="zaključi" onclick="zakjuci()"
                 onkeyup="zakljuci()">Zaključi</button>
-            <button class="d-inline btn btn-outline-primary" id="placaj" onclick="placaj()"
+            <button class="d-inline btn btn-outline-primary ms-1" id="placaj" onclick="placaj()"
                 onkeyup="placaj()">Plačaj</button>
         </div>
 
         <form action="/sell" method="post">
-            <div class="kupec mt-5 ms-5">
+            <div id="izdal" class="kupec mt-2 ms-5 mb-3">
 
                 <p>Izdal:</p>
 
@@ -65,39 +65,38 @@
 
             </div>
 
-            <div class="row mt-3">
-                <div class="mt-5 text-left ms-5">
+            <div class="row mt-5" id="dates">
+                <div id="dates-left" class="col mt-2 text-left">
                     <label for="numPerYear">Številka/Leto:</label>
-                    <input type="text" class="col-1 ms-4 border border-white text-left" name="numPerYear"
-                        id="numPerYear" value="<%= newBill %>">
-                    <input type="text" class="col-2 border border-white text-left" name="year" id="year"
-                        value="<%= year %> ">
+                    <input type="text" class="border border-white text-left" name="numPerYear" id="numPerYear"
+                        value="<%= newBill %>">
+                    <input type="text" class="border border-white text-left" name="year" id="year" value="<%= year %> ">
 
                     <br>
-                    <label class="mt-2" for="numPerMonth">Številka/Mesec:
+                    <label class="" for="numPerMonth">Številka/Mesec:
                     </label>
-                    <input type="text" class="col-1 ms-2 border border-white" name="numPerMonth" id="numPerMonth"
+                    <input type="text" class="border border-white" name="numPerMonth" id="numPerMonth"
                         value="<%= billNew %>">
-                    <input type="text" class="col-1 border border-white" name="month" id="month" value="<%= month  %>">
+                    <input type="text" class="border border-white" name="month" id="month" value="<%= month  %>">
                     <br>
                     <label for="kt">Koledarski Teden:</label>
-                    <input type="text" class="col-1 border border-white" name="kt" id="kt" value="<%= currentWeek %> ">
+                    <input type="text" class="border border-white" name="kt" id="kt" value="<%= currentWeek %> ">
                 </div>
 
-                <div class="col mt-5 ms-5" id="info">
-                    <ul id="info-ul">
+                <div class="col mt-2" id="info">
+                    <ul id="info-ul" class="d-flex flex-column">
                         <li class="d-inline">
-                            <p id="kraj" class="d-inline-block">Kraj: Maribor</p>
-                        </li><br>
-                        <li class="d-inline">
+                            <p id="kraj" class="d-inline">Kraj: Maribor</p>
+                        </li>
+                        <li class="">
                             <label for="payDate">Datum Plačila:</label>
-                            <input type="text" class="d-inline col-3 border border-white" id="payDate" name="payDate"
+                            <input type="text" class="border border-white" id="payDate" name="payDate"
                                 value="<%= date %> ">
-                        </li><br>
+                        </li>
                         <li class="d-inline">
                             <label for="soldDate">Datum Izdaje:</label>
-                            <input type="text" class="d-inline col-3 border border-white ms-1 mt-2" id="soldDate"
-                                name="soldDate" value="<%= date %> ">
+                            <input type="text" class="d-inline border border-white ms-1" id="soldDate" name="soldDate"
+                                value="<%= date %> ">
 
                         </li>
 
@@ -105,8 +104,8 @@
                 </div>
             </div>
 
-            <div class=" row izdelki mt-3 text-center">
-                <table id="myTable" class="table table-borderless table-responsive">
+            <div id="table" class="row izdelki mt-5 text-center">
+                <table id="myTable" class="table table-borderless table-responsive mt-5">
                     <thead>
                         <tr class="border-bottom border-dark">
                             <th class="col-4">Izdelek</th>
@@ -118,12 +117,10 @@
                             <th class="col-1">Placano</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!--
-                        <tr class="border-bottom border-2 border-dark">
-                        </tr>
--->
-                        <tr class="mt-5 border-bottom-1 border-dark" id="cash">
+                    <tbody class="text-center">
+
+
+                        <tr class="mt-5 border border-start-0 border-end-0 border-dark" id="cash">
                             <td>Za plačilo:</td>
                             <td></td>
                             <td></td>

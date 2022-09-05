@@ -13,6 +13,8 @@ body {
     padding: 0;
 }
 
+
+
 .containerr {
     width: 100%;
     margin: 0;
@@ -30,8 +32,8 @@ body {
 }
 
 #info-ul {
-    width: 400px;
-    margin-right: 60px;
+    width: 240px;
+    margin-right: 10px;
 }
 
 #info-ul ul {
@@ -48,6 +50,28 @@ a {
 
 ul {
     list-style-type: none;
+}
+
+#payDate,
+#soldDate {
+    width: 100px;
+}
+
+#numPerYear {
+    width: 45px;
+}
+
+#numPerMonth,
+#month {
+    width: 35px;
+}
+
+#year {
+    width: 60px;
+}
+
+#kt {
+    width: 30px;
 }
 
 
@@ -102,11 +126,11 @@ li span {
 #hiderow {
     display: inline-block;
     flex-direction: row;
-    transform: translate(50px, 460px);
-    -webkit-transform: translate(50px, 460px);
-    -moz-transform: translate(50px, 460px);
-    -ms-transform: translate(50px, 460px);
-    -o-transform: translate(50px, 460px);
+    transform: translate(50px, 280px);
+    -webkit-transform: translate(50px, 280px);
+    -moz-transform: translate(50px, 280px);
+    -ms-transform: translate(50px, 280px);
+    -o-transform: translate(50px, 280px);
 }
 
 
@@ -114,124 +138,236 @@ li span {
     margin-bottom: 15vh;
 }
 
+@media (max-width: 3000px) {
+    #izdal {
+        display: inline-flex;
+        flex-direction: column;
+        padding: 0px;
+    }
+
+    #hiderow {
+        display: inline-flex;
+        flex-direction: row;
+        transform: translate(150px, 340px);
+        -webkit-transform: translate(150px, 340px);
+        -moz-transform: translate(150px, 340px);
+        -ms-transform: translate(150px, 340px);
+        -o-transform: translate(150px, 340px);
+    }
+
+    #dates {
+        padding: 0px;
+        margin-left: -50px;
+    }
+
+    #dates-left {
+        padding: 0px;
+        margin-left: 98px;
+    }
+
+    #info {
+        margin: 0;
+        padding: 0;
+    }
+
+    #info-ul {
+        padding: 0px;
+    }
+
+    #info-ul li {
+        margin-left: 25px;
+    }
 
 
-@media (max-width:480px) {
+}
+
+@media (max-width: 1500px) {
+    #izdal {
+        margin-top: 0px;
+    }
+
+    #hiderow {
+        display: inline-flex;
+        flex-direction: row;
+        transform: translate(50px, 330px);
+        -webkit-transform: translate(50px, 330px);
+        -moz-transform: translate(50px, 330px);
+        -ms-transform: translate(50px, 330px);
+        -o-transform: translate(50px, 330px);
+    }
+
+    #dates {
+        padding: 0px;
+        margin-left: -50px;
+    }
+
+    #dates-left {
+        padding: 0px;
+        margin-left: 98px;
+    }
+
+    #info {
+        margin: 0;
+        padding: 0;
+    }
+
+    #info-ul {
+        padding: 0px;
+    }
+
+    #info-ul li {
+        margin-left: 25px;
+    }
+
+
+}
+
+@media (max-width: 1024px) {
+    #izdal {
+        margin-top: 0px;
+    }
+
+    #hiderow {
+        display: inline-flex;
+        flex-direction: row;
+        transform: translate(50px, 330px);
+        -webkit-transform: translate(50px, 330px);
+        -moz-transform: translate(50px, 330px);
+        -ms-transform: translate(50px, 330px);
+        -o-transform: translate(50px, 330px);
+    }
+
+    #dates {
+        padding: 0px;
+        margin-left: -50px;
+    }
+
+    #dates-left {
+        padding: 0px;
+        margin-left: 98px;
+    }
+
+    #info {
+        margin: 0;
+        padding: 0;
+    }
+
+    #info-ul {
+        padding: 0px;
+    }
+
+    #info-ul li {
+        margin-left: 25px;
+    }
+
+
+}
+
+@media (max-width: 550px) {
+    #izdal {
+        margin-top: 0px;
+    }
+
+    #hiderow {
+        display: inline-flex;
+        flex-direction: row;
+        transform: translate(50px, 330px);
+        -webkit-transform: translate(50px, 330px);
+        -moz-transform: translate(50px, 330px);
+        -ms-transform: translate(50px, 330px);
+        -o-transform: translate(50px, 330px);
+    }
+
+    #dates {
+        padding: 0px;
+        margin-left: -50px;
+    }
+
+    #dates-left {
+        padding: 0px;
+        margin-left: 50px;
+    }
+
+    #info {
+        margin: 0;
+        padding: 0;
+    }
+
+    #info-ul {
+        padding: 0px;
+    }
+
+    #info-ul li {
+        margin-left: 25px;
+    }
+
+
+}
+
+@media (max-width: 450px) {
     .containerr {
-        width: 100%;
-        height: 100%;
         overflow-x: auto;
+    }
 
+    #izdal {
+        margin-top: 0px;
     }
 
     #hiderow {
         display: inline-flex;
-        flex-direction: column;
-        transform: translate(5px, 460px);
-        -webkit-transform: translate(5px, 460px);
-        -moz-transform: translate(5px, 460px);
-        -ms-transform: translate(5px, 460px);
-        -o-transform: translate(5px, 460px);
+        flex-direction: row;
+        transform: translate(50px, 440px);
+        -webkit-transform: translate(50px, 440px);
+        -moz-transform: translate(50px, 440px);
+        -ms-transform: translate(50px, 440px);
+        -o-transform: translate(50px, 440px);
     }
 
-    #info-ul {
+    #dates {
         display: inline-flex;
         flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+
     }
 
     #info {
-        margin-left: 30px;
-    }
-}
+        margin: 0;
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;
 
-@media (max-width:600px) {
-    .containerr {
-        width: 100%;
-        height: 100%;
-        overflow-x: auto;
-
-    }
-
-    #hiderow {
-        display: inline-flex;
-        flex-direction: column;
-        transform: translate(50px, 460px);
-        -webkit-transform: translate(50px, 460px);
-        -moz-transform: translate(50px, 460px);
-        -ms-transform: translate(50px, 460px);
-        -o-transform: translate(50px, 460px);
     }
 
     #info-ul {
-        max-width: 150px;
-        margin-right: 10px;
+        margin: 0px;
     }
 
-    #info {
-        margin-left: 30px;
-    }
-}
-
-@media (max-width:650px) {
-    .container {
-        width: 100%;
-        height: 100%;
+    #info-ul li {
+        margin-top: 2px;
+        margin-left: 7px;
     }
 
-    #hiderow {
-        display: inline-flex;
-        flex-direction: column;
-        transform: translate(50px, 460px);
-        -webkit-transform: translate(50px, 460px);
-        -moz-transform: translate(50px, 460px);
-        -ms-transform: translate(50px, 460px);
-        -o-transform: translate(50px, 460px);
-    }
 
-    #info-ul {
-        max-width: 350px;
-        margin-right: 10px;
-    }
-
-    #info {
-        margin-left: 10px;
-    }
-}
-
-@media (max-width:1000px) {
-    .container {
-        width: 100%;
-        height: 100%;
-    }
-
-    #hiderow {
-        display: inline-flex;
-        flex-direction: column;
-        transform: translate(50px, 460px);
-        -webkit-transform: translate(50px, 460px);
-        -moz-transform: translate(50px, 460px);
-        -ms-transform: translate(50px, 460px);
-        -o-transform: translate(50px, 460px);
-    }
-
-    #info-ul {
-        max-width: 450px;
-        margin-right: -90px;
-    }
-
-    #info {
-        margin-left: 30px;
-    }
 }
 
 @media print {
     * {
         margin: 0;
         padding: 0;
+        color: black;
+    }
+
+    #izdal {
+        margin-top: 4px;
     }
 
     #navbar {
         display: none;
+    }
+
+    input[type] {
+        border: 0;
     }
 
     #addrow,
@@ -246,8 +382,18 @@ li span {
         overflow: hidden;
     }
 
-    * {
-        color: black;
+
+    #payDate,
+    #soldDate {
+        width: 100px;
+    }
+
+    #numPerYear,
+    #year,
+    #numPerMonth,
+    #month,
+    #kt {
+        width: 60px;
     }
 
 }
