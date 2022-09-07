@@ -1,0 +1,41 @@
+
+ html{
+    overflow: hidden;
+}
+
+@media (max-width: 3000px) {
+    #allUsers{
+        width: 80%;
+    }
+
+}
+
+@media (max-width: 767px) {
+    #allUsers {
+        display: flex;
+        overflow-x: auto;
+        width: 100%;
+    }
+    #all{
+        overflow-x: auto;
+    }
+
+    #table-data {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 450px) {
+    #allUsers {
+        display: flex;
+        overflow-x: auto;
+        width: 100%;
+    }
+    #all{
+        overflow-x: auto;
+    }
+
+    #table-data {
+        overflow-x: auto;
+    }
+}

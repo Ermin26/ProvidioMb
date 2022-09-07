@@ -80,9 +80,8 @@
                         <% for(let product of data.products) {%>
                             <tr>
                                 <td>
-                                    <a href="/all/<%= data._id %> ">
-                                        <%= data.buyer %>
-                                    </a>
+                                    <a href="/all/<%= data._id %> "><%= data.buyer %> </a>
+                                    
                                 </td>
                                 <td>
                                     <%= product.name %> <br>
