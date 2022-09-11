@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="/one.css">    
+    <link rel="stylesheet" href="/user.css">
     <title>user name </title>
 </head>
 
 <body>
 
-    <nav id="navbar" class="navbar navbar-dark navbar-expand-sm bg-dark text-light">
+    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">New Bill</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -22,7 +22,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <li class="nav-item ms-2">
                         <a class="nav-link" aria-current="page" href="/all"><button class="btn btn-primary">All
                                 Bills</button></a>
                     </li>
@@ -33,108 +33,124 @@
             </div>
         </div>
     </nav>
-    <% for(product of userData.products) {%>
-    <div class="mt-3 ms-3">
-        <h1 id="nameOfUser" class="mt-3 mb-3">
-            <%= userData.buyer %>
-        </h1>
-        <p>Bill id: <strong><%= product._id %> </strong></p>
-    </div>
 
-    <div id="allUsers" class=" text-center ms-auto me-auto">
-        <table id="all" class="table table-dark table-hover mt-3">
-            <thead id="table-data" class="text-center">
+    <div class="text-center">
+        <h1 class="mt-3 text-center">
+            <%= userData.buyer %> <br>
+                Bill ID: <%= userData._id %>
+        </h1>
+    </div>
+    <div class="mt-3" id="containerr">
+
+        <table id="user" class="table table-dark table-hover mt-3">
+            <thead class="table-data fs-4 text-center">
                 <th>User</th>
                 <th>Product</th>
                 <th>Qty</th>
-                <th>Total</th>
                 <th>1<sup>st</sup> / Week</th>
+                <th>Total &euro;</th>
                 <th>Payed</th>
-                <th>Date</th>
+                <th>Week</th>
+                <th>Sold Date</th>
+                <th>Pay Date</th>
                 <th>Izdal</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Re-Print</th>
             </thead>
             <tbody class="text-center">
-                <tr>
-                    
-                        <td>
-                                <%= userData.buyer %>
-                            
-                        </td>
-                        
-                            <td>
-                                <%= product.name %>
-                            </td>
-                            <td>
-                                <%= product.qty %>
-                            </td>
-                            <td>
-                                <%= product.total %>
-                            </td>
-                            <td>
 
-                                <% if(product.firstOfWeek=='true' ){ %>
+                <% for(product of userData.products) {%>
+                    <tr>
+                        <td class="fs-4 text-info">
+                            <%= userData.buyer %>
+                        </td>
+
+                        <td>
+                            <%= product.name %>
+                        </td>
+                        <td>
+                            <%= product.qty %>
+                        </td>
+
+                        <td>
+
+                            <% if(product.firstOfWeek=='true' ){ %>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                                    class="bi bi-check2-square bg-success" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                    <path
+                                        d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                </svg>
+                                <% } else { %>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                                        class="bi bi-check2-square bg-success" viewBox="0 0 16 16">
+                                        class="bi bi-check2-square bg-danger" viewBox="0 0 16 16">
                                         <path
                                             d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
                                         <path
                                             d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
                                     </svg>
-                                    <% } else { %>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                            fill="currentColor" class="bi bi-check2-square bg-danger"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                            <path
-                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                        </svg>
-                                        <% } %>
-                            </td>
-                            <td>
-                                <% if(userData.pay=='true' ){ %>
+                                    <% } %>
+                        </td>
+                        <td>
+                            <%= product.total %> &euro;
+                        </td>
+                        <td>
+                            <% if(userData.pay=='true' ){ %>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                                    class="bi bi-check2-square bg-success" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                    <path
+                                        d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                </svg>
+                                <% } else { %>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                                        class="bi bi-check2-square bg-success" viewBox="0 0 16 16">
+                                        class="bi bi-check2-square bg-danger" viewBox="0 0 16 16">
                                         <path
                                             d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
                                         <path
                                             d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
                                     </svg>
-                                    <% } else { %>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                            fill="currentColor" class="bi bi-check2-square bg-danger"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                            <path
-                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                        </svg>
+                                    <% } %>
+                        </td>
+                        <td>
+                            <%= userData.kt %>
+                        </td>
+                        <td>
+                            <%= userData.soldDate %>
+                        </td>
+                        <td>
+                            <% if(userData.payDate){ %>
+                                <%= userData.payDate %>
+                                    <% } else{%>
+                                        Not payed
                                         <% } %>
-                            </td>
-                            <td>
-                                <%= userData.soldDate %>
-                            </td>
-                            <td>
-                                <%= userData.izdal %>
-                            </td>
-                            <td><a href="/all/<%= userData._id%>/edit"><button class="btn btn-warning btn-sm">
-                                        EDIT
-                                    </button>
-                                </a></td>
-                            <td>
-                                <form action="/all/<%= userData._id%>/?_method=DELETE" method="post">
-                                    <button class="btn btn-danger btn-sm">DELETE</button>
-                                </form>
-                            </td>
-                </tr>
+                        </td>
+                        <td>
+                            <%= userData.izdal %>
+                        </td>
+                        <td><a href="/all/<%= userData._id%>/edit"><button class="btn btn-warning btn-sm">
+                                    EDIT
+                                </button>
+                            </a>
+                        </td>
+                        <td>
+                            <form action="/all/<%= userData._id%>/?_method=DELETE" method="post">
+                                <button class="btn btn-danger btn-sm">DELETE</button>
+                            </form>
+                        </td>
+                        <td><button class="btn btn-success btn-sm" id="gideOnPrint"
+                                onclick=window.print()>Print</button></td>
+                    </tr>
+                    <% } %>
 
             </tbody>
         </table>
-        
+
     </div>
-    <% } %>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>

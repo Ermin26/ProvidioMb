@@ -11,3 +11,134 @@ LOG IN role [Boss, Admin, Visitor ] --> boss can do all, admin can edit, reprint
 user and edit page media screen fix
 media sreen for small devices DONE
 INPUT BORDERS hide DONE
+
+
+
+
+<!--
+<!-- FIELDS FOR UPDATE DATA OF PRODUCTS -->
+<!--
+<div class="col">
+<div class="card mt-3 mb-5">
+
+    <div class="card-header">
+        <img src="https://flamingoshop.si/images/5f3d715197018.jpeg" class="card-img-top"
+            alt="..." style="width: 15rem; height: 10rem">
+    </div>
+    <div class="card-body">
+        <ul
+            class="list-group list-group-flush flex-row flex-wrap justify-content-center align-content-center">
+            <li id="list" class="list-group-item col-5 d-inline">
+                <label for="product">Product name:</label>
+                <input type="text" class="form-control fs-5 text-dark" id="product"
+                    name="name" value="<%= product.name %>">
+            </li>
+            <li id="list" class="list-group-item col-5 d-inline">
+                <label for="productId">Product id:</label>
+                <input type="text" class="form-control fs-5 text-dark" id="productId"
+                    name="name" value="<%= product._id %>">
+            </li>
+
+
+            <li id="list" class="list-group-item col-5 d-inline"><label
+                    for="kolicina">Quantity:</label>
+                <input type="text" class="form-control fs-5 text-dark" id="kolicina"
+                    name="qty" value="<%= product.qty %>">
+            </li>
+
+            <li id="list" class="list-group-item col-5 d-inline"><label
+                    for="price">Price:</label>
+                <input type="text" id="price" class="form-control d-inline fs-5 text-dark"
+                    name="price" value="<%= product.price %> " required>
+            </li>
+
+            <li id="list" class="list-group-item col-5 d-inline"><label
+                    for="firstOfWeek">1<sup>st</sup>/week:</label><br>
+
+                <% if(product.firstOfWeek=='true' ){ %>
+                    <input class="form-check-input fs-5 text-dark" type="checkbox"
+                        value="true" id="freeProduct" name="firstOfWeek" checked>
+                    <% }else{ %>
+                        <input class="form-check-input fs-5 text-dark" type="checkbox"
+                            value="true" id="freeProduct" name="firstOfWeek">
+
+                        <input class="form-check-input fs-5 text-dark" type="checkbox"
+                            value="false" id="hiddenInput" name="firstOfWeek"
+                            style="display: none">
+                        <% } %>
+            </li>
+            <li id="list" class="list-group-item col-5"><label
+                    for="payed">Payed:</label><br>
+                <% if(user.pay=='true' ) {%>
+                    <input type="checkbox" id="payed" name="user[pay]"
+                        class="form-check-input fs-5 text-dark" value="true" checked>
+                    <% }else{ %>
+                        <input type="checkbox" id="payed" name="user[pay]"
+                            class="form-check-input fs-5 text-dark" value="true">
+
+                        <input type="checkbox" id="" name="user[pay]"
+                            class="d-none form-check-input" value="false"
+                            style="display: none">
+                        <% } %>
+            </li>
+
+            <li id="list" class="list-group-item col-5 d-inline"><label for="kt">Koledarski
+                    teden:</label>
+                <input type="text" id="kt" class="form-control d-inline fs-5 text-dark"
+                    name="kt" value="<%= user.kt %> " required>
+            </li>
+
+            <li id="list" class="list-group-item col-5"><label for="total">Total:</label>
+                <input type="text" id="total" class="form-control fs-5 text-dark"
+                    name="total" value="<%= product.total %> " required>
+            </li>
+
+            <li id="list" class="list-group-item col-5"><label for="numPerMonth">Num /
+                    Month:</label>
+                <input type="text" id="numPerMonth" class="form-control fs-5 text-dark"
+                    name="user[numPerMonth]" value="<%= user.numPerMonth %> " required>
+            </li>
+
+            <li id="list" class="list-group-item col-5"><label for="month">Month:</label>
+                <input type="text" id="month" class="form-control fs-5 text-dark"
+                    name="user[month]" value="<%= user.month %> " required>
+            </li>
+
+            <li id="list" class="list-group-item col-5"><label for="numPerYear">Num /
+                    Year</label>
+                <input type="text" id="numPerYear" class="form-control fs-5 text-dark"
+                    name="user[numPerYear]" value="<%= user.numPerYear %> " required>
+            </li>
+
+            <li id="list" class="list-group-item col-5"><label for="year">Year:</label>
+                <input type="text" id="year" class="form-control fs-5 text-dark"
+                    name="user[year]" value="<%= user.year %> " required>
+            </li>
+
+
+            <li id="list" class="list-group-item col-5"><label for="soldDate">Sold
+                    Date:</label>
+                <input type="text" id="soldDate" class="form-control fs-5 text-dark"
+                    name="user[soldDate]" value="<%= user.soldDate %> " required>
+            </li>
+
+            <li id="list" class="list-group-item col-5"><label for="soldDate">Pay
+                    Date:</label>
+                <input type="text" id="payDate" class="form-control fs-5 text-dark"
+                    name="user[soldDate]" value="<%= user.payDate %> " required>
+            </li>
+
+
+            <li id="list" class="list-group-item col-5"><label for="izdal">Izdal:</label>
+                <input type="text" id="izdal" class="form-control fs-5 text-dark"
+                    name="user[izdal]" value="<%= user.izdal %> " required>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+</div>
+</div>
+-->
+-->

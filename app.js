@@ -14,12 +14,13 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const mongoSanitize = require('express-mongo-sanitize');
+const cookieParser = require('cookie-parser')
 const User = require('./models/models');
 const People = require('./models/users');
 
 const db_URL = process.env.DB_URL
 
-mongoose.connect(db_URL)
+mongoose.connect(db_URL);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
@@ -34,14 +35,18 @@ app.use(bodyParser.json());
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile)
 
+
+
+//app.use(cookieParser()) ne rabis ce mas express-session
 app.use(override('_method'))
 app.use(mongoSanitize());
 
-/*
+
 const secret = process.env.SECRET || 'mySecret';
 
 const store = new MongoDBStore({
-    url: db_URL,
+    uri: db_URL,
+    databaseNamespace: 'providioMB',
     secret: secret,
     touchAfter: 24 * 60 * 60,
 })
@@ -51,7 +56,6 @@ store.on('error', function (e) {
 });
 
 const sessionConf = {
-    store,
     name: 'session',
     secret: secret,
     resave: false,
@@ -62,35 +66,58 @@ const sessionConf = {
         maxAge: 1000 * 60 * 60 * 24 * 7,
     }
 }
-*/
-//app.use(session(sessionConf));
+
+app.use(session(sessionConf));
 app.use(flash());
 
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(People.authenticate()));
+//! mora bit serializeUser => User obvezno
+passport.serializeUser(People.serializeUser());
+passport.deserializeUser(People.deserializeUser());
+/*
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+*/
 
-let currentWeek = [35];
-let weeks = [35]
+let currentWeek = [36];
+let weeks = [36]
 let currentMonth = [];
 let currentYear = [2022];
 
 let datum = new Date();
-const day = datum.getDay();
+let day = datum.getDay();
 
 let weekUpdate = 1;
 let deleteUpdate = 0;
 
+
+
 //! Treba je naredit tudi za spremembo leta
 
-if (day === weekUpdate && currentWeek != weeks) {
+if (day === weekUpdate && currentWeek[0] != weeks[0]) {
     let week = parseInt(currentWeek[0]) + 1;
     currentWeek.pop();
     currentWeek.push(week);
+    weeks.pop();
+    weeks.push(week);
+
+
 }
-if (deleteUpdate === 0) {
+
+if (deleteUpdate === day && currentWeek[0] === weeks[0]) {
     let undoWeek = parseInt(weeks[0]) - 1;
     weeks.pop();
     weeks.push(undoWeek);
+    console.log(currentWeek, ' i am currentWeek');
+    console.log(weeks, ' i am weeks');
 }
+
 
 app.get('/', async (req, res) => {
     let todayDate = new Date();
@@ -150,9 +177,7 @@ app.get('/delete', async (req, res) => {
 
 app.post('/sell', async (req, res) => {
     const data = (req.body);
-    console.log(data)
     if (Array.isArray(data.product)) {
-        console.log('multiple products');
 
         const selledProduct = await new User({ izdal: `${data.izdal}`, buyer: `${data.buyer}`, soldDate: `${data.soldDate}`, year: `${data.year}`, month: `${data.month}`, numPerYear: `${data.numPerYear}`, numPerMonth: `${data.numPerMonth}`, pay: `${data.pay}` })
 
@@ -166,19 +191,19 @@ app.post('/sell', async (req, res) => {
             if (i === data.product.length - 1) {
                 console.log(selledProduct, ' i am selledProduct')
                 await selledProduct.save();
+                req.flash('success', 'Successful added to the base')
                 return res.redirect('/')
             }
 
         }
 
     } else {
-        console.log('1 saved')
-
         const selledProduct = await new User({ izdal: `${data.izdal}`, buyer: `${data.buyer}`, kt: `${data.kt}`, soldDate: `${data.soldDate}`, payDate: `${data.payDate}`, year: `${data.year}`, month: `${data.month}`, numPerYear: `${data.numPerYear}`, numPerMonth: `${data.numPerMonth}`, pay: `${data.pay}` })
         selledProduct.products = ({
             name: `${data.product}`, qty: `${data.qty}`, price: `${data.price}`, firstOfWeek: `${data.firstOfWeek}`, total: `${data.total}`
         });
         await selledProduct.save();
+        req.flash('success', 'Successful added to the base')
         return res.redirect('/')
     }
 
@@ -216,7 +241,11 @@ app.get('/all/:id/edit', async (req, res) => {
     if (!user) {
         return res.redirect('/all')
     }
-    res.render('edit', { user })
+    else {
+        return res.render('edit', { user })
+
+    }
+
 });
 
 //? DELA
@@ -224,10 +253,8 @@ app.get('/all/:id/edit', async (req, res) => {
 app.put('/all/:id', async (req, res) => {
     const { id } = req.params;
     const user = await User.findByIdAndUpdate(id, { ...req.body.user });
-    user.products = req.body
-
-    await user.save();
     console.log(user)
+    await user.save();
     res.redirect(`/all/${user._id}`)
 })
 
@@ -240,13 +267,13 @@ app.delete('/all/:id', async (req, res) => {
 });
 
 
-
+/*
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
     if (!err.message) err.message = 'Oh no, Something Went wrong!'
     res.status(statusCode).render('error', { err });
 })
-
+*/
 
 const port = process.env.PORT || 3000
 app.listen(port,

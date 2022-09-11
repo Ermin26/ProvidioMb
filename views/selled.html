@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="all.css">
+    <link rel="stylesheet" href="/all.css">
     <title>Selled Products</title>
 </head>
 
@@ -41,9 +41,7 @@
         </div>
     </nav>
 
-    <!--
-     ALL BILLS
-        -->
+
     <div class="caption" id="caption">
         <h1><strong class="fs-1 text-primary">Vsi računi</strong></h1>
         <h2><strong class="fs-2 text-primary">Skupaj
@@ -54,6 +52,9 @@
             </strong></h2>
     </div>
 
+    <!--
+     ALL BILLS
+        -->
 
     <div id="allUsers" class="text-center mb-0">
         <table id="all" class="table table-dark table-hover mb-0">
@@ -64,6 +65,7 @@
                 <th class="col-1">Price</th>
                 <th class="col-1">DDV</th>
                 <th class="col">1<sup>st</sup> / Week</th>
+                <th class="col">Week</th>
                 <th class="col">Total</th>
                 <th class="col-1">Payed</th>
                 <th class="col-1">Num / Month</th>
@@ -79,87 +81,104 @@
                     <% for(let data of userData) { %>
                         <% for(let product of data.products) {%>
                             <tr>
-                                <td>
-                                    <a href="/all/<%= data._id %> "><%= data.buyer %> </a>
-                                    
-                                </td>
-                                <td>
-                                    <%= product.name %> <br>
-                                </td>
 
-                                <td>
-                                    <%= product.qty %><br>
-                                </td>
-                                <td>
-                                    <%= product.price %><br>
-                                </td>
-                                <td>
-                                    1.50 €
-                                </td>
-                                <td>
-                                    <% if(product.firstOfWeek=='true' ){ %>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                            fill="currentColor" class="bi bi-check2-square bg-success"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                            <path
-                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                        </svg>
-                                        <% } else { %>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                fill="currentColor" class="bi bi-check2-square bg-danger"
-                                                viewBox="0 0 16 16">
-                                                <path
-                                                    d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                                <path
-                                                    d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                            </svg>
-                                            <% } %>
-                                </td>
-                                <td>
-                                    <%= product.total %>
-                                </td>
-                                <td>
+                                <% if(!data.payDate) {%>
+                                    <td class="bg-danger">
+                                        <a href="/all/<%= data._id %>">
+                                            <strong class="text-info">
+                                                <%= data.buyer %>
+                                            </strong>
+                                        </a>
+                                    </td>
+                                    <% } else{%>
+                                        <td class="bg-success">
+                                            <a href="/all/<%= data._id %>">
+                                                <strong class="text-dark">
+                                                    <%= data.buyer %>
+                                                </strong>
+                                            </a>
+                                        </td>
+                                        <% } %>
+                                            <td>
+                                                <%= product.name %>
+                                            </td>
 
-                                    <% if(data.pay=='true' ){ %>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                            fill="currentColor" class="bi bi-check2-square bg-success"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                            <path
-                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                        </svg>
-                                        <% } else { %>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                fill="currentColor" class="bi bi-check2-square bg-danger"
-                                                viewBox="0 0 16 16">
-                                                <path
-                                                    d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                                <path
-                                                    d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                            </svg>
-                                            <% } %>
-                                </td>
-                                <td>
-                                    <%= data.numPerMonth %>
-                                </td>
-                                <td>
-                                    <%= data.month %>
-                                </td>
-                                <td>
-                                    <%= data.numPerYear %>
-                                </td>
-                                <td>
-                                    <%= data.year %>
-                                </td>
-                                <td>
-                                    <%= data.soldDate %>
-                                </td>
-                                <td>
-                                    <%= data.izdal %>
-                                </td>
+                                            <td>
+                                                <%= product.qty %>
+                                            </td>
+                                            <td>
+                                                <%= product.price %> &euro;
+                                            </td>
+                                            <td>
+                                                1.50 €
+                                            </td>
+                                            <td>
+                                                <% if(product.firstOfWeek=='true' ){ %>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                        fill="currentColor" class="bi bi-check2-square bg-success"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                                        <path
+                                                            d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                                    </svg>
+                                                    <% } else { %>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                            fill="currentColor" class="bi bi-check2-square bg-danger"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                                            <path
+                                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                                        </svg>
+                                                        <% } %>
+                                            </td>
+                                            <td>
+                                                <%= data.kt %>
+                                            </td>
+                                            <td>
+                                                <%= product.total %> &euro;
+                                            </td>
+                                            <td>
+
+                                                <% if(data.pay=='true' ){ %>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                        fill="currentColor" class="bi bi-check2-square bg-success"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                                        <path
+                                                            d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                                    </svg>
+                                                    <% } else { %>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                            fill="currentColor" class="bi bi-check2-square bg-danger"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                                            <path
+                                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                                        </svg>
+                                                        <% } %>
+                                            </td>
+                                            <td>
+                                                <%= data.numPerMonth %>
+                                            </td>
+                                            <td>
+                                                <%= data.month %>
+                                            </td>
+                                            <td>
+                                                <%= data.numPerYear %>
+                                            </td>
+                                            <td>
+                                                <%= data.year %>
+                                            </td>
+                                            <td>
+                                                <%= data.soldDate %>
+                                            </td>
+                                            <td>
+                                                <%= data.izdal %>
+                                            </td>
                             </tr>
                             <% } %>
                                 <% } %>
@@ -189,9 +208,10 @@
                 <th>User</th>
                 <th>Product</th>
                 <th>Quantity</th>
-                <th>Total</th>
+                <th>Total &euro;</th>
                 <th>1<sup>st</sup> / Week</th>
                 <th>Payed</th>
+                <th>Week</th>
                 <th>Sold Date</th>
                 <th>Pay Date</th>
                 <th>Izdal</th>
@@ -215,7 +235,7 @@
                                     <%= product.qty %>
                                 </td>
                                 <td>
-                                    <%= product.total %>
+                                    <%= product.total %> &euro;
                                 </td>
                                 <td>
                                     <% if(product.firstOfWeek=='true' ){ %>
@@ -246,6 +266,9 @@
                                         <path
                                             d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
                                     </svg>
+                                </td>
+                                <td>
+                                    <%= user.kt %>
                                 </td>
                                 <td>
                                     <%= user.soldDate %>
@@ -283,8 +306,9 @@
                 <th>Product</th>
                 <th>Bill ID</th>
                 <th>Quantity</th>
-                <th>Total</th>
+                <th>Total &euro;</th>
                 <th>Payed</th>
+                <th>Week</th>
                 <th>Sold Date</th>
                 <th>Pay Date</th>
                 <th>Izdal</th>
@@ -313,7 +337,7 @@
                                 </td>
 
                                 <td class="fs-4" value="<%= product.total %>">
-                                    <%= product.total %>
+                                    <%= product.total %> &euro;
                                 </td>
 
                                 <td>
@@ -326,10 +350,17 @@
                                     </svg>
                                 </td>
                                 <td>
+                                    <%= users.kt %>
+                                </td>
+                                <td>
                                     <%= users.soldDate %>
                                 </td>
                                 <td>
-                                    <%= users.payDate %>
+                                    <% if(users.payDate){ %>
+                                        <%= users.payDate %>
+                                            <% } else{%>
+                                                Not payed
+                                                <% } %>
                                 </td>
                                 <td>
                                     <%= users.izdal %>
@@ -344,6 +375,7 @@
                                             <td></td>
                                             <td></td>
                                             <td id="total"></td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>

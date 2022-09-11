@@ -1,0 +1,45 @@
+html {
+    overflow: hidden;
+}
+
+@media (max-width: 3000px) {
+    #containerr {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 912px) {
+
+    #containerr {
+        display: flex;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    #user {
+        overflow-x: auto;
+    }
+
+    #table-data {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 450px) {
+    #containerr {
+        display: flex;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    #user {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #table-data {
+        overflow-x: auto;
+    }
+}

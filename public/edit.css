@@ -1,0 +1,79 @@
+* {
+    color: cyan;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+#list {
+    background-color: rgb(4, 2, 19);
+    color: cyan;
+    font-size: 1.5em;
+}
+
+.card {
+    background-color: rgb(4, 2, 19);
+}
+
+
+
+@media (max-width: 3000px) {
+
+    #kt,
+    #perMonth,
+    #month,
+    #perYears,
+    #year,
+    #soldDate,
+    #payDate,
+    #izdal {
+        text-align: center;
+    }
+}
+
+@media (max-width: 912px) {
+    #col {
+        width: 100%;
+    }
+
+    #kt,
+    #perMonth,
+    #month,
+    #perYears,
+    #year,
+    #soldDate,
+    #payDate,
+    #izdal {
+        text-align: center;
+    }
+}
+
+@media (max-width: 450px) {
+    #container {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    #tableData {
+        width: 100%;
+    }
+
+    #col {
+        width: 100%;
+    }
+
+    #kt,
+    #perMonth,
+    #month,
+    #perYears,
+    #year,
+    #soldDate,
+    #payDate,
+    #izdal {
+        width: 120px;
+        text-align: center;
+    }
+}
