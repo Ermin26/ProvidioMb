@@ -6,6 +6,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const path = require('path');
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const override = require('method-override');
 const flash = require('connect-flash');
@@ -17,6 +18,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser')
 const User = require('./models/models');
 const People = require('./models/users');
+//let currentWeek = require('./week.js');
 
 const db_URL = process.env.DB_URL
 
@@ -85,8 +87,9 @@ app.use((req, res, next) => {
 })
 */
 
-let currentWeek = [36];
-let weeks = [36]
+
+let currentWeek = [37];
+let weeks = [37]
 let currentMonth = [];
 let currentYear = [2022];
 
@@ -98,28 +101,28 @@ let deleteUpdate = 0;
 
 
 
-//! Treba je naredit tudi za spremembo leta
-
-if (day === weekUpdate && currentWeek[0] != weeks[0]) {
-    let week = parseInt(currentWeek[0]) + 1;
-    currentWeek.pop();
-    currentWeek.push(week);
-    weeks.pop();
-    weeks.push(week);
-
-
-}
-
-if (deleteUpdate === day && currentWeek[0] === weeks[0]) {
-    let undoWeek = parseInt(weeks[0]) - 1;
-    weeks.pop();
-    weeks.push(undoWeek);
-    console.log(currentWeek, ' i am currentWeek');
-    console.log(weeks, ' i am weeks');
-}
-
 
 app.get('/', async (req, res) => {
+//?---------------------------------------
+    //! Treba je naredit tudi za spremembo leta
+
+    if (day === weekUpdate && currentWeek[0] != weeks[0]) {
+        let week = parseInt(currentWeek[0]) + 1;
+        currentWeek.pop();
+        currentWeek.push(week);
+        weeks.pop();
+        weeks.push(week);
+
+
+    }
+
+    if (deleteUpdate === day && currentWeek[0] === weeks[0]) {
+        let undoWeek = parseInt(weeks[0]) - 1;
+        weeks.pop();
+        weeks.push(undoWeek);
+
+    }
+
     let todayDate = new Date();
     let date = todayDate.toLocaleDateString()
     let year = todayDate.getFullYear()
@@ -159,7 +162,17 @@ app.get('/', async (req, res) => {
 
 })
 
+app.get('/register', async (req, res) => {
+    res.render('register');
+})
 
+app.post('/register', async (req, res) => {
+    const data = req.body
+    currentWeek.pop();
+    currentWeek.push(parseInt(data.num))
+    console.log(currentWeek, ' i am after update')
+    res.send(currentWeek)
+})
 app.get('/login', (req, res) => {
     res.render('login');
 })
