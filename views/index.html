@@ -27,10 +27,16 @@
                         <a class="nav-link" aria-current="page" href="/all"><button class="btn btn-primary">All
                                 Bills</button></a>
                     </li>
-
+                    <% if(!currentUser) {%> 
                     <li class="nav-item ms-2">
                         <a class="nav-link" href="/login"><button class="btn btn-info">Log in</button></a>
                     </li>
+                    <% }else { %> 
+                    
+                    <li class="nav-item ms-2">
+                        <a class="nav-link" href="/logout"><button class="btn btn-info">Logout</button></a>
+                    </li>
+                    <% } %> 
                 </ul>
             </div>
         </div>
@@ -155,12 +161,14 @@
 
                     </ul>
                 </div>
+                <% if(currentUser) {%> 
                 <div class="print ms-5">
                     <button type="submit" id="hideOnPrint" onclick="window.print();"
                         class="noPrint btn btn-success btn-sm">
                         Print
                     </button>
                 </div>
+                <% } %> 
             </form>
 
 

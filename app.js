@@ -18,7 +18,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser')
 const User = require('./models/models');
 const People = require('./models/users');
-//let currentWeek = require('./week.js');
+const {isLoged} = require('./midleware/check');
 
 const db_URL = process.env.DB_URL
 
@@ -79,13 +79,13 @@ passport.use(new LocalStrategy(People.authenticate()));
 //! mora bit serializeUser => User obvezno
 passport.serializeUser(People.serializeUser());
 passport.deserializeUser(People.deserializeUser());
-/*
+
 app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 })
-*/
 
 
 let currentWeek = [37];
@@ -166,29 +166,46 @@ app.get('/register', async (req, res) => {
     res.render('register');
 })
 
+/*
 app.post('/register', async (req, res) => {
-    const data = req.body
-    currentWeek.pop();
-    currentWeek.push(parseInt(data.num))
-    console.log(currentWeek, ' i am after update')
-    res.send(currentWeek)
+    const { username, password, role } = req.body;
+    const user = await new People({username: username, role: role});
+   const addedUser =  await People.register(user, password);
+    console.log(addedUser, 'sucesfully registered');
 })
+
+
+app.get('/users', async (req, res) => {
+    const data = await People.deleteMany({});
+    //const data = await People.find({});
+    
+    res.send(data);
+})
+*/
 app.get('/login', (req, res) => {
     res.render('login');
 })
 
-//? DELA
+app.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/login'}), async (req, res) => {
+    console.log(req.body, "welcome back")
+    const redirectUrl = req.session.returnTo || '/all'
+    delete req.session.returnTo;
+    res.redirect(redirectUrl)
+})
 
+//? DELA
+/*
 app.get('/delete', async (req, res) => {
     const all = await User.deleteMany({ 'month': 8 })
     //const allProducts = await User.products.deleteMany({'name': 'Zono'})
     res.redirect('/')
 })
 
-
+*/
 //? DELA
 
-app.post('/sell', async (req, res) => {
+app.post('/sell',isLoged, async (req, res) => {
+   
     const data = (req.body);
     if (Array.isArray(data.product)) {
 
@@ -228,19 +245,19 @@ app.post('/sell', async (req, res) => {
 
 //? DELA
 // Separate products ---> //? DONE!
-app.get('/all', async (req, res) => {
+app.get('/all',isLoged, async (req, res) => {
     const userData = await User.find({});
     const yearNum = await User.find({}).sort({ "numPerYear": "descending" }).limit(1)
     const payData = await User.find({ pay: 'true' })
     let payedLength = payData.length;
     const notPayData = await User.find({ pay: 'false' })
     let notPayedLength = notPayData.length;
-    return res.render('selled', { userData, payData, notPayData, yearNum, payedLength, notPayedLength })
+   return res.render('selled', { userData, payData, notPayData, yearNum, payedLength, notPayedLength })
 });
 
 //? DELA
 
-app.get('/all/:id', async (req, res) => {
+app.get('/all/:id',isLoged, async (req, res) => {
     const userData = await User.findById(req.params.id);
     if (!userData) {
         return res.redirect('/all');
@@ -287,6 +304,17 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err });
 })
 */
+
+app.get('/logout',isLoged, (req, res, next) => {
+    req.logout(function (err) {
+        if (err) {
+             return next(err);
+            }else{
+    console.log('logged out');
+    res.redirect('/');
+            }
+    });
+});
 
 const port = process.env.PORT || 3000
 app.listen(port,
