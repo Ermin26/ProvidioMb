@@ -22,21 +22,22 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav w-100">
                     <li class="nav-item ms-2">
                         <a class="nav-link" aria-current="page" href="/all"><button class="btn btn-primary">All
                                 Bills</button></a>
                     </li>
-                    <% if(!currentUser) {%> 
-                    <li class="nav-item ms-2">
-                        <a class="nav-link" href="/login"><button class="btn btn-info">Log in</button></a>
-                    </li>
-                    <% }else { %> 
-                    
-                    <li class="nav-item ms-2">
-                        <a class="nav-link" href="/logout"><button class="btn btn-info">Logout</button></a>
-                    </li>
-                    <% } %> 
+                    <% if(!currentUser) {%>
+                        <li class="nav-item ms-auto">
+                            <a class="nav-link" href="/login"><button class="btn btn-info">Log in</button></a>
+                        </li>
+                        <% }else { %>
+
+                            <li class="nav-item ms-auto">
+                                <a class="nav-link" href="/logout"><button
+                                        class="btn btn-outline-info">Logout</button></a>
+                            </li>
+                            <% } %>
                 </ul>
             </div>
         </div>
@@ -48,128 +49,128 @@
             <h3>PROVIDIO, 2000 Maribor</h4>
         </div>
 
-        <%# include('../flashError.html') %>
-            <div id="hiderow" class="mb-0">
-                <button type="submit" class="d-inline btn btn-outline-primary ms-1" id="addrow" onclick="addRow()">Dodaj
-                    izdelek</button>
-                <button class="d-inline btn btn-outline-primary ms-1" id="zaključi" onclick="zakjuci()"
-                    onkeyup="zakljuci()">Zaključi</button>
-                <button class="d-inline btn btn-outline-primary ms-1" id="placaj" onclick="placaj()"
-                    onkeyup="placaj()">Plačaj</button>
+        <div class="d-flex justify-content-center mt-5">
+            <%- include('../flashError') %>
+        </div>
+        <div id="hiderow" class="mb-0">
+            <button type="submit" class="d-inline btn btn-outline-primary ms-1" id="addrow" onclick="addRow()">Dodaj
+                izdelek</button>
+            <button class="d-inline btn btn-outline-primary ms-1" id="zaključi" onclick="zakjuci()"
+                onkeyup="zakljuci()">Zaključi</button>
+            <button class="d-inline btn btn-outline-primary ms-1" id="placaj" onclick="placaj()"
+                onkeyup="placaj()">Plačaj</button>
+        </div>
+
+        <form action="/sell" method="post">
+            <div id="izdal" class="kupec mt-2 ms-5 mb-3">
+
+                <p>Izdal:</p>
+
+                <div class="col">
+                    <label for="izdal">Ime in priimek delavca:</label>
+                    <input type="text" class="d-inline border border-white bg-white" name="izdal" id="izdal"
+                        value="Ermin Joldić">
+                </div>
+                <p>Podpis: ________________________ </p>
+
             </div>
 
-            <form action="/sell" method="post">
-                <div id="izdal" class="kupec mt-2 ms-5 mb-3">
+            <div class="row mt-5" id="dates">
+                <div id="dates-left" class="col mt-2 text-left">
+                    <label for="numPerYear">Številka/Leto:</label>
+                    <input type="text" class="border border-white text-left" name="numPerYear" id="numPerYear"
+                        value="<%= newBill %>">
+                    <input type="text" class="border border-white text-left" name="year" id="year" value="<%= year %> ">
 
-                    <p>Izdal:</p>
-
-                    <div class="col">
-                        <label for="izdal">Ime in priimek delavca:</label>
-                        <input type="text" class="d-inline border border-white bg-white" name="izdal" id="izdal"
-                            value="Ermin Joldić">
-                    </div>
-                    <p>Podpis: ________________________ </p>
-
+                    <br>
+                    <label class="" for="numPerMonth">Številka/Mesec:
+                    </label>
+                    <input type="text" class="border border-white" name="numPerMonth" id="numPerMonth"
+                        value="<%= billNew %>">
+                    <input type="text" class="border border-white" name="month" id="month" value="<%= month  %>">
+                    <br>
+                    <label for="kt">Koledarski Teden:</label>
+                    <input type="text" class="border border-white" name="kt" id="kt" value="<%= currentWeek %> ">
                 </div>
 
-                <div class="row mt-5" id="dates">
-                    <div id="dates-left" class="col mt-2 text-left">
-                        <label for="numPerYear">Številka/Leto:</label>
-                        <input type="text" class="border border-white text-left" name="numPerYear" id="numPerYear"
-                            value="<%= newBill %>">
-                        <input type="text" class="border border-white text-left" name="year" id="year"
-                            value="<%= year %> ">
-
-                        <br>
-                        <label class="" for="numPerMonth">Številka/Mesec:
-                        </label>
-                        <input type="text" class="border border-white" name="numPerMonth" id="numPerMonth"
-                            value="<%= billNew %>">
-                        <input type="text" class="border border-white" name="month" id="month" value="<%= month  %>">
-                        <br>
-                        <label for="kt">Koledarski Teden:</label>
-                        <input type="text" class="border border-white" name="kt" id="kt" value="<%= currentWeek %> ">
-                    </div>
-
-                    <div class="col mt-2" id="info">
-                        <ul id="info-ul" class="d-flex flex-column">
-                            <li class="d-inline">
-                                <p id="kraj" class="d-inline">Kraj: Maribor</p>
-                            </li>
-                            <li class="">
-                                <label for="payDate">Datum Plačila:</label>
-                                <input type="text" class="border border-white" id="payDate" name="payDate"
-                                    value="<%= date %> ">
-                            </li>
-                            <li class="d-inline">
-                                <label for="soldDate">Datum Izdaje:</label>
-                                <input type="text" class="d-inline border border-white ms-1" id="soldDate"
-                                    name="soldDate" value="<%= date %> ">
-
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-
-                <div id="table" class="row izdelki mt-5 text-center">
-                    <table id="myTable" class="table table-borderless table-responsive mt-5">
-                        <thead>
-                            <tr class="border-bottom border-dark">
-                                <th class="col-4">Izdelek</th>
-                                <th class="col-1">Količina</th>
-                                <th class="col-2">Cena</th>
-                                <th class="col-1">DDV</th>
-                                <th class="col-1">1/week</th>
-                                <th class="col-2">Neto</th>
-                                <th class="col-1">Placano</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-
-
-                            <tr class="mt-5 border border-start-0 border-end-0 border-dark" id="cash">
-                                <td>Za plačilo:</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td id="placilo"><input type="text" id="payment" class="col form-control" value=""
-                                        placeholder="0.00 €"></td>
-                                <td><input type="checkbox" id="pay" name="pay" class="form-check-input" value="">
-                                    <input type="checkbox" id="pay2" name="pay" class="form-check-input" value="false">
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
-
-                <div class="mt-5 me-5 text-end">
-                    <ul>
-                        <li id="nekaj">
-                            <label for="ime">Ime prejemnika:</label>
-                            <input class="border border-white" id="ime" name="buyer" placeholder="Ime prejemnika"
-                                required>
+                <div class="col mt-2" id="info">
+                    <ul id="info-ul" class="d-flex flex-column">
+                        <li class="d-inline">
+                            <p id="kraj" class="d-inline">Kraj: Maribor</p>
                         </li>
-                        <br>
-                        <li>
-                            <h4>PODPIS PREJEMNIKA</h2>
-                                <h3>________________________</h3>
+                        <li class="">
+                            <label for="payDate">Datum Plačila:</label>
+                            <input type="text" class="border border-white" id="payDate" name="payDate"
+                                value="<%= date %> ">
+                        </li>
+                        <li class="d-inline">
+                            <label for="soldDate">Datum Izdaje:</label>
+                            <input type="text" class="d-inline border border-white ms-1" id="soldDate" name="soldDate"
+                                value="<%= date %> ">
+
                         </li>
 
                     </ul>
                 </div>
-                <% if(currentUser) {%> 
+            </div>
+
+            <div id="table" class="row izdelki mt-5 text-center">
+                <table id="myTable" class="table table-borderless table-responsive mt-5">
+                    <thead>
+                        <tr class="border-bottom border-dark">
+                            <th class="col-4">Izdelek</th>
+                            <th class="col-1">Količina</th>
+                            <th class="col-2">Cena</th>
+                            <th class="col-1">DDV</th>
+                            <th class="col-1">1/week</th>
+                            <th class="col-2">Neto</th>
+                            <th class="col-1">Placano</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+
+
+                        <tr class="mt-5 border border-start-0 border-end-0 border-dark" id="cash">
+                            <td>Za plačilo:</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="placilo"><input type="text" id="payment" class="col form-control" value=""
+                                    placeholder="0.00 €"></td>
+                            <td><input type="checkbox" id="pay" name="pay" class="form-check-input" value="">
+                                <input type="checkbox" id="pay2" name="pay" class="form-check-input" value="false">
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="mt-5 me-5 text-end">
+                <ul>
+                    <li id="nekaj">
+                        <label for="ime">Ime prejemnika:</label>
+                        <input class="border border-white" id="ime" name="buyer" placeholder="Ime prejemnika" required>
+                    </li>
+                    <br>
+                    <li>
+                        <h4>PODPIS PREJEMNIKA</h2>
+                            <h3>________________________</h3>
+                    </li>
+
+                </ul>
+            </div>
+            <% if(currentUser && currentUser.role !=='visitor' ) {%>
                 <div class="print ms-5">
                     <button type="submit" id="hideOnPrint" onclick="window.print();"
                         class="noPrint btn btn-success btn-sm">
                         Print
                     </button>
                 </div>
-                <% } %> 
-            </form>
+                <% } %>
+        </form>
 
 
 
@@ -227,9 +228,6 @@
             const ddv = parseFloat(document.getElementById('ddv').innerHTML);
 
             document.getElementById('kolicina').setAttribute('value', kolicina);
-
-
-
 
             if (free.checked) {
                 if (kolicina > 1) {

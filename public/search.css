@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#row {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#search {
+    height: 300px;
+}
+
+
+@media (max-width:800px) {
+    #row {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    #search {
+        height: 200px;
+        width: 100%;
+        text-align: center;
+    }
+
+    #result {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    #data {
+        margin: 0;
+        padding: 0;
+        display: inline-flex;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #table {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #table-data {
+        overflow-x: auto;
+    }
+}

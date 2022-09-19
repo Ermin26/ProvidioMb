@@ -18,7 +18,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser')
 const User = require('./models/models');
 const People = require('./models/users');
-const {isLoged} = require('./midleware/check');
+const { isLoged } = require('./midleware/check');
+const users = require('./models/users');
 
 const db_URL = process.env.DB_URL
 
@@ -88,8 +89,8 @@ app.use((req, res, next) => {
 })
 
 
-let currentWeek = [37];
-let weeks = [37]
+let currentWeek = [38];
+let weeks = [38]
 let currentMonth = [];
 let currentYear = [2022];
 
@@ -100,10 +101,13 @@ let weekUpdate = 1;
 let deleteUpdate = 0;
 
 
-
+app.get('/user', isLoged, async (req, res, next) => {
+    const user = req.user;
+    res.send(user.role)
+});
 
 app.get('/', async (req, res) => {
-//?---------------------------------------
+    //?---------------------------------------
     //! Treba je naredit tudi za spremembo leta
 
     if (day === weekUpdate && currentWeek[0] != weeks[0]) {
@@ -162,19 +166,18 @@ app.get('/', async (req, res) => {
 
 })
 
+/*
 app.get('/register', async (req, res) => {
     res.render('register');
 })
 
-/*
+
 app.post('/register', async (req, res) => {
     const { username, password, role } = req.body;
     const user = await new People({username: username, role: role});
    const addedUser =  await People.register(user, password);
     console.log(addedUser, 'sucesfully registered');
 })
-
-
 app.get('/users', async (req, res) => {
     const data = await People.deleteMany({});
     //const data = await People.find({});
@@ -185,11 +188,43 @@ app.get('/users', async (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login');
 })
+let usersData = []
+let searched = []
 
-app.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/login'}), async (req, res) => {
-    console.log(req.body, "welcome back")
-    const redirectUrl = req.session.returnTo || '/all'
+app.get('/search', isLoged, async (req, res) => {
+
+    res.render('search', { usersData, searched });
+
+
+});
+
+
+
+//? DELA
+
+app.post('/search', isLoged, async (req, res, next) => {
+    usersData.pop();
+    searched.pop();
+    const user = req.body.username;
+    const data = await User.find({ buyer: { $regex: `${user}` } })
+    if (!data.length) {
+        req.flash('error', 'Sorry, employee not found.');
+        res.redirect('/search');
+    } else {
+        usersData.pop();
+        usersData.push(data);
+        for (people of data) {
+            searched.pop()
+            searched.push(people.buyer);
+        }
+        res.redirect('/search');
+    }
+});
+
+app.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), async (req, res) => {
+    const redirectUrl = req.session.returnTo || '/'
     delete req.session.returnTo;
+    req.flash('success', 'Successfly loged.')
     res.redirect(redirectUrl)
 })
 
@@ -200,12 +235,11 @@ app.get('/delete', async (req, res) => {
     //const allProducts = await User.products.deleteMany({'name': 'Zono'})
     res.redirect('/')
 })
-
 */
 //? DELA
 
-app.post('/sell',isLoged, async (req, res) => {
-   
+app.post('/sell', isLoged, async (req, res) => {
+
     const data = (req.body);
     if (Array.isArray(data.product)) {
 
@@ -219,7 +253,6 @@ app.post('/sell',isLoged, async (req, res) => {
             });
 
             if (i === data.product.length - 1) {
-                console.log(selledProduct, ' i am selledProduct')
                 await selledProduct.save();
                 req.flash('success', 'Successful added to the base')
                 return res.redirect('/')
@@ -237,27 +270,24 @@ app.post('/sell',isLoged, async (req, res) => {
         return res.redirect('/')
     }
 
-    //! TODO this !data.firstOfWeek => ce bo en izdelek free 1 pa za placat
-    //! bo vrglo ERROR!! POPRAVI!!!!
-
 
 })
 
 //? DELA
 // Separate products ---> //? DONE!
-app.get('/all',isLoged, async (req, res) => {
+app.get('/all', isLoged, async (req, res) => {
     const userData = await User.find({});
     const yearNum = await User.find({}).sort({ "numPerYear": "descending" }).limit(1)
     const payData = await User.find({ pay: 'true' })
     let payedLength = payData.length;
     const notPayData = await User.find({ pay: 'false' })
     let notPayedLength = notPayData.length;
-   return res.render('selled', { userData, payData, notPayData, yearNum, payedLength, notPayedLength })
+    return res.render('selled', { userData, payData, notPayData, yearNum, payedLength, notPayedLength })
 });
 
 //? DELA
 
-app.get('/all/:id',isLoged, async (req, res) => {
+app.get('/all/:id', isLoged, async (req, res) => {
     const userData = await User.findById(req.params.id);
     if (!userData) {
         return res.redirect('/all');
@@ -285,6 +315,7 @@ app.put('/all/:id', async (req, res) => {
     const user = await User.findByIdAndUpdate(id, { ...req.body.user });
     console.log(user)
     await user.save();
+    req.flash('success', 'User data was successfully updated.');
     res.redirect(`/all/${user._id}`)
 })
 
@@ -293,6 +324,7 @@ app.put('/all/:id', async (req, res) => {
 app.delete('/all/:id', async (req, res) => {
     const { id } = req.params
     const user = await User.findByIdAndDelete(id);
+    req.flash('success', 'User successfully deleted.');
     res.redirect('/all')
 });
 
@@ -305,14 +337,14 @@ app.use((err, req, res, next) => {
 })
 */
 
-app.get('/logout',isLoged, (req, res, next) => {
+app.get('/logout', isLoged, (req, res, next) => {
     req.logout(function (err) {
         if (err) {
-             return next(err);
-            }else{
-    console.log('logged out');
-    res.redirect('/');
-            }
+            return next(err);
+        } else {
+            req.flash('success', 'Logged out. Now you cannot make any changes.');
+            res.redirect('/');
+        }
     });
 });
 

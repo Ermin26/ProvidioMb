@@ -1,12 +1,10 @@
-module.exports.isLoged = (req,res,next) =>{ 
-    if(!req.isAuthenticated()){
+module.exports.isLoged = (req, res, next) => {
+    if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl
-    console.log('error', "You must be logged in to make new bill. If your role is VISITOR you can't make new bill");
-   
-    res.redirect('/login');
-}else{
+        req.flash('error', "You must be logged in to make changes. If your role is VISITOR you can only see data in our database.");
+        res.redirect('/login');
+    } else {
 
-    next();
+        next();
+    }
 }
-}
-

@@ -21,15 +21,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav w-100">
                     <li class="nav-item ms-2">
                         <a class="nav-link" aria-current="page" href="/all"><button class="btn btn-primary">All
                                 Bills</button></a>
                     </li>
-                    
-                    
-                    <li class="nav-item">
-                        <a class="nav-link disabled"><button class="btn btn-info">Logout</button></a>
+                    <li class="nav-item ms-auto">
+                        <a class="nav-link" href="/logout"><button class="btn btn-outline-info text-light">Log
+                                out</button></a>
                     </li>
                 </ul>
             </div>
@@ -37,6 +36,7 @@
     </nav>
 
     <div class="text-center">
+        <%- include('../flashError') %>
         <h1 class="mt-3 text-center">
             <%= userData.buyer %> <br>
                 Bill ID: <%= userData._id %>
@@ -133,18 +133,25 @@
                         <td>
                             <%= userData.izdal %>
                         </td>
-                        <td><a href="/all/<%= userData._id%>/edit"><button class="btn btn-warning btn-sm">
-                                    EDIT
-                                </button>
-                            </a>
-                        </td>
-                        <td>
-                            <form action="/all/<%= userData._id%>/?_method=DELETE" method="post">
-                                <button class="btn btn-danger btn-sm">DELETE</button>
-                            </form>
-                        </td>
-                        <td><button class="btn btn-success btn-sm" id="gideOnPrint"
-                                onclick=window.print()>Print</button></td>
+                        <% if(currentUser.role==='visitor' ) {%>
+                            <td> <button class="btn btn-sm btn-danger text-light"> Forbiden</button></td>
+                            <td> <button class="btn btn-sm btn-danger text-light"> Forbiden</button></td>
+                            <td> <button class="btn btn-sm btn-danger text-light"> Forbiden</button></td>
+                            <% }else{ %>
+                                <td><a href="/all/<%= userData._id%>/edit"><button class="btn btn-warning btn-sm">
+                                            EDIT
+                                        </button>
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <form action="/all/<%= userData._id%>/?_method=DELETE" method="post">
+                                        <button class="btn btn-danger btn-sm">DELETE</button>
+                                    </form>
+                                </td>
+                                <td><button class="btn btn-success btn-sm" id="gideOnPrint"
+                                        onclick=window.print()>Print</button></td>
+                                <% } %>
                     </tr>
                     <% } %>
 

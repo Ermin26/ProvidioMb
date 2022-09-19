@@ -20,22 +20,27 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item ms-1 mt-1">
+            <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
+                <ul class="navbar-nav d-flex w-100">
+                    <li id="vsi" class="nav-item ms-1 mt-1">
                         <button class="btn btn-primary" id="btn-func" onclick="allBills()">All bills</button>
                     </li>
 
-                    <li class="nav-item ms-1 mt-1">
+                    <li id="placali" class="nav-item ms-1 mt-1">
                         <button class="btn btn-success" id="btn-func" onclick="payedBills()">Payed</button>
                     </li>
-                    <li class="nav-item ms-1 mt-1">
+                    <li id="nePlacali" class="nav-item ms-1 mt-1">
                         <button class="btn btn-danger" id="btn-func" onclick="notPayedBills()">Not Payed</button>
                     </li>
+                    </li>
+                    <li class="nav-item ms-1 mt-1">
+                        <a href="/search"><button class="btn btn-info" id="btn-func"><strong>Search
+                                    User</strong></button></a>
+                    </li>
 
-                    
-                    <li class="nav-item">
-                        <a class="nav-link disabled"><button class="btn btn-info">Logout</button></a>
+                    <li class="nav-item ms-auto">
+                        <a class="nav-link" href="/logout"><button class="btn btn-outline-info ms-1"> Log
+                                out</button></a>
                     </li>
                 </ul>
             </div>
@@ -44,13 +49,14 @@
 
 
     <div class="caption" id="caption">
-        <h1><strong class="fs-1 text-primary">Vsi računi</strong></h1>
-        <h2><strong class="fs-2 text-primary">Skupaj
-                <% for(data of yearNum){ %>
-                    <%= data.numPerYear %>
-                        <% } %>
-                            izdanih računov
-            </strong></h2>
+        <%- include('../flashError') %>
+            <h1><strong class="fs-1 text-primary">Vsi računi</strong></h1>
+            <h2><strong class="fs-2 text-primary">Skupaj
+                    <% for(data of yearNum){ %>
+                        <%= data.numPerYear %>
+                            <% } %>
+                                izdanih računov
+                </strong></h2>
     </div>
 
     <!--
@@ -115,23 +121,9 @@
                                             </td>
                                             <td>
                                                 <% if(product.firstOfWeek=='true' ){ %>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                        fill="currentColor" class="bi bi-check2-square bg-success"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                                        <path
-                                                            d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                                    </svg>
+                                                    <img src="../payed.jpg" alt="Free">
                                                     <% } else { %>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                            fill="currentColor" class="bi bi-check2-square bg-danger"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                                            <path
-                                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                                        </svg>
+                                                        <img src="../notPay.jpg" alt="Not Free">
                                                         <% } %>
                                             </td>
                                             <td>
@@ -143,23 +135,9 @@
                                             <td>
 
                                                 <% if(data.pay=='true' ){ %>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                        fill="currentColor" class="bi bi-check2-square bg-success"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                                        <path
-                                                            d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                                    </svg>
+                                                    <img src="../payed.jpg" alt="Payed">
                                                     <% } else { %>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                            fill="currentColor" class="bi bi-check2-square bg-danger"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                                            <path
-                                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                                        </svg>
+                                                        <img src="../notPay.jpg" alt="Not Payed">
                                                         <% } %>
                                             </td>
                                             <td>
@@ -240,33 +218,13 @@
                                 </td>
                                 <td>
                                     <% if(product.firstOfWeek=='true' ){ %>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                            fill="currentColor" class="bi bi-check2-square bg-success"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                            <path
-                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                        </svg>
+                                        <img src="../payed.jpg" alt="">
                                         <% } else { %>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                fill="currentColor" class="bi bi-check2-square bg-danger"
-                                                viewBox="0 0 16 16">
-                                                <path
-                                                    d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                                <path
-                                                    d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                            </svg>
+                                            <img src="../notPay.jpg" alt="">
                                             <% } %>
                                 </td>
                                 <td>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                                        class="bi bi-check2-square bg-success" viewBox="0 0 16 16">
-                                        <path
-                                            d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                        <path
-                                            d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                    </svg>
+                                    <img src="../payed.jpg" alt="">
                                 </td>
                                 <td>
                                     <%= user.kt %>
@@ -342,13 +300,7 @@
                                 </td>
 
                                 <td>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                                        class="bi bi-check2-square bg-danger text-light" viewBox="0 0 16 16">
-                                        <path
-                                            d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                        <path
-                                            d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                    </svg>
+                                    <img src="../notPay.jpg" alt="">
                                 </td>
                                 <td>
                                     <%= users.kt %>
@@ -391,6 +343,8 @@
 
 
     <script>
+        let active = document.getElementById('vsi')
+        active.classList.add('border-bottom', 'border-3', 'rounded-bottom', 'border-primary')
         document.getElementById('placano').style.display = 'none';
         document.getElementById('niPlacano').style.display = 'none';
         document.getElementById('payedCaption').style.display = 'none';
@@ -400,6 +354,7 @@
         document.getElementById('allUsers').style.marginRight = 'auto';
 
         function payedBills() {
+
             document.getElementById('allUsers').style.display = 'none';
             document.getElementById('niPlacano').style.display = 'none';
             document.getElementById('caption').style.display = 'none';
@@ -408,7 +363,10 @@
             document.getElementById('placano').style.display = 'block';
             document.getElementById('placano').style.marginLeft = 'auto';
             document.getElementById('placano').style.marginRight = 'auto';
-
+            let active = document.getElementById('placali')
+            active.classList.add('border-bottom', 'border-3', 'rounded-bottom', 'border-success')
+            document.getElementById('vsi').classList.remove('border-bottom', 'border-3', 'rounded-bottom', 'border-primary')
+            document.getElementById('nePlacali').classList.remove('border-bottom', 'border-3', 'rounded-bottom', 'border-danger')
             let placano = document.getElementById('payed');
             let rows = placano.rows.length - 1;
             let totalPayed = 0;
@@ -420,6 +378,10 @@
 
         }
         function notPayedBills() {
+            let active = document.getElementById('nePlacali')
+            active.classList.add('border-bottom', 'border-3', 'rounded-bottom', 'border-danger')
+            document.getElementById('placali').classList.remove('border-bottom', 'border-3', 'rounded-bottom', 'border-success')
+            document.getElementById('vsi').classList.remove('border-bottom', 'border-3', 'rounded-bottom', 'border-primary')
             document.getElementById('placano').style.display = 'none';
             document.getElementById('allUsers').style.display = 'none';
             document.getElementById('caption').style.display = 'none';
@@ -443,6 +405,10 @@
 
         }
         function allBills() {
+            let active = document.getElementById('vsi')
+            active.classList.add('border-bottom', 'border-3', 'rounded-bottom', 'border-primary')
+            document.getElementById('placali').classList.remove('border-bottom', 'border-3', 'rounded-bottom', 'border-success')
+            document.getElementById('nePlacali').classList.remove('border-bottom', 'border-3', 'rounded-bottom', 'border-danger')
             document.getElementById('placano').style.display = 'none';
             document.getElementById('niPlacano').style.display = 'none';
             document.getElementById('notPayedcaption').style.display = 'none';
