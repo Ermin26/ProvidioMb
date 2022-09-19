@@ -166,25 +166,25 @@ app.get('/', async (req, res) => {
 
 })
 
-/*
-app.get('/register', async (req, res) => {
+
+app.get('/register', isLoged, async (req, res) => {
     res.render('register');
 })
 
 
-app.post('/register', async (req, res) => {
+app.post('/register', isLoged, async (req, res) => {
     const { username, password, role } = req.body;
-    const user = await new People({username: username, role: role});
-   const addedUser =  await People.register(user, password);
+    const user = await new People({ username: username, role: role });
+    const addedUser = await People.register(user, password);
     console.log(addedUser, 'sucesfully registered');
 })
-app.get('/users', async (req, res) => {
-    const data = await People.deleteMany({});
-    //const data = await People.find({});
-    
+
+app.get('/users', isLoged, async (req, res) => {
+    const data = await People.find({});
+
     res.send(data);
 })
-*/
+
 app.get('/login', (req, res) => {
     res.render('login');
 })
@@ -192,10 +192,7 @@ let usersData = []
 let searched = []
 
 app.get('/search', isLoged, async (req, res) => {
-
     res.render('search', { usersData, searched });
-
-
 });
 
 

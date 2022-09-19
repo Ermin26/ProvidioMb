@@ -2,12 +2,207 @@ html {
     overflow: hidden;
 }
 
+
+.hide {
+    display: none;
+}
+
+
+
+#hide {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#info {
+    display: flex;
+    justify-content: end;
+
+}
+
+#info-ul {
+    width: 240px;
+    margin-right: 10px;
+}
+
+#info-ul ul {
+    text-align: right;
+}
+
+#kraj {
+    align-self: flex-end;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#payDate,
+#soldDate {
+    width: 100px;
+}
+
+#numPerYear {
+    width: 45px;
+}
+
+#numPerMonth,
+#month {
+    width: 35px;
+}
+
+#year {
+    width: 60px;
+}
+
+#kt {
+    width: 30px;
+}
+
+
+#myTable {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#myTable td:hover {
+    background-color: cyan;
+    color: black;
+}
+
+#colorized:hover {
+    background-color: cyan;
+    color: black;
+
+}
+
+#cash {
+    box-sizing: border-box;
+    border-bottom: 2px solid black;
+    margin-top: 35px;
+}
+
+#ime {
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+    height: 2em;
+    width: auto;
+    padding: 5px;
+}
+
 @media (max-width: 3000px) {
     #containerr {
         width: 80%;
         margin-left: auto;
         margin-right: auto;
     }
+
+    #izdal {
+        display: inline-flex;
+        flex-direction: column;
+        padding: 0px;
+    }
+
+
+    #dates {
+        padding: 0px;
+        margin-left: -50px;
+    }
+
+    #dates-left {
+        padding: 0px;
+        margin-left: 98px;
+    }
+
+    #info {
+        margin: 0;
+        padding: 0;
+    }
+
+    #info-ul {
+        padding: 0px;
+    }
+
+    #info-ul li {
+        margin-left: 25px;
+    }
+
+}
+
+
+@media (max-width: 1500px) {
+    #izdal {
+        margin-top: 0px;
+    }
+
+    #dates {
+        padding: 0px;
+        margin-left: -30px;
+    }
+
+    #dates-left {
+        padding: 0px;
+        margin-left: 98px;
+    }
+
+    #info {
+        margin: 0;
+        padding: 0;
+    }
+
+    #info-ul {
+        padding: 0px;
+    }
+
+    #info-ul li {
+        margin-left: 25px;
+    }
+
+
+}
+
+@media (max-width: 1024px) {
+    #izdal {
+        margin-top: 0px;
+    }
+
+
+    #dates {
+        padding: 0px;
+        margin-left: -50px;
+    }
+
+    #dates-left {
+        padding: 0px;
+        margin-left: 98px;
+    }
+
+    #info {
+        margin: 0;
+        padding: 0;
+    }
+
+    #info-ul {
+        padding: 0px;
+    }
+
+    #info-ul li {
+        margin-left: 25px;
+    }
+
+
 }
 
 @media (max-width: 912px) {
@@ -27,6 +222,37 @@ html {
     }
 }
 
+@media (max-width: 550px) {
+    #izdal {
+        margin-top: 0px;
+    }
+
+    #dates {
+        padding: 0px;
+        margin-left: -50px;
+    }
+
+    #dates-left {
+        padding: 0px;
+        margin-left: 50px;
+    }
+
+    #info {
+        margin: 0;
+        padding: 0;
+    }
+
+    #info-ul {
+        padding: 0px;
+    }
+
+    #info-ul li {
+        margin-left: 25px;
+    }
+
+
+}
+
 @media (max-width: 450px) {
     #containerr {
         display: flex;
@@ -42,4 +268,89 @@ html {
     #table-data {
         overflow-x: auto;
     }
+
+    #hide {
+        overflow-x: auto;
+    }
+
+    #izdal {
+        margin-top: 0px;
+    }
+
+
+    #dates {
+        display: inline-flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    #info {
+        margin: 0;
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    #info-ul {
+        margin: 0px;
+    }
+
+    #info-ul li {
+        margin-top: 2px;
+        margin-left: 7px;
+    }
+}
+
+@media print {
+
+    .hide {
+        display: block;
+    }
+
+    #hideOnPrint,
+    #containerr,
+    #navbar {
+        display: none;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        color: black;
+    }
+
+    #izdal {
+        margin-top: 4px;
+    }
+
+    #navbar {
+        display: none;
+    }
+
+    input[type] {
+        border: 0;
+    }
+
+
+    #hide {
+        overflow: hidden;
+    }
+
+
+    #payDate,
+    #soldDate {
+        width: 100px;
+    }
+
+    #numPerYear,
+    #year,
+    #numPerMonth,
+    #month,
+    #kt {
+        width: 60px;
+    }
+
 }

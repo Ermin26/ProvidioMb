@@ -22,11 +22,11 @@
             </button>
             <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
                 <ul class="navbar-nav d-flex w-100">
-                    <li class="nav-item ms-1 mt-1">
+                    <li class="nav-item ms-2 mt-1">
                         <a href="/all"><button class="btn btn-primary" id="btn-func">All bills</button></a>
                     </li>
 
-                    <li class="nav-item ms-1 mt-1 border-bottom border-3 rounded-bottom border-info">
+                    <li class="nav-item ms-2 mt-1 border-bottom border-3 rounded-bottom border-info">
                         <a href="/search"><button class="btn btn-info" id="btn-func"><strong>Search
                                     User</strong></button></a>
                     </li>
@@ -49,7 +49,7 @@
                     <div class="form-group mt-3 w-50 ms-auto me-auto">
                         <label for="user"></label>
                         <input type="text" class="form-control w-100 border-2 border-dark" name="username" id="user"
-                            placeholder="John Wick">
+                            placeholder="John Wick" required>
                     </div>
                     <div class="footer">
                         <button class="btn btn-sm btn-primary mt-3 ms-2">Submit</button>
@@ -81,6 +81,7 @@
                                         <th class="col">Total</th>
                                         <th class="col">Month</th>
                                         <th class="col">Week</th>
+                                        <th class="col">Free</th>
                                         <th class="col">Payed</th>
                                         <th class="col">Sold date</th>
                                         <th class="col">Sold by</th>
@@ -108,8 +109,17 @@
                                                     </td>
                                                     <td>
 
+                                                        <% if(product.firstOfWeek=='true' ){ %>
+                                                            <img src="../payed.jpg" alt="Free">
+                                                            <% } else { %>
+                                                                <img src="../notPay.jpg" alt="Not Free">
+                                                                <% } %>
+                                                    </td>
+
+                                                    <td>
+
                                                         <% if(names.pay=='true' ){ %>
-                                                            <img src="../payed.jpg" alt="">
+                                                            <img src="../payed.jpg" alt="Payed">
                                                             <% } else { %>
                                                                 <img src="../notPay.jpg" alt="Not Payed">
                                                                 <% } %>
