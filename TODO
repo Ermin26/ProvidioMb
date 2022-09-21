@@ -1,11 +1,7 @@
 za vec izdelkov dodaj da tudi ddv steje kolko je izdelkov  FIXED!!! --> DONE
 
-
-
-
-
 MAKE REPRINT
-LOG IN role [Boss, Admin, Visitor ] --> boss can do all, admin can edit, reprint, visitor only check the status of bills!
+LOG IN role [Boss, Admin, Visitor ] --> boss can do all, admin can edit, reprint, visitor only check the status of bills!  DONE
 
 
 user and edit page media screen fix

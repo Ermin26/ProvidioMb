@@ -34,36 +34,42 @@
     <div class="d-flex justify-content-center mt-5">
         <%- include('../flashError') %>
     </div>
-    <div class="container mt-1 d-flex justify-content-center">
-
+    <div id="container" class="container mt-1 d-flex justify-content-center">
         <div class="row mt-2">
             <div class="col">
                 <form action="/login" method="post">
-                    <div class="card">
+                    <div class="card border-1">
                         <div class="card-header" id="image">
                         </div>
-                        <div class="card-body">
-
-                            <label for="username" class="w-35">User Name:</label>
-                            <input type="text" class="col d-inline-flex m-1" name="username" id="name"
-                                placeholder="Your user name">
+                        <div id="fieldsGroup" class="card-body text-center">
+                            <div id="field" class="d-inline-flex mb-1 p-2 text-center">
+                                <label id="label" for="username"
+                                    class="d-inline-flex"><strong>Username:</strong></label>
+                                <input type="text" class="col d-inline-flex text-center" name="username" id="name"
+                                    placeholder="User name">
+                            </div>
                             <br>
-                            <label for="password" class="w-45">Password: </label>
-                            <input type="password" class="col d-inline-flex m-1 ms-3" name="password" id="password"
-                                placeholder="Your password">
-
+                            <div id="field" class="d-inline-flex mb-2 p-2 text-center">
+                                <label id="label" for="password" class="d-inline-flex"><strong>Password:
+                                    </strong></label>
+                                <input type="password" class="col d-inline-flex text-center" name="password"
+                                    id="password" placeholder="Your password">
+                            </div>
                         </div>
                         <div class="card-footer text-center">
                             <button class="btn btn-primary d-inline p-2">Submit</button>
                         </div>
                 </form>
 
-                <div class="col d-inline caption m-2">
-                    <p>If you can't login please <a href="mailto:mb.providio@gmail.com">Contact Admin.</a></p>
-
+                <div class="col d-inline-flex caption ms-auto me-auto text-center">
+                    <p>If you can't login please <a href="mailto:mb.providio@gmail.com">Contact
+                            Admin.</a></p>
                 </div>
+
             </div>
+
         </div>
+    </div>
 
 
     </div>
