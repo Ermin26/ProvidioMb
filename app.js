@@ -89,8 +89,8 @@ app.use((req, res, next) => {
 })
 
 
-let currentWeek = [38];
-let weeks = [38]
+let currentWeek = [];
+let weeks = [39]
 let currentMonth = [];
 let currentYear = [2022];
 
@@ -107,8 +107,12 @@ app.get('/user', isLoged, async (req, res, next) => {
 });
 
 app.get('/', async (req, res) => {
+
     //?---------------------------------------
     //! Treba je naredit tudi za spremembo leta
+    if(!currentWeek.length){
+        currentWeek = weeks[0];
+    }
 
     if (day === weekUpdate && currentWeek[0] != weeks[0]) {
         let week = parseInt(currentWeek[0]) + 1;
