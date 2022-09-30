@@ -232,7 +232,8 @@
                             </td>
                             <td>1.50</td>
                             <td>
-                                <% if(product.firstOfWeek=='true' ){ %>
+                                <% for(product of selled.firstOfWeek) {%> 
+                                <% if(product =='true' ){ %>
                                     <img src="../payed.jpg" alt="Free">
                                     <% } else { %>
                                         <img src="../notPay.jpg" alt="Not Free">
@@ -247,6 +248,7 @@
 
 
                             </td>
+                            <% } %> 
 
                         </tr>
                         <% } %>
