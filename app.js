@@ -90,7 +90,7 @@ app.use((req, res, next) => {
 
 
 let currentWeek = [];
-let weeks = [39]
+let weeks = [40]
 let currentMonth = [];
 let currentYear = [2022];
 
@@ -111,7 +111,8 @@ app.get('/', async (req, res) => {
     //?---------------------------------------
     //! Treba je naredit tudi za spremembo leta
     if(!currentWeek.length){
-        currentWeek = weeks[0];
+        currentWeek.push(weeks[0]);
+        console.log(currentWeek, 'current week');
     }
 
     if (day === weekUpdate && currentWeek[0] != weeks[0]) {
@@ -139,6 +140,7 @@ app.get('/', async (req, res) => {
 
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
+    console.log(perYear[0].numPerYear, ' i am perYear')
     if (perYear.length && perMonth.length) {
         const newBill = perYear[0].numPerYear + 1
         const billNew = perMonth[0].numPerMonth + 1
@@ -161,13 +163,15 @@ app.get('/', async (req, res) => {
             return res.render('index', { date, year, month, newBill, billNew, currentWeek })
         }
     }
+    /*
     else {
         currentMonth.push(month)
         const billNew = 1;
         const newBill = 1;
+        console.log('i am done')
         res.render('index', { date, year, month, billNew, newBill, currentWeek })
     }
-
+*/
 })
 
 
