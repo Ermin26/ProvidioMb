@@ -232,10 +232,10 @@ app.post('/search', isLoged, async (req, res, next) => {
 });
 
 app.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), async (req, res) => {
-    const redirectUrl = req.session.returnTo || '/'
-    delete req.session.returnTo;
     req.flash('success', 'Successfly loged.')
-    res.redirect(redirectUrl)
+    const redirect = redirectUrl || '/'
+    delete req.session.returnTo;
+    res.redirect(redirect)
 })
 
 //? DELA
