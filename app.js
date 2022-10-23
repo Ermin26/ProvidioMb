@@ -20,6 +20,7 @@ const User = require('./models/models');
 const People = require('./models/users');
 const { isLoged } = require('./midleware/check');
 const users = require('./models/users');
+const week = require('./models/week');
 
 const db_URL = process.env.DB_URL
 
@@ -88,9 +89,8 @@ app.use((req, res, next) => {
     next();
 })
 
-
-let currentWeek = [];
-let weeks = [40]
+let currentWeek = []
+let checkWeeks = [42]
 let currentMonth = [];
 let currentYear = [2022];
 
@@ -108,15 +108,19 @@ app.get('/user', isLoged, async (req, res, next) => {
 
 app.get('/', async (req, res) => {
 
+    let weekCurent = await week.find();
+    for (weeks of weekCurent) {
+        if (!currentWeek.length) {
+            currentWeek.push(weeks.week)
+        }
+    }
     //?---------------------------------------
     //! Treba je naredit tudi za spremembo leta
-    if(!currentWeek.length){
-        currentWeek.push(weeks[0]);
-        console.log(currentWeek, 'current week');
-    }
 
-    if (day === weekUpdate && currentWeek[0] != weeks[0]) {
+    if (day === weekUpdate && currentWeek[0] != checkWeeks[0]) {
         let week = parseInt(currentWeek[0]) + 1;
+        const newWeek = await new week({ week: `${week}` })
+        newWeek.save()
         currentWeek.pop();
         currentWeek.push(week);
         weeks.pop();
@@ -125,10 +129,10 @@ app.get('/', async (req, res) => {
 
     }
 
-    if (deleteUpdate === day && currentWeek[0] === weeks[0]) {
-        let undoWeek = parseInt(weeks[0]) - 1;
-        weeks.pop();
-        weeks.push(undoWeek);
+    if (deleteUpdate === day && currentWeek[0] === checkWeeks[0]) {
+        let undoWeek = parseInt(checkWeeks[0]) - 1;
+        checkWeeks.pop();
+        checkWeeks.push(undoWeek);
 
     }
 
@@ -140,7 +144,6 @@ app.get('/', async (req, res) => {
 
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
-    console.log(perYear[0].numPerYear, ' i am perYear')
     if (perYear.length && perMonth.length) {
         const newBill = perYear[0].numPerYear + 1
         const billNew = perMonth[0].numPerMonth + 1
@@ -172,6 +175,8 @@ app.get('/', async (req, res) => {
         res.render('index', { date, year, month, billNew, newBill, currentWeek })
     }
 */
+    console.log(currentWeek, 'current')
+    console.log(checkWeeks, 'weeks')
 })
 
 
