@@ -111,8 +111,8 @@ app.get('/', async (req, res) => {
     let weekCurent = await Week.find();
     for (weeks of weekCurent) {
         if (!currentWeek.length) {
-            currentWeek.push(weeks.week)
-            checkWeeks.push(weeks.week)
+            currentWeek.push(weeks.week);
+            checkWeeks.push(weeks.minusWeek);
         }
     }
     //?---------------------------------------
