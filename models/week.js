@@ -6,11 +6,15 @@ const Schema = mongoose.Schema;
 const WeekSchema = new Schema({
     week: {
         type: Number,
-        default: 42
+        default: 44
     },
     year: {
         type: Number,
         default: 2022
+    },
+    minusWeek: {
+        type: Number,
+        default: 44
     }
 });
 

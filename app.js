@@ -20,7 +20,7 @@ const User = require('./models/models');
 const People = require('./models/users');
 const { isLoged } = require('./midleware/check');
 const users = require('./models/users');
-const week = require('./models/week');
+const Week = require('./models/week');
 
 const db_URL = process.env.DB_URL
 
@@ -90,7 +90,7 @@ app.use((req, res, next) => {
 })
 
 let currentWeek = []
-let checkWeeks = [42]
+let checkWeeks = []
 let currentMonth = [];
 let currentYear = [2022];
 
@@ -108,10 +108,11 @@ app.get('/user', isLoged, async (req, res, next) => {
 
 app.get('/', async (req, res) => {
 
-    let weekCurent = await week.find();
+    let weekCurent = await Week.find();
     for (weeks of weekCurent) {
         if (!currentWeek.length) {
             currentWeek.push(weeks.week)
+            checkWeeks.push(weeks.week)
         }
     }
     //?---------------------------------------
@@ -119,18 +120,20 @@ app.get('/', async (req, res) => {
 
     if (day === weekUpdate && currentWeek[0] != checkWeeks[0]) {
         let week = parseInt(currentWeek[0]) + 1;
-        const newWeek = await new week({ week: `${week}` })
+        const newWeek = await Week.findOneAndUpdate({ week: `${week}`, minusWeek: `${week}` })
         newWeek.save()
         currentWeek.pop();
         currentWeek.push(week);
-        weeks.pop();
-        weeks.push(week);
-
+        checkWeeks.pop();
+        checkWeeks.push(week);
+        console.log('i am doned')
 
     }
 
     if (deleteUpdate === day && currentWeek[0] === checkWeeks[0]) {
         let undoWeek = parseInt(checkWeeks[0]) - 1;
+        const newWeek = await Week.findOneAndUpdate({ minusWeek: `${undoWeek}` })
+        newWeek.save();
         checkWeeks.pop();
         checkWeeks.push(undoWeek);
 
@@ -175,8 +178,6 @@ app.get('/', async (req, res) => {
         res.render('index', { date, year, month, billNew, newBill, currentWeek })
     }
 */
-    console.log(currentWeek, 'current')
-    console.log(checkWeeks, 'weeks')
 })
 
 
@@ -300,6 +301,7 @@ app.get('/all', isLoged, async (req, res) => {
 app.get('/all/:id', isLoged, async (req, res) => {
     const userData = await User.findById(req.params.id);
     if (!userData) {
+        req.flash('error', 'User not found');
         return res.redirect('/all');
     }
     res.render('user', { userData })
