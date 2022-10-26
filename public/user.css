@@ -143,6 +143,20 @@ ul {
 
 
 @media (max-width: 1500px) {
+    #containerr {
+        display: flex;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    #user {
+        overflow-x: auto;
+    }
+
+    #table-data {
+        overflow-x: auto;
+    }
+
     #izdal {
         margin-top: 0px;
     }
@@ -174,6 +188,20 @@ ul {
 }
 
 @media (max-width: 1024px) {
+    #containerr {
+        display: flex;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    #user {
+        overflow-x: auto;
+    }
+
+    #table-data {
+        overflow-x: auto;
+    }
+
     #izdal {
         margin-top: 0px;
     }

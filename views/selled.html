@@ -13,7 +13,7 @@
 
 <body>
 
-    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light mb-2">
+    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light mb-2 sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">New Bill</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -63,9 +63,9 @@
      ALL BILLS
         -->
 
-    <div id="allUsers" class="text-center mb-0">
-        <table id="all" class="table table-dark table-hover mb-0">
-            <thead id="table-data" class="text-center">
+    <div id="allUsers" class="text-center mb-0 ">
+        <table id="all" class="table table-dark table-striped-columns table-hover mb-0 ">
+            <thead id="table-data" class="text-center ">
                 <th class="col">User</th>
                 <th class="col">Product</th>
                 <th class="col-1">Qty</th>
@@ -82,7 +82,7 @@
                 <th class="col">Sold Date</th>
                 <th class="col">Izdal</th>
             </thead>
-            <tbody class="">
+            <tbody class="tableBody">
                 <% if(userData.length) {%>
 
                     <% for(let data of userData) { %>
@@ -182,7 +182,6 @@
 
     <div id="placano" class="text-center">
         <table id="payed" class="table table-dark table-hover caption-top mb-0">
-
             <thead class="" id="table-head">
                 <th>User</th>
                 <th>Product</th>
@@ -260,7 +259,7 @@
     <div id="niPlacano" class="text-center mb-0">
         <table id="notpayed" class="table table-dark table-hover mb-0">
 
-            <thead class="">
+            <thead class="" id="table-head">
                 <th>User</th>
                 <th>Product</th>
                 <th>Bill ID</th>

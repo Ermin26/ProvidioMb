@@ -15,17 +15,38 @@ a {
     #placano,
     #niPlacano {
         display: inline-flex;
-        overflow-x: auto;
+
+
     }
 
-    #all,
-    #payed,
-    #notPayed {
-        overflow-x: auto;
+    #table-data,
+    #table-head {
+        position: sticky;
+        top: 65px;
+    }
+}
+
+@media (max-width: 1024px) {
+    #btn-func {
+        margin: 3px;
     }
 
-    #table-data {
-        overflow-x: auto;
+    .caption {
+        margin-left: 10px;
+    }
+
+    #allUsers,
+    #placano,
+    #niPlacano {
+        display: inline-flex;
+
+
+    }
+
+    #table-data,
+    #table-head {
+        position: sticky;
+        top: 65px;
     }
 }
 
@@ -38,17 +59,14 @@ a {
     #placano,
     #niPlacano {
         display: inline-flex;
-        overflow-x: auto;
+
+
     }
 
-    #all,
-    #payed,
-    #notPayed {
-        overflow-x: auto;
-    }
-
-    #table-data {
-        overflow-x: auto;
+    #table-data,
+    #table-head {
+        position: sticky;
+        top: 65px;
     }
 }
 
@@ -61,16 +79,13 @@ a {
     #placano,
     #niPlacano {
         display: inline-flex;
-        overflow-x: auto;
+
+
     }
 
-    #all,
-    #payed,
-    #notPayed {
-        overflow-x: auto;
-    }
-
-    #table-data {
-        overflow-x: auto;
+    #table-data,
+    #table-head {
+        position: sticky;
+        top: 65px;
     }
 }
