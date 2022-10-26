@@ -51,11 +51,14 @@
     <div class="caption" id="caption">
         <%- include('../flashError') %>
             <h1><strong class="fs-1 text-primary">Vsi računi</strong></h1>
-            <h2><strong class="fs-2 text-primary">Skupaj
+            <h2><strong class="fs-2 text-info">Toti mesec:
+                    <%= thisMonth.length %>
+                </strong></h2>
+            <h2><strong class="fs-2 text-primary">Skupaj izdanih računov:
                     <% for(data of yearNum){ %>
                         <%= data.numPerYear %>
                             <% } %>
-                                izdanih računov
+
                 </strong></h2>
     </div>
 

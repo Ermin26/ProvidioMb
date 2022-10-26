@@ -286,13 +286,15 @@ app.post('/sell', isLoged, async (req, res) => {
 //? DELA
 // Separate products ---> //? DONE!
 app.get('/all', isLoged, async (req, res) => {
+    let month = datum.getMonth() + 1;
     const userData = await User.find({}).sort({ "numPerYear": "ascending" });
     const yearNum = await User.find({}).sort({ "numPerYear": "descending" }).limit(1)
     const payData = await User.find({ pay: 'true' })
-    let payedLength = payData.length;
     const notPayData = await User.find({ pay: 'false' }).sort({ "kt": "descending" });
+    const thisMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' })
+    let payedLength = payData.length;
     let notPayedLength = notPayData.length;
-    return res.render('selled', { userData, payData, notPayData, yearNum, payedLength, notPayedLength })
+    return res.render('selled', { userData, payData, notPayData, yearNum, payedLength, notPayedLength, thisMonth })
 });
 
 //? DELA
