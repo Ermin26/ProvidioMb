@@ -119,8 +119,6 @@ app.get('/', async (req, res) => {
         if (!currentWeek.length) {
             currentWeek.push(weeks.week);
             checkWeeks.push(weeks.minusWeek);
-            console.log(currentWeek, 'curent week')
-            console.log(checkWeeks, ' checkweeks')
         }
     }
     //?---------------------------------------
@@ -285,6 +283,8 @@ app.post('/sell', isLoged, async (req, res) => {
 //? DELA
 // Separate products ---> //? DONE!
 app.get('/all', isLoged, async (req, res) => {
+    
+    let datum = new Date();
     let month = datum.getMonth() + 1;
     const userData = await User.find({}).sort({ "numPerYear": "ascending" });
     const yearNum = await User.find({}).sort({ "numPerYear": "descending" }).limit(1)
