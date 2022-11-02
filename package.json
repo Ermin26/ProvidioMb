@@ -13,6 +13,7 @@
     "fs": "^0.0.1-security",
     "method-override": "^3.0.0",
     "mongoose": "^6.6.2",
+    "nodemon": "^2.0.20",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^7.1.2"

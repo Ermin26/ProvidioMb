@@ -94,11 +94,6 @@ let checkWeeks = []
 let currentMonth = [];
 let currentYear = [2022];
 
-let datum = new Date();
-let day = datum.getDay();
-
-let weekUpdate = 1;
-let deleteUpdate = 0;
 
 
 app.get('/user', isLoged, async (req, res, next) => {
@@ -108,15 +103,29 @@ app.get('/user', isLoged, async (req, res, next) => {
 
 app.get('/', async (req, res) => {
 
+
+    let datum = new Date();
+    let day = datum.getDay();
+
+    let weekUpdate = 1;
+    let deleteUpdate = 0;
+    let todayDate = new Date();
+    let date = todayDate.toLocaleDateString()
+    let year = todayDate.getFullYear()
+    let month = todayDate.getMonth() + 1;
+
     let weekCurent = await Week.find();
     for (weeks of weekCurent) {
         if (!currentWeek.length) {
             currentWeek.push(weeks.week);
             checkWeeks.push(weeks.minusWeek);
+            console.log(currentWeek, 'curent week')
+            console.log(checkWeeks, ' checkweeks')
         }
     }
     //?---------------------------------------
     //! Treba je naredit tudi za spremembo leta
+
 
     if (day === weekUpdate && currentWeek[0] != checkWeeks[0]) {
         let week = parseInt(currentWeek[0]) + 1;
@@ -138,18 +147,13 @@ app.get('/', async (req, res) => {
 
     }
 
-    let todayDate = new Date();
-    let date = todayDate.toLocaleDateString()
-    let year = todayDate.getFullYear()
-    let month = todayDate.getMonth() + 1;
-
-
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
+
     if (perYear.length && perMonth.length) {
+
         const newBill = perYear[0].numPerYear + 1
         const billNew = perMonth[0].numPerMonth + 1
-
         if (month != currentMonth[0]) {
             const billNew = 1;
             currentMonth.pop();
@@ -162,21 +166,16 @@ app.get('/', async (req, res) => {
                 res.render('index', { date, year, month, newBill, billNew, currentWeek })
             }
             res.render('index', { date, year, month, newBill, billNew, currentWeek })
-        }
-
-        else {
+        } else {
             return res.render('index', { date, year, month, newBill, billNew, currentWeek })
         }
-    }
-    /*
-    else {
+    } else {
         currentMonth.push(month)
+        const newBill = perYear[0].numPerYear + 1
         const billNew = 1;
-        const newBill = 1;
-        console.log('i am done')
         res.render('index', { date, year, month, billNew, newBill, currentWeek })
     }
-*/
+
 })
 
 
@@ -232,8 +231,8 @@ app.post('/search', isLoged, async (req, res, next) => {
 });
 
 app.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), async (req, res) => {
-    req.flash('success', 'Successfly loged.')
-    const redirect = redirectUrl || '/'
+    req.flash('success', 'Successfly loged.', req.session.passport.user)
+    redirect = req.session.returnTo || '/';
     delete req.session.returnTo;
     res.redirect(redirect)
 })
