@@ -83,6 +83,7 @@ passport.serializeUser(People.serializeUser());
 passport.deserializeUser(People.deserializeUser());
 
 app.use((req, res, next) => {
+    //console.log(req.session)
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -230,7 +231,7 @@ app.post('/search', isLoged, async (req, res, next) => {
 
 app.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), async (req, res) => {
     req.flash('success', 'Successfly loged.', req.session.passport.user)
-    redirect = req.session.returnTo || '/';
+    redirect = returnTo || '/';
     delete req.session.returnTo;
     res.redirect(redirect)
 })
@@ -283,7 +284,7 @@ app.post('/sell', isLoged, async (req, res) => {
 //? DELA
 // Separate products ---> //? DONE!
 app.get('/all', isLoged, async (req, res) => {
-    
+
     let datum = new Date();
     let month = datum.getMonth() + 1;
     const userData = await User.find({}).sort({ "numPerYear": "ascending" });
