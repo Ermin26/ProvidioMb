@@ -83,7 +83,7 @@ passport.serializeUser(People.serializeUser());
 passport.deserializeUser(People.deserializeUser());
 
 app.use((req, res, next) => {
-    //console.log(req.session)
+    //console.log("----------", req.session, "----------")
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -206,6 +206,9 @@ app.get('/search', isLoged, async (req, res) => {
     res.render('search', { usersData, searched });
 });
 
+app.get('/costs', isLoged, async (req, res) => {
+    res.render('costs')
+})
 
 
 //? DELA
@@ -230,8 +233,8 @@ app.post('/search', isLoged, async (req, res, next) => {
 });
 
 app.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), async (req, res) => {
-    req.flash('success', 'Successfly loged.', req.session.passport.user)
-    redirect = returnTo || '/';
+    const redirect = req.session.returnTo || '/';
+    req.flash('success', 'Successfly loged', req.session.passport.user)
     delete req.session.returnTo;
     res.redirect(redirect)
 })
@@ -308,7 +311,7 @@ app.get('/all/:id', isLoged, async (req, res) => {
     res.render('user', { userData })
 });
 //? DELA
-app.get('/all/:id/edit', async (req, res) => {
+app.get('/all/:id/edit', isLoged, async (req, res) => {
     const { id } = req.params
     const user = await User.findById(id);
     if (!user) {
@@ -323,7 +326,7 @@ app.get('/all/:id/edit', async (req, res) => {
 
 //? DELA
 
-app.put('/all/:id', async (req, res) => {
+app.put('/all/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const user = await User.findByIdAndUpdate(id, { ...req.body.user });
     console.log(user)
@@ -334,7 +337,7 @@ app.put('/all/:id', async (req, res) => {
 
 //? DELA
 
-app.delete('/all/:id', async (req, res) => {
+app.delete('/all/:id', isLoged, async (req, res) => {
     const { id } = req.params
     const user = await User.findByIdAndDelete(id);
     req.flash('success', 'User successfully deleted.');

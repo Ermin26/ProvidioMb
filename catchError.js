@@ -1,3 +1,4 @@
+/*
 const People = require('./models/users');
 const ExpressError = require('./utils/ExpressError');
 
@@ -12,3 +13,4 @@ module.exports.isLoged = (req, res, next) => {
     }
     next();
 };
+*/
