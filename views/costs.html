@@ -32,7 +32,8 @@
                                     User</strong></button></a>
                     </li>
                     <li class="nav-item ms-3 mt-2">
-                        <a href="#"><button class="btn btn-danger" id="btn-func"><strong>Costs</strong></button></a>
+                        <a href="/costs"><button class="btn btn-danger"
+                                id="btn-func"><strong>Costs</strong></button></a>
                     </li>
                     <% if(!currentUser) {%>
                         <li class="nav-item ms-auto">
@@ -53,40 +54,103 @@
         <div class="addBills mt-5 mb-5">
             <button class="btn btn-primary" onclick="showInputForm()">Add new bill</button>
         </div>
-        <div id="addBillForm" class="col d-flex bg-info justify-content-center">
-            <form action="/addCosts" method="post">
-                <div class="mb-2 text-center">
-                    <label for="date" class="form-label">Date:</label><br>
-                    <input type="date" id="date" class="form-control text-center" name="date"
-                        placeholder="Enter Bill date" required>
-                </div>
+        <div id="hideMe">
+            <div id="addBillForm" class="col d-flex bg-info justify-content-center">
+                <form action="/addCosts" method="post">
+                    <div class="mb-2 text-center">
+                        <label for="date" class="form-label">Bill Date:</label><br>
+                        <input type="date" id="date" class="form-control text-center" name="date"
+                            placeholder="Enter Bill date" required>
+                    </div>
 
-                <div class="mb-2 col">
-                    <label for="products" class="form-label">Buyed products:</label>
-                    <textarea type="text" id="products" class="form-control text-center" name="products"
-                        placeholder="Enter buyed products" required></textarea>
-                </div>
+                    <div class="mb-2 col">
+                        <label for="buyedProducts" class="form-label">Buyed products:</label>
+                        <textarea type="text" id="buyedProducts" class="form-control text-center" name="buyedProducts"
+                            placeholder="Enter buyed products" required></textarea>
+                    </div>
 
-                <div class="mb-2">
-                    <label for="price" class="form-label">Price:</label>
-                    <input type="number" id="price" class="form-control text-center" name="price"
-                        placeholder="Enter total price of bill" required>
-                </div>
+                    <div class="mb-2">
+                        <label for="totalPrice" class="form-label">Price:</label>
+                        <input type="text" id="totalPrice" class="form-control text-center" name="totalPrice"
+                            placeholder="Enter total price &euro;" required>
+                    </div>
 
-                <button class="btn btn-success mt-4 mb-4">Submit</button>
-            </form>
+                    <button class="btn btn-success mt-4 mb-4">Submit</button>
+                </form>
+            </div>
         </div>
 
         <div class="header mt-3">
             <h1>Bills from using company money</h1>
         </div>
 
-        <div class="bills">
+        <div id="bills">
+            <% if(!allCosts.length) {%>
+                <h1>Nothing to show yet. Add some bills</h1>
+                <% }else {%>
+                    <table id="tableOfCosts" class="table table-dark table-hover">
+                        <tr>
+                            <thead>
+                                <th>Bill date</th>
+                                <th>Total price &euro;</th>
+                                <th>Buyed</th>
+                                <th>Booked date</th>
+                                <th>Booked by user</th>
+                            </thead>
+                        </tr>
+                        <% for(data of allCosts) {%>
+                            <tr>
+                                <td>
+                                    <%= data.date %>
+                                </td>
+                                <td>
+                                    <%= data.totalPrice %> &euro;
+                                </td>
+                                <td>
+                                    <%= data.buyedProducts %>
 
+                                </td>
+                                <td>
+                                    <%= data.bookedDate %>
+                                </td>
+                                <td>
+                                    <%= data.bookedUser %>
+                                </td>
+                            </tr>
+                            <% } %>
+                                <tr>
+                                    <td>Total spend:</td>
+                                    <td id="spend"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                    </table>
+                    <% } %>
         </div>
     </div>
 
 
+    <script>
+        document.getElementById("hideMe").style.display = "none";
+        function showInputForm() {
+            document.getElementById("hideMe").style.display = "block";
+        }
+        let myTable = document.getElementById('tableOfCosts');
+        let row = myTable.rows
+        //console.log(row, "i am rows")
+        let pay = 0;
+        //console.log(row[2].cells[1].innerHTML, 'row + cells')
+        for (let i = 1; i <= row.length; i++) {
+            var x = document.getElementById('tableOfCosts').row[i].cells[1].innerHtml;
+            console.log(x, ' i am x')
+            pay += parseFloat(x, 10);
+        }
+        console.log(pay)
+        document.getElementById('spend').innerHTML = pay.toFixed(2) + ' ' + '&euro;';
+
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>

@@ -21,6 +21,7 @@ const People = require('./models/users');
 const { isLoged } = require('./midleware/check');
 const users = require('./models/users');
 const Week = require('./models/week');
+const Costs = require('./models/costs');
 
 const db_URL = process.env.DB_URL
 
@@ -207,9 +208,24 @@ app.get('/search', isLoged, async (req, res) => {
 });
 
 app.get('/costs', isLoged, async (req, res) => {
-    res.render('costs')
+    const allCosts = await Costs.find({})
+    if (!allCosts.length) {
+        res.render('costs')
+    } else {
+        console.log(allCosts)
+        res.render('costs', { allCosts })
+    }
 })
 
+app.post('/addCosts', isLoged, async (req, res) => {
+    let datum = new Date();
+    let date = datum.toLocaleDateString()
+    const bill = req.body;
+
+    const newBill = await new Costs({ date: `${bill.date}`, buyedProducts: `${bill.buyedProducts}`, totalPrice: `${bill.totalPrice}`, bookedDate: `${date}`, bookedUser: req.session.passport.user })
+    await newBill.save()
+    res.send(`<h1>Succesfully added new bill.</h1>, ${newBill}`)
+})
 
 //? DELA
 
