@@ -210,7 +210,7 @@ app.get('/search', isLoged, async (req, res) => {
 app.get('/costs', isLoged, async (req, res) => {
     const allCosts = await Costs.find({})
     if (!allCosts.length) {
-        res.render('costs')
+        res.render('costs', { allCosts })
     } else {
         console.log(allCosts)
         res.render('costs', { allCosts })
@@ -227,13 +227,20 @@ app.post('/addCosts', isLoged, async (req, res) => {
     res.send(`<h1>Succesfully added new bill.</h1>, ${newBill}`)
 })
 
+app.delete('/costs/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const deleteMe = await Costs.findByIdAndDelete(id)
+    req.flash('success', 'Successfully deleted.');
+    res.redirect('/costs')
+})
+
 //? DELA
 
 app.post('/search', isLoged, async (req, res, next) => {
     usersData.pop();
     searched.pop();
     const user = req.body.username;
-    const data = await User.find({ buyer: { $regex: `${user}` } })
+    const data = await User.find({ buyer: { $regex: `${user}`, $options: 'i'  } })
     if (!data.length) {
         req.flash('error', 'Sorry, employee not found.');
         res.redirect('/search');

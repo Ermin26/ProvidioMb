@@ -50,6 +50,8 @@
         </div>
     </nav>
 
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    <button onclick="bottomFunction()" id="bottom" title="Go to bottom">Bottom</button>
 
     <div class="caption" id="caption">
         <%- include('../flashError') %>
@@ -424,6 +426,36 @@
             document.getElementById('allUsers').style.marginRight = 'auto';
         }
 
+
+        let mybutton = document.getElementById("myBtn");
+        let bottom = document.getElementById("bottom");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        bottom.style.display = "block";
+        window.onscroll = function () { scrollFunction() };
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+
+            } else {
+                mybutton.style.display = "none";
+                bottom.style.display = "block";
+            }
+            if (document.body.scrollBottom == 0 || document.documentElement.scrollBottom == 0) {
+                bottom.style.display = "none";
+                console.log("yooo yooo yoo")
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+        function bottomFunction() {
+            window.scrollTo(0, document.body.scrollHeight);
+
+        }
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"

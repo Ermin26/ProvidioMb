@@ -75,8 +75,23 @@ body {
 
     #data {
         overflow: hidden;
-        ;
     }
+
+    #table {
+        margin: 200;
+    }
+
+    #unPayedBills,
+    #allBills {
+        transform: translate(00px, -90px);
+        -webkit-transform: translate(00px, -90px);
+        -moz-transform: translate(00px, -90px);
+        -ms-transform: translate(00px, -90px);
+        -o-transform: translate(00px, -90px);
+        background-color: transparent;
+        color: black;
+    }
+
 
     #searched,
     #unPayedH1 {

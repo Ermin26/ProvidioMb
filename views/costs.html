@@ -80,14 +80,15 @@
             </div>
         </div>
 
-        <div class="header mt-3">
-            <h1>Bills from using company money</h1>
-        </div>
+
 
         <div id="bills">
             <% if(!allCosts.length) {%>
-                <h1>Nothing to show yet. Add some bills</h1>
+                <h1>Nothing to show yet. Add some bills.</h1>
                 <% }else {%>
+                    <div class="header mt-3">
+                        <h1>Bills from using company money</h1>
+                    </div>
                     <table id="tableOfCosts" class="table table-dark table-hover">
                         <tr>
                             <thead>
@@ -96,6 +97,7 @@
                                 <th>Buyed</th>
                                 <th>Booked date</th>
                                 <th>Booked by user</th>
+                                <th class="bg-danger">WARNING</th>
                             </thead>
                         </tr>
                         <% for(data of allCosts) {%>
@@ -104,7 +106,7 @@
                                     <%= data.date %>
                                 </td>
                                 <td>
-                                    <%= data.totalPrice %> &euro;
+                                    <%= data.totalPrice %>
                                 </td>
                                 <td>
                                     <%= data.buyedProducts %>
@@ -116,11 +118,16 @@
                                 <td>
                                     <%= data.bookedUser %>
                                 </td>
+                                <td>
+                                    <form action="/costs/<%= data._id%>/?_method=DELETE" method="post">
+                                        <button class="btn btn-danger btn-sm">DELETE</button>
+                                    </form>
+                                </td>
                             </tr>
                             <% } %>
                                 <tr>
                                     <td>Total spend:</td>
-                                    <td id="spend"></td>
+                                    <td id="spend" class="bg-danger"></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -133,23 +140,24 @@
 
 
     <script>
+
         document.getElementById("hideMe").style.display = "none";
         function showInputForm() {
             document.getElementById("hideMe").style.display = "block";
         }
-        let myTable = document.getElementById('tableOfCosts');
-        let row = myTable.rows
-        //console.log(row, "i am rows")
-        let pay = 0;
-        //console.log(row[2].cells[1].innerHTML, 'row + cells')
-        for (let i = 1; i <= row.length; i++) {
-            var x = document.getElementById('tableOfCosts').row[i].cells[1].innerHtml;
-            console.log(x, ' i am x')
-            pay += parseFloat(x, 10);
-        }
-        console.log(pay)
-        document.getElementById('spend').innerHTML = pay.toFixed(2) + ' ' + '&euro;';
 
+
+
+        let myTable = document.getElementById('tableOfCosts')
+        if (myTable.rows.length) {
+            let rows = myTable.rows.length - 1
+            let pay = 0;
+            for (let i = 2; i < rows; i++) {
+                var x = myTable.rows[i].cells[1].innerHTML
+                pay += parseFloat(x, 10);
+            }
+            document.getElementById('spend').innerHTML = pay.toFixed(2) + ' ' + '&euro;';
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"

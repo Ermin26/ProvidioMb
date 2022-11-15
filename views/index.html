@@ -90,18 +90,18 @@
                 <div id="dates-left" class="col mt-2 text-left">
                     <label for="numPerYear">Številka/Leto:</label>
                     <input type="text" class="border border-white text-left" name="numPerYear" id="numPerYear"
-                        value="<%= newBill %>">
-                    <input type="text" class="border border-white text-left" name="year" id="year" value="<%= year %> ">
+                        value="<%=newBill%>">
+                    <input type="text" class="border border-white text-left" name="year" id="year" value="<%=year%>">
 
                     <br>
                     <label class="" for="numPerMonth">Številka/Mesec:
                     </label>
                     <input type="text" class="border border-white" name="numPerMonth" id="numPerMonth"
-                        value="<%= billNew %>">
-                    <input type="text" class="border border-white" name="month" id="month" value="<%= month  %>">
+                        value="<%=billNew%>">
+                    <input type="text" class="border border-white" name="month" id="month" value="<%=month%>">
                     <br>
                     <label for="kt">Koledarski Teden:</label>
-                    <input type="text" class="border border-white" name="kt" id="kt" value="<%= currentWeek %> ">
+                    <input type="text" class="border border-white" name="kt" id="kt" value="<%=currentWeek%>">
                 </div>
 
                 <div class="col mt-2" id="info">
@@ -112,12 +112,12 @@
                         <li class="">
                             <label for="payDate">Datum Plačila:</label>
                             <input type="text" class="border border-white" id="payDate" name="payDate"
-                                value="<%= date %> ">
+                                value="<%= date %>">
                         </li>
                         <li class="d-inline">
                             <label for="soldDate">Datum Izdaje:</label>
                             <input type="text" class="d-inline border border-white ms-1" id="soldDate" name="soldDate"
-                                value="<%= date %> ">
+                                value="<%= date %>">
 
                         </li>
 
@@ -297,8 +297,8 @@
             } else {
                 document.getElementById('pay2').setAttribute('value', 'false');
                 document.getElementById('pay2').checked = true;
-                document.getElementById('payDate').innerHTML = "  " + "   " + "  ";
-                document.getElementById('payDate').setAttribute('value', "  " + "   " + "  ");
+                document.getElementById('payDate').innerHTML = "" + "" + "";
+                document.getElementById('payDate').setAttribute('value', "" + "" + "");
 
             }
 

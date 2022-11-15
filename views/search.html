@@ -73,11 +73,13 @@
         <div class="col-9" id="result">
             <h1 class="mb-2 text-center" id="h1Results">Results</h1>
             <div id="allBills">
-                <div class="head">
+                <div class="head text-center">
                     <% if(usersData.length) {%>
                         <% if(searched) {%>
                             <h1 id="searched"><strong>
-                                    <%= searched %> all bills.
+                                    All bills for user <br> <strong class="text-primary">
+                                        <%= searched %>
+                                    </strong>.
                                 </strong></h1>
                             <% } %>
                                 <% } %>
@@ -156,9 +158,12 @@
             </div>
 
             <!-- UNPAYED BILLS-->
-            <div id="unPayedBills">
-                <div class="mt-4">
-                    <h1 id="unPayedH1">Unpayed bills from <%= searched %>
+            <div id="unPayedBills" class="text-center">
+                <div class="mt-4 mb-3">
+                    <h1 id="unPayedH1" class="text-danger">Unpayed bills from user <br>
+                        <strong class="text-primary">
+                            <%= searched %>
+                        </strong>
                     </h1>
                 </div>
                 <% for(data of usersData) {%>
