@@ -213,10 +213,10 @@ app.post('/addEmploye', isLoged, async (req, res) => {
 
 let employeeData = []
 app.get('/myData', loged, async (req, res) => {
-    let dataOfEmployee = employee.Data[0].slice
-    if (!dataOfEmployee.length) {
+    if (!employeeData.length) {
         res.render('userCheckByHimself')
     } else {
+        let dataOfEmployee = employee.Data[0].slice
         const employee = await User.find({ buyer: { $regex: `${dataOfEmployee}`, $options: 'i' } })
         console.log(employee)
         res.render('userCheckByHimself', { employee })
