@@ -19,9 +19,11 @@ const cookieParser = require('cookie-parser')
 const User = require('./models/models');
 const People = require('./models/users');
 const { isLoged } = require('./midleware/check');
+const { loged } = require('./midleware/checkEmployeLogin');
 const users = require('./models/users');
 const Week = require('./models/week');
 const Costs = require('./models/costs');
+const Employers = require('./models/employees');
 
 const db_URL = process.env.DB_URL
 
@@ -78,10 +80,15 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(People.authenticate()));
+passport.use('local-people', new LocalStrategy(People.authenticate()));
+passport.use('local-employee', new LocalStrategy(Employers.authenticate()));
 //! mora bit serializeUser => User obvezno
 passport.serializeUser(People.serializeUser());
+passport.serializeUser(Employers.serializeUser());
 passport.deserializeUser(People.deserializeUser());
+passport.deserializeUser(Employers.deserializeUser());
+
+
 
 app.use((req, res, next) => {
     //console.log("----------", req.session, "----------")
@@ -191,6 +198,42 @@ app.post('/register', isLoged, async (req, res) => {
     console.log(addedUser, 'sucesfully registered');
 })
 
+app.get('/add', isLoged, async (req, res) => {
+    res.render('add')
+})
+
+
+app.post('/addEmploye', isLoged, async (req, res) => {
+    const { username, lastname, password } = req.body;
+    const user = await new Employers({ username: username, lastname: lastname });
+    const addedUser = await Employers.register(user, password);
+    console.log('sucesfully registered', addedUser);
+    res.redirect('add')
+})
+
+let employeeData = []
+app.get('/myData', loged, async (req, res) => {
+    let dataOfEmployee = employee.Data[0].slice
+    if (!dataOfEmployee.length) {
+        res.render('userCheckByHimself')
+    } else {
+        const employee = await User.find({ buyer: { $regex: `${dataOfEmployee}`, $options: 'i' } })
+        console.log(employee)
+        res.render('userCheckByHimself', { employee })
+    }
+})
+
+app.get('/employeesLogIn', loged, async (req, res) => {
+    res.render('employeesLogin');
+})
+
+app.post('/employeeLogin', passport.authenticate('local-employee', { failureFlash: true, failureRedirect: '/employeesLogIn' }), async (req, res) => {
+    req.flash('success', 'Sucessfly loged!')
+    employeeData.pop()
+    employeeData.push(req.session.passport.user)
+    res.redirect('/myData')
+})
+
 app.get('/users', isLoged, async (req, res) => {
     const data = await People.find({});
 
@@ -240,7 +283,7 @@ app.post('/search', isLoged, async (req, res, next) => {
     usersData.pop();
     searched.pop();
     const user = req.body.username;
-    const data = await User.find({ buyer: { $regex: `${user}`, $options: 'i'  } })
+    const data = await User.find({ buyer: { $regex: `${user}`, $options: 'i' } })
     if (!data.length) {
         req.flash('error', 'Sorry, employee not found.');
         res.redirect('/search');
@@ -255,7 +298,7 @@ app.post('/search', isLoged, async (req, res, next) => {
     }
 });
 
-app.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), async (req, res) => {
+app.post('/login', passport.authenticate('local-people', { failureFlash: true, failureRedirect: '/login' }), async (req, res) => {
     const redirect = req.session.returnTo || '/';
     req.flash('success', 'Successfly loged', req.session.passport.user)
     delete req.session.returnTo;
@@ -387,6 +430,6 @@ app.get('/logout', isLoged, (req, res, next) => {
     });
 });
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 app.listen(port,
     console.log(`listening on ${port}`))

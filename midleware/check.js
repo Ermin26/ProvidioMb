@@ -8,3 +8,4 @@ module.exports.isLoged = (req, res, next) => {
         next();
     }
 }
+

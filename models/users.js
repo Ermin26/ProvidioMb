@@ -9,7 +9,7 @@ const PeopleSchema = new Schema({
     password: String,
     role: {
         type: String,
-        enum: ['admin', 'moderator', 'visitor']
+        enum: ['admin', 'moderator', 'visitor', 'employer']
     }
 });
 
