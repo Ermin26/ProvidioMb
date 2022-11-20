@@ -81,11 +81,11 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use('local-people', new LocalStrategy(People.authenticate()));
-passport.use('local-employee', new LocalStrategy(Employers.authenticate()));
 //! mora bit serializeUser => User obvezno
 passport.serializeUser(People.serializeUser());
-passport.serializeUser(Employers.serializeUser());
 passport.deserializeUser(People.deserializeUser());
+passport.use('local', new LocalStrategy(Employers.authenticate()));
+passport.serializeUser(Employers.serializeUser());
 passport.deserializeUser(Employers.deserializeUser());
 
 
@@ -212,27 +212,47 @@ app.post('/addEmploye', isLoged, async (req, res) => {
 })
 
 let employeeData = []
-app.get('/myData', loged, async (req, res) => {
-    if (!employeeData.length) {
-        res.render('userCheckByHimself')
+app.get('/myData', async (req, res) => {
+    let findedUser = []
+    let employee = employeeData[0]
+    const user = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' } }).limit(1)
+    for (let username of user) {
+        findedUser.pop();
+        findedUser.push(username.buyer)
+    }
+    let newUser = findedUser[0];
+    if (!employee) {
+        res.redirect('/employee')
     } else {
-        let dataOfEmployee = employee.Data[0].slice
-        const employee = await User.find({ buyer: { $regex: `${dataOfEmployee}`, $options: 'i' } })
-        console.log(employee)
-        res.render('userCheckByHimself', { employee })
+        const findedEmployee = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' }, pay: 'false' })
+        res.render('userCheckByHimself', { findedEmployee, newUser })
     }
 })
 
-app.get('/employeesLogIn', loged, async (req, res) => {
-    res.render('employeesLogin');
+app.get('/employee', async (req, res) => {
+    res.render('employeeLogin');
 })
 
-app.post('/employeeLogin', passport.authenticate('local-employee', { failureFlash: true, failureRedirect: '/employeesLogIn' }), async (req, res) => {
-    req.flash('success', 'Sucessfly loged!')
-    employeeData.pop()
-    employeeData.push(req.session.passport.user)
-    res.redirect('/myData')
+app.post('/employee/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/employee' }), async (req, res) => {
+    const redirect = req.session.returnTo || '/myData';
+    req.flash('success', 'Successfully loged', req.session.passport.user)
+    let user = req.session.passport.user;
+    employeeData.pop();
+    employeeData.push(user)
+    delete req.session.returnTo;
+    res.redirect(redirect);
 })
+app.get('/logMeOut', (req, res, next) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        } else {
+            req.flash('success', 'Logged out.');
+            res.redirect('/employee');
+        }
+    });
+});
+
 
 app.get('/users', isLoged, async (req, res) => {
     const data = await People.find({});
@@ -298,9 +318,10 @@ app.post('/search', isLoged, async (req, res, next) => {
     }
 });
 
+
 app.post('/login', passport.authenticate('local-people', { failureFlash: true, failureRedirect: '/login' }), async (req, res) => {
     const redirect = req.session.returnTo || '/';
-    req.flash('success', 'Successfly loged', req.session.passport.user)
+    req.flash('success', 'Successfully loged', req.session.passport.user)
     delete req.session.returnTo;
     res.redirect(redirect)
 })
