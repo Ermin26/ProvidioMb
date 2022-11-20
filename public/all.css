@@ -28,37 +28,40 @@ a {
     #myBtn {
         display: none;
         position: fixed;
-        top: 80px;
-        right: 30px;
+        margin-bottom: 2px;
+        top: 60px;
+        right: 5px;
         z-index: 99;
-        font-size: 18px;
-        border: none;
+        font-size: 36px;
+        border: 1px solid rgb(71, 222, 249);
         outline: none;
-        background-color: red;
-        color: white;
+        background-color: rgba(10, 13, 45, 0.986);
+        color: rgb(71, 222, 249);
         cursor: pointer;
-        padding: 15px;
+        padding: 5px;
         border-radius: 4px;
     }
 
     #bottom {
         display: none;
         position: fixed;
-        top: 150px;
-        right: 30px;
+        top: 125px;
+        right: 5px;
         z-index: 99;
-        font-size: 18px;
-        border: none;
+        font-size: 36px;
+        border: 1px solid rgb(71, 222, 249);
         outline: none;
-        background-color: red;
-        color: white;
+        background-color: rgba(10, 13, 45, 0.986);
+        color: rgb(71, 222, 249);
         cursor: pointer;
-        padding: 15px;
+        padding: 5px;
         border-radius: 4px;
     }
 
-    #myBtn:hover {
-        background-color: #555;
+    #myBtn:hover,
+    #bottom:hover {
+        background-color: rgb(68, 202, 119);
+        color: black;
     }
 }
 
@@ -95,8 +98,6 @@ a {
     #placano,
     #niPlacano {
         display: inline-flex;
-
-
     }
 
     #table-data,
@@ -108,15 +109,22 @@ a {
 
 @media (max-width: 450px) {
     .caption {
-        margin-left: 10px;
+        margin-top: 60px;
+        margin-left: 5px;
     }
 
     #allUsers,
     #placano,
     #niPlacano {
         display: inline-flex;
+        width: 100%;
+        overflow-x: auto;
 
+    }
 
+    #all {
+        width: 100%;
+        overflow-x: auto;
     }
 
     #table-data,
