@@ -287,7 +287,7 @@ app.post('/addCosts', isLoged, async (req, res) => {
 
     const newBill = await new Costs({ date: `${bill.date}`, buyedProducts: `${bill.buyedProducts}`, totalPrice: `${bill.totalPrice}`, bookedDate: `${date}`, bookedUser: req.session.passport.user })
     await newBill.save()
-    res.send(`<h1>Succesfully added new bill.</h1>, ${newBill}`)
+    res.redirect('costs')
 })
 
 app.delete('/costs/:id', isLoged, async (req, res) => {
