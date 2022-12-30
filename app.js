@@ -101,7 +101,7 @@ app.use((req, res, next) => {
 let currentWeek = []
 let checkWeeks = []
 let currentMonth = [];
-let currentYear = [2022];
+
 
 
 
@@ -111,7 +111,11 @@ app.get('/user', isLoged, async (req, res, next) => {
 });
 
 app.get('/', async (req, res) => {
-
+    let currentYear = [];
+    let myYear = await Week.find().select('year -_id');
+    for(let year of myYear){
+        currentYear.push(year.year)
+    }
 
     let datum = new Date();
     let day = datum.getDay();
@@ -153,25 +157,28 @@ app.get('/', async (req, res) => {
         checkWeeks.push(undoWeek);
 
     }
+    if (year != currentYear[0]) {
+        const newBill = 1;
+        const billNew = 1;
+        currentYear.pop();
+        currentYear.push(year);
+        currentMonth.pop();
+        currentMonth.push(month);
+        let updateYear = await Week.findOneAndUpdate({year: `${year}`,week: 1, minusWeek: 1});
+        updateYear.save()
+   }
 
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
 
     if (perYear.length && perMonth.length) {
 
-        const newBill = perYear[0].numPerYear + 1
-        const billNew = perMonth[0].numPerMonth + 1
+        const newBill = perYear[0].numPerYear + 1   || 1;
+        const billNew = perMonth[0].numPerMonth + 1 || 1;
         if (month != currentMonth[0]) {
             const billNew = 1;
             currentMonth.pop();
             currentMonth.push(month);
-
-            if (year != currentYear[0]) {
-                const newBill = 1;
-                currentYear.pop();
-                currentYear.push(year);
-                res.render('index', { date, year, month, newBill, billNew, currentWeek })
-            }
             res.render('index', { date, year, month, newBill, billNew, currentWeek })
         } else {
             return res.render('index', { date, year, month, newBill, billNew, currentWeek })

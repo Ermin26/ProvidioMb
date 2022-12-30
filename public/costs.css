@@ -1,0 +1,120 @@
+a {
+    text-decoration: none;
+}
+
+@media (max-width: 3000px) {
+    #btn-func {
+        margin: 3px;
+    }
+
+    .caption {
+        margin-left: 10px;
+    }
+
+    #bills {
+        display: inline-flex;
+
+
+    }
+
+    #table-data,
+    #table-head {
+        position: sticky;
+        top: 65px;
+    }
+
+    #myBtn {
+        display: none;
+        position: fixed;
+        margin-bottom: 2px;
+        top: 60px;
+        right: 5px;
+        z-index: 99;
+        font-size: 36px;
+        border: 1px solid rgb(71, 222, 249);
+        outline: none;
+        background-color: rgba(10, 13, 45, 0.986);
+        color: rgb(71, 222, 249);
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 4px;
+    }
+
+    #bottom {
+        display: none;
+        position: fixed;
+        top: 125px;
+        right: 5px;
+        z-index: 99;
+        font-size: 36px;
+        border: 1px solid rgb(71, 222, 249);
+        outline: none;
+        background-color: rgba(10, 13, 45, 0.986);
+        color: rgb(71, 222, 249);
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 4px;
+    }
+
+    #myBtn:hover,
+    #bottom:hover {
+        background-color: rgb(68, 202, 119);
+        color: black;
+    }
+}
+
+@media (max-width: 1024px) {
+    #btn-func {
+        margin: 3px;
+    }
+
+    .caption {
+        margin-left: 10px;
+    }
+
+    #bills{
+        display: inline-flex;
+
+
+    }
+
+    #table-data,
+    #table-head {
+        position: sticky;
+        top: 65px;
+    }
+}
+
+@media (max-width: 767px) {
+   
+
+    #bills  {
+        display: inline-flex;
+    }
+
+    #table-data,
+    #table-head {
+        position: sticky;
+        top: 65px;
+    }
+}
+
+@media (max-width: 450px) {
+    #bills {
+        display: inline-flex;
+        width: 100%;
+        overflow-x: auto;
+
+    }
+
+    #tableOfCosts {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #table-data,
+    #table-head {
+        position: sticky;
+        top: 65px;
+    }
+}
