@@ -69,8 +69,8 @@ const sessionConf = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
+        expire: Date.now() + 1000 * 60 * 60 * 24 * 2,
+        maxAge: 2 * 60 * 60 * 24 * 1000,
     }
 }
 
@@ -113,7 +113,7 @@ app.get('/user', isLoged, async (req, res, next) => {
 app.get('/', async (req, res) => {
     let currentYear = [];
     let myYear = await Week.find().select('year -_id');
-    for(let year of myYear){
+    for (let year of myYear) {
         currentYear.push(year.year)
     }
 
@@ -164,16 +164,16 @@ app.get('/', async (req, res) => {
         currentYear.push(year);
         currentMonth.pop();
         currentMonth.push(month);
-        let updateYear = await Week.findOneAndUpdate({year: `${year}`,week: 1, minusWeek: 1});
+        let updateYear = await Week.findOneAndUpdate({ year: `${year}`, week: 1, minusWeek: 1 });
         updateYear.save()
-   }
+    }
 
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
 
     if (perYear.length && perMonth.length) {
 
-        const newBill = perYear[0].numPerYear + 1   || 1;
+        const newBill = perYear[0].numPerYear + 1 || 1;
         const billNew = perMonth[0].numPerMonth + 1 || 1;
         if (month != currentMonth[0]) {
             const billNew = 1;
@@ -185,7 +185,7 @@ app.get('/', async (req, res) => {
         }
     } else {
         currentMonth.push(month)
-        const newBill = perYear[0].numPerYear + 1
+        const newBill = 1;
         const billNew = 1;
         res.render('index', { date, year, month, billNew, newBill, currentWeek })
     }
@@ -241,13 +241,11 @@ app.get('/employee', async (req, res) => {
 })
 
 app.post('/employee/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/employee' }), async (req, res) => {
-    const redirect = req.session.returnTo || '/myData';
     req.flash('success', 'Successfully loged', req.session.passport.user)
     let user = req.session.passport.user;
     employeeData.pop();
     employeeData.push(user)
-    delete req.session.returnTo;
-    res.redirect(redirect);
+    res.redirect('/myData');
 })
 app.get('/logMeOut', (req, res, next) => {
     req.logout(function (err) {
@@ -282,7 +280,6 @@ app.get('/costs', isLoged, async (req, res) => {
     if (!allCosts.length) {
         res.render('costs', { allCosts })
     } else {
-        console.log(allCosts)
         res.render('costs', { allCosts })
     }
 })
@@ -326,9 +323,9 @@ app.post('/search', isLoged, async (req, res, next) => {
 });
 
 
-app.post('/login', passport.authenticate('local-people', { failureFlash: true, failureRedirect: '/login' }), async (req, res) => {
+app.post('/login', passport.authenticate('local-people', { failureFlash: true, failureRedirect: '/login', keepSessionInfo: true }), async (req, res) => {
     const redirect = req.session.returnTo || '/';
-    req.flash('success', 'Successfully loged', req.session.passport.user)
+    req.flash('success', 'Successfully loged', req.user.username, 'Role:', req.user.role)
     delete req.session.returnTo;
     res.redirect(redirect)
 })
@@ -384,7 +381,7 @@ app.get('/all', isLoged, async (req, res) => {
 
     let datum = new Date();
     let month = datum.getMonth() + 1;
-    const userData = await User.find({}).sort({ "numPerYear": "ascending" });
+    const userData = await User.find({}).sort({ "year": "ascending" });
     const yearNum = await User.find({}).sort({ "numPerYear": "descending" }).limit(1)
     const payData = await User.find({ pay: 'true' })
     const notPayData = await User.find({ pay: 'false' }).sort({ "kt": "descending" });
@@ -423,7 +420,6 @@ app.get('/all/:id/edit', isLoged, async (req, res) => {
 app.put('/all/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const user = await User.findByIdAndUpdate(id, { ...req.body.user });
-    console.log(user)
     await user.save();
     req.flash('success', 'User data was successfully updated.');
     res.redirect(`/all/${user._id}`)
