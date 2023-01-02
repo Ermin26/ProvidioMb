@@ -275,12 +275,22 @@ app.get('/search', isLoged, async (req, res) => {
     res.render('search', { usersData, searched });
 });
 
-app.get('/costs', isLoged, async (req, res) => {
+//isLoged,
+app.get('/costs', async (req, res) => {
+    let payed = [];
     const allCosts = await Costs.find({})
+    const payData = await User.find({ pay: 'true' })
+    for (info of payData) {
+        for (productPrice of info.products) {
+            for (price of productPrice.total) {
+                payed.push(price)
+            }
+        }
+    }
     if (!allCosts.length) {
         res.render('costs', { allCosts })
     } else {
-        res.render('costs', { allCosts })
+        res.render('costs', { allCosts, payData, payed })
     }
 })
 
@@ -325,7 +335,7 @@ app.post('/search', isLoged, async (req, res, next) => {
 
 app.post('/login', passport.authenticate('local-people', { failureFlash: true, failureRedirect: '/login', keepSessionInfo: true }), async (req, res) => {
     const redirect = req.session.returnTo || '/';
-    req.flash('success', 'Successfully loged', req.user.username, 'Role:', req.user.role)
+    req.flash('success', 'Successfully loged', req.user.username, '.', 'Your Role is:', req.user.role)
     delete req.session.returnTo;
     res.redirect(redirect)
 })
