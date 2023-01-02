@@ -276,7 +276,7 @@ app.get('/search', isLoged, async (req, res) => {
 });
 
 //isLoged,
-app.get('/costs', async (req, res) => {
+app.get('/costs', isLoged, async (req, res) => {
     let payed = [];
     const allCosts = await Costs.find({})
     const payData = await User.find({ pay: 'true' })
