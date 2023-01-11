@@ -101,31 +101,23 @@ app.use((req, res, next) => {
 let currentWeek = []
 let checkWeeks = []
 let currentMonth = [];
+let currentYear = [];
+let datum = new Date();
+let day = datum.getDay();
 
+let weekUpdate = 1;
+let deleteUpdate = 0;
+let todayDate = new Date();
+let date = todayDate.toLocaleDateString()
+let year = todayDate.getFullYear()
+let month = todayDate.getMonth() + 1;
 
-
-
-app.get('/user', isLoged, async (req, res, next) => {
-    const user = req.user;
-    res.send(user.role)
-});
-
-app.get('/', async (req, res) => {
-    let currentYear = [];
+//! -------------------------
+async function checkDetails() {
     let myYear = await Week.find().select('year -_id');
     for (let year of myYear) {
         currentYear.push(year.year)
     }
-
-    let datum = new Date();
-    let day = datum.getDay();
-
-    let weekUpdate = 1;
-    let deleteUpdate = 0;
-    let todayDate = new Date();
-    let date = todayDate.toLocaleDateString()
-    let year = todayDate.getFullYear()
-    let month = todayDate.getMonth() + 1;
 
     let weekCurent = await Week.find();
     for (weeks of weekCurent) {
@@ -167,6 +159,18 @@ app.get('/', async (req, res) => {
         let updateYear = await Week.findOneAndUpdate({ year: `${year}`, week: 1, minusWeek: 1 });
         updateYear.save()
     }
+}
+checkDetails();
+//! -------------------------
+
+
+app.get('/user', isLoged, async (req, res, next) => {
+    const user = req.user;
+    res.send(user.role)
+});
+
+app.get('/', async (req, res) => {
+
 
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
@@ -391,7 +395,7 @@ app.get('/all', isLoged, async (req, res) => {
 
     let datum = new Date();
     let month = datum.getMonth() + 1;
-    const userData = await User.find({}).sort({ "year": "ascending" });
+    const userData = await User.find({}).sort({ "year": "descending" });
     const yearNum = await User.find({}).sort({ "numPerYear": "descending" }).limit(1)
     const payData = await User.find({ pay: 'true' })
     const notPayData = await User.find({ pay: 'false' }).sort({ "kt": "descending" });

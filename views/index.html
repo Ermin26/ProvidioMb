@@ -17,38 +17,31 @@
 <body>
 
 
-    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light sticky-top">
+    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light mb-2">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">New Bill</a>
+            <a class="navbar-brand border-bottom border-3 rounded-bottom border-light" href="/">New Bill</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav w-100">
-                    <li class="nav-item ms-2">
-                        <a class="nav-link" aria-current="page" href="/all"><button class="btn btn-primary">All
-                                Bills</button></a>
+            <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
+                <ul class="navbar-nav d-flex w-100">
+                    <li class="nav-item ms-2 mt-1">
+                        <a href="/all"><button class="btn btn-primary" id="btn-func">All bills</button></a>
                     </li>
-                    <li class="nav-item ms-2 mt-2">
+
+                    <li class="nav-item ms-2 mt-1">
                         <a href="/search"><button class="btn btn-info" id="btn-func"><strong>Search
                                     User</strong></button></a>
                     </li>
-                    <li class="nav-item ms-2 mt-2">
+                    <li class="nav-item ms-2 mt-1">
                         <a href="/costs"><button class="btn btn-danger"
                                 id="btn-func"><strong>Costs</strong></button></a>
                     </li>
-                    <% if(!currentUser) {%>
-                        <li class="nav-item ms-auto">
-                            <a class="nav-link" href="/login"><button class="btn btn-info">Log in</button></a>
-                        </li>
-                        <% }else { %>
-
-                            <li class="nav-item ms-auto">
-                                <a class="nav-link" href="/logout"><button
-                                        class="btn btn-outline-info">Logout</button></a>
-                            </li>
-                            <% } %>
+                    <li class="nav-item ms-auto">
+                        <a class="nav-link" href="/logout"><button class="btn btn-outline-info ms-1"> Log
+                                out</button></a>
+                    </li>
                 </ul>
             </div>
         </div>

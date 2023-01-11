@@ -72,23 +72,24 @@ a {
         margin-left: 10px;
     }
 
-    #bills{
+    #bills {
         display: inline-flex;
 
 
     }
 
     #table-data,
-    #table-head {
+    #table-head,
+    #costsInfo {
         position: sticky;
         top: 65px;
     }
 }
 
 @media (max-width: 767px) {
-   
 
-    #bills  {
+
+    #bills {
         display: inline-flex;
     }
 
