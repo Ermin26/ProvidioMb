@@ -296,6 +296,7 @@ app.get('/costs', isLoged, async (req, res) => {
     } else {
         res.render('costs', { allCosts, payData, payed })
     }
+
 })
 
 app.post('/addCosts', isLoged, async (req, res) => {

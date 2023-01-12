@@ -155,7 +155,7 @@
                 <% for(price of payed) {%>
                     <tr>
                         <td>
-                            <%= price %>
+                            <%= price%>
                         </td>
                     </tr>
                     <% } %>
@@ -177,8 +177,8 @@
         if (totalTable.rows.length) {
             let tableRows = totalTable.rows.length - 1;
             let cash = 0;
-            for (let j = 2; j < tableRows; j++) {
-                var y = totalTable.rows[j].innerText;
+            for (let j = 2; j <= tableRows; j++) {
+                var y = totalTable.rows[j].cells[0].innerText;
                 cash += parseFloat(y, 10);
             }
             document.getElementById("payed").innerText = cash.toFixed(2);
@@ -190,12 +190,10 @@
         if (myTable.rows.length) {
             let rows = myTable.rows.length - 1
             let pay = 0;
-            let num = 0
             for (let i = 2; i < rows; i++) {
                 var x = myTable.rows[i].cells[2].innerHTML
                 pay += parseFloat(x, 10);
             }
-            //console.log(myTable.rows[2].innerHTML, ' yooo')
             let number = 0;
             for (let j = 2; j < rows; j++) {
                 number += 1
@@ -211,7 +209,8 @@
 
         let spended = document.getElementById('spended').innerText;
         let payed = document.getElementById('payed').innerText;
-        document.getElementById('cash').innerHTML = parseFloat(payed) - parseFloat(spended);
+        let cash = parseFloat(payed) - parseFloat(spended)
+        document.getElementById('cash').innerHTML = cash.toFixed(2);
         document.getElementById('cash').style.color = 'white';
         document.getElementById('cash').style.backgroundColor = 'green';
     </script>
