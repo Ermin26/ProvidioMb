@@ -22,29 +22,56 @@
             </button>
             <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
                 <ul class="navbar-nav d-flex w-100">
-                    <li id="vsi" class="nav-item ms-1 mt-1">
-                        <button class="btn btn-primary" id="btn-func" onclick="allBills()">All bills</button>
+                    <li id="vsi" class="nav-item ms-1 mt-2">
+                        <button class="btn btn-primary p-1" id="btn-func" onclick="allBills()">All bills</button>
                     </li>
 
-                    <li id="placali" class="nav-item ms-1 mt-1">
-                        <button class="btn btn-success" id="btn-func" onclick="payedBills()">Payed</button>
+                    <li id="placali" class="nav-item ms-1 mt-2">
+                        <button class="btn btn-success p-1" id="btn-func" onclick="payedBills()">Payed</button>
                     </li>
-                    <li id="nePlacali" class="nav-item ms-1 mt-1">
-                        <button class="btn btn-danger" id="btn-func" onclick="notPayedBills()">Not Payed</button>
+                    <li id="nePlacali" class="nav-item ms-1 mt-2">
+                        <button class="btn btn-danger p-1" id="btn-func" onclick="notPayedBills()">Not Payed</button>
                     </li>
                     </li>
-                    <li class="nav-item ms-1 mt-1">
-                        <a href="/search"><button class="btn btn-info" id="btn-func"><strong>Search
+                    <li class="nav-item ms-1 mt-2">
+                        <a href="/search"><button class="btn btn-info p-1" id="btn-func"><strong>Search
                                     User</strong></button></a>
                     </li>
-                    <li class="nav-item ms-1 mt-1">
-                        <a href="/costs"><button class="btn btn-danger"
+                    <li class="nav-item ms-1 mt-2">
+                        <a href="/costs"><button class="btn btn-danger p-1"
                                 id="btn-func"><strong>Costs</strong></button></a>
                     </li>
-                    <li class="nav-item ms-auto">
-                        <a class="nav-link" href="/logout"><button class="btn btn-outline-info ms-1"> Log
-                                out</button></a>
-                    </li>
+                    <% if(currentUser) {%>
+                        <% if(currentUser.role=='admin' || currentUser.role=='moderator' ) {%>
+                            <li class="nav-item ms-2 mt-2">
+                                <a href="/add"><button class="btn btn-success p-1" id="btn-func"><strong>Add
+                                            employee</strong></button></a>
+                            </li>
+                            <li class="nav-item ms-2 mt-2">
+                                <a href="/add"><button class="btn btn-success p-1" id="btn-func"><strong>All
+                                            employee/Users</strong></button></a>
+                            </li>
+                            <% } %>
+                                </li>
+                                <% if(currentUser.role=='admin' ) {%>
+                                    <li class="nav-item ms-2 mt-2">
+                                        <a href="/register"><button class="btn btn-success p-1"
+                                                id="btn-func"><strong>Add
+                                                    user</strong></button></a>
+                                    </li>
+                                    <% } %>
+                                        <li class="nav-item ms-auto mt-1">
+                                            <a class="nav-link" href="/logout"><button
+                                                    class="btn btn-outline-info ms-1 p-1"> Log
+                                                    out</button></a>
+                                        </li>
+                                        <% }else {%>
+                                            <li class="nav-item ms-auto mt-1">
+                                                <a class="nav-link" href="/login"><button
+                                                        class="btn btn-outline-info ms-1 p-1"> Log
+                                                        In</button></a>
+                                            </li>
+                                            <% } %>
                 </ul>
             </div>
         </div>

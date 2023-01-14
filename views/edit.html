@@ -13,237 +13,212 @@
 
 <body style="background-color: rgb(4, 1, 30);">
 
-    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">New Bill</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav w-100">
-                    <li class="nav-item ms-2">
-                        <a class="nav-link" aria-current="page" href="/all"><button class="btn btn-primary"> All
-                                Bills</button></a>
-                    </li>
-                    <li class="nav-item ms-2 mt-2">
-                        <a href="/search"><button class="btn btn-info" id="btn-func"><strong>Search
-                                    User</strong></button></a>
-                    </li>
-                    <li class="nav-item ms-3 mt-2">
-                        <a href="/costs"><button class="btn btn-danger"
-                                id="btn-func"><strong>Costs</strong></button></a>
-                    </li>
-                    <li class="nav-item ms-auto">
-                        <a class="nav-link" href="/logout"><button class="btn btn-outline-info">Log out</button></a>
-                    </li>
-                </ul>
-            </div>
+    <%- include('../layouts/boilerplate.ejs') %>
+
+        <div class="text-center mt-3">
+            <h1 class="text-info">Edit data of user:</h1>
+            <h2 class=" fs-2 text-primary">
+                <%= user.buyer %>
+            </h2>
         </div>
-    </nav>
+        <div id="container" class="container justify-content-center">
 
-    <div class="text-center mt-3">
-        <h1 class="text-info">Edit data of user:</h1>
-        <h2 class=" fs-2 text-primary">
-            <%= user.buyer %>
-        </h2>
-    </div>
-    <div id="container" class="container justify-content-center">
-
-        <div id="tableData" class="buyed-products">
-            <h3 class="ms-5 mt-5 mb-2">Buyed products</h3>
-            <table class="table table-dark table-hover">
-                <thead>
-                    <th>Product</th>
-                    <th>Qty</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                    <th>1<sup>/</sup>Week</th>
-                    <th>Payed</th>
-                </thead>
-                <tbody>
-                    <% for(let product of user.products) { %>
-                        <tr>
-                            <td>
-                                <%= product.name %>
-                            </td>
-                            <td>
-                                <%= product.qty %>
-                            </td>
-                            <td>
-                                <%= product.price %> &euro;
-                            </td>
-                            <td>
-                                <%= product.total %> &euro;
-                            </td>
-                            <td>
-                                <% if(product.firstOfWeek=='true' ){ %>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                                        class="bi bi-check2-square bg-success" viewBox="0 0 16 16">
-                                        <path
-                                            d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                        <path
-                                            d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                    </svg>
-                                    <% } else { %>
+            <div id="tableData" class="buyed-products">
+                <h3 class="ms-5 mt-5 mb-2">Buyed products</h3>
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>1<sup>/</sup>Week</th>
+                        <th>Payed</th>
+                    </thead>
+                    <tbody>
+                        <% for(let product of user.products) { %>
+                            <tr>
+                                <td>
+                                    <%= product.name %>
+                                </td>
+                                <td>
+                                    <%= product.qty %>
+                                </td>
+                                <td>
+                                    <%= product.price %> &euro;
+                                </td>
+                                <td>
+                                    <%= product.total %> &euro;
+                                </td>
+                                <td>
+                                    <% if(product.firstOfWeek=='true' ){ %>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                            fill="currentColor" class="bi bi-check2-square bg-danger"
+                                            fill="currentColor" class="bi bi-check2-square bg-success"
                                             viewBox="0 0 16 16">
                                             <path
                                                 d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
                                             <path
                                                 d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
                                         </svg>
-                                        <% } %>
-                            </td>
-                            <td>
-                                <% if(user.pay=='true' ){ %>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                                        class="bi bi-check2-square bg-success" viewBox="0 0 16 16">
-                                        <path
-                                            d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                        <path
-                                            d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                    </svg>
-                                    <% } else { %>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                            fill="currentColor" class="bi bi-check2-square bg-danger"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                            <path
-                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                        </svg>
-                                        <% } %>
-                            </td>
-
-                        </tr>
-                        <% } %>
-                </tbody>
-            </table>
-
-        </div>
-
-
-
-        <div class="row d-flex justify-content-center text-center mt-5 mb-5">
-            <div class="col-8" id="col">
-                <div class="card justify-content-cente text-center">
-                    <form action="/all/<%= user._id %>?_method=PUT" method="POST">
-                        <div class="card-header text-center">
-                            <img src="https://flamingoshop.si/images/5f3d715197018.jpeg" class="card-img-top" alt="..."
-                                style="width: 15rem; height: 10rem">
-                        </div>
-                        <div class="card-body justify-content-cente" id="card-body">
-
-                            <ul
-                                class="list-group list-group-flush col flex-row flex-wrap justify-content-center align-content-center">
-
-                                <li id="list" class="list-group-item col-6">
-                                    <label for="pay">Payed:</label><br>
-                                    <% if(user.pay=='true' ){ %>
-                                        <input type="checkbox" id="pay" name="user[pay]" class="form-check-input"
-                                            value="" checked onclick="update()">
-                                        <input type="checkbox" id="pay2" name="user[pay]" class="form-check-input"
-                                            value="false">
                                         <% } else { %>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                fill="currentColor" class="bi bi-check2-square bg-danger"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                                <path
+                                                    d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                            </svg>
+                                            <% } %>
+                                </td>
+                                <td>
+                                    <% if(user.pay=='true' ){ %>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                            fill="currentColor" class="bi bi-check2-square bg-success"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                            <path
+                                                d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                        </svg>
+                                        <% } else { %>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                fill="currentColor" class="bi bi-check2-square bg-danger"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                                <path
+                                                    d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                            </svg>
+                                            <% } %>
+                                </td>
+
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+
+            <div class="row d-flex justify-content-center text-center mt-5 mb-5">
+                <div class="col-8" id="col">
+                    <div class="card justify-content-cente text-center">
+                        <form action="/all/<%= user._id %>?_method=PUT" method="POST">
+                            <div class="card-header text-center">
+                                <img src="https://flamingoshop.si/images/5f3d715197018.jpeg" class="card-img-top"
+                                    alt="..." style="width: 15rem; height: 10rem">
+                            </div>
+                            <div class="card-body justify-content-cente" id="card-body">
+
+                                <ul
+                                    class="list-group list-group-flush col flex-row flex-wrap justify-content-center align-content-center">
+
+                                    <li id="list" class="list-group-item col-6">
+                                        <label for="pay">Payed:</label><br>
+                                        <% if(user.pay=='true' ){ %>
                                             <input type="checkbox" id="pay" name="user[pay]" class="form-check-input"
-                                                value="" onclick="update()">
+                                                value="" checked onclick="update()">
                                             <input type="checkbox" id="pay2" name="user[pay]" class="form-check-input"
                                                 value="false">
+                                            <% } else { %>
+                                                <input type="checkbox" id="pay" name="user[pay]"
+                                                    class="form-check-input" value="" onclick="update()">
+                                                <input type="checkbox" id="pay2" name="user[pay]"
+                                                    class="form-check-input" value="false">
 
-                                            <% } %>
-                                </li>
+                                                <% } %>
+                                    </li>
 
-                                <li id="list" class="list-group-item col-6"><label for="kt">Koledarski
-                                        teden:</label> <br>
-                                    <input type="text" id="kt" class="fs-5 text-dark col-6" name="user[kt]"
-                                        value="<%= user.kt %> " required>
-                                </li>
+                                    <li id="list" class="list-group-item col-6"><label for="kt">Koledarski
+                                            teden:</label> <br>
+                                        <input type="text" id="kt" class="fs-5 text-dark col-6" name="user[kt]"
+                                            value="<%= user.kt %> " required>
+                                    </li>
 
-                                <li id="list" class="list-group-item col-6">
-                                    <label for="perMonth">Num / Month:</label> <br>
-                                    <input type="text" id="perMonth" class="fs-5 text-dark col-6"
-                                        name="user[numPerMonth]" value="<%= user.numPerMonth %>">
-                                </li>
+                                    <li id="list" class="list-group-item col-6">
+                                        <label for="perMonth">Num / Month:</label> <br>
+                                        <input type="text" id="perMonth" class="fs-5 text-dark col-6"
+                                            name="user[numPerMonth]" value="<%= user.numPerMonth %>">
+                                    </li>
 
-                                <li id="list" class="list-group-item col-6">
-                                    <label for="month">Month:</label> <br>
-                                    <input type="text" id="month" class="fs-5 text-dark bg-light col-6"
-                                        value="<%= user.month %>" name="user[month]">
-                                </li>
+                                    <li id="list" class="list-group-item col-6">
+                                        <label for="month">Month:</label> <br>
+                                        <input type="text" id="month" class="fs-5 text-dark bg-light col-6"
+                                            value="<%= user.month %>" name="user[month]">
+                                    </li>
 
-                                <li id="list" class="list-group-item col-6">
-                                    <label for="perYear">Num / Year:</label> <br>
-                                    <input type="text" id="perYears" class="fs-5 text-dark col-6"
-                                        value="<%= user.numPerYear %>" name="user[numPerYear]">
-                                </li>
+                                    <li id="list" class="list-group-item col-6">
+                                        <label for="perYear">Num / Year:</label> <br>
+                                        <input type="text" id="perYears" class="fs-5 text-dark col-6"
+                                            value="<%= user.numPerYear %>" name="user[numPerYear]">
+                                    </li>
 
-                                <li id="list" class="list-group-item col-6">
-                                    <label for="year">Year:</label> <br>
-                                    <input type="text" id="year" class="fs-5 text-dark col-6" value="<%= user.year %>"
-                                        name="user[year]">
-                                </li>
-
-
-                                <li id="list" class="list-group-item col-6">
-                                    <label for="soldDate">Sold Date:</label> <br>
-                                    <input type="text" id="soldDate" class="fs-5 text-dark col-6"
-                                        value="<%= user.soldDate %>" name="user[soldDate]">
-                                </li>
-                                <li id="list" class="list-group-item col-6">
-                                    <label for="payDate">Pay Date:</label> <br>
-                                    <input type="text" id="payDate" class="fs-5 text-dark col-6"
-                                        value="<%= user.payDate %>" name="user[payDate]">
-                                </li>
+                                    <li id="list" class="list-group-item col-6">
+                                        <label for="year">Year:</label> <br>
+                                        <input type="text" id="year" class="fs-5 text-dark col-6"
+                                            value="<%= user.year %>" name="user[year]">
+                                    </li>
 
 
-                                <li id="list" class="list-group-item col-6">
-                                    <label for="izdal">Izdal:</label> <br>
-                                    <input type="text" id="izdal" class="fs-5 text-dark col-6" value="<%= user.izdal %>"
-                                        name="user[izdal]">
-                                </li>
+                                    <li id="list" class="list-group-item col-6">
+                                        <label for="soldDate">Sold Date:</label> <br>
+                                        <input type="text" id="soldDate" class="fs-5 text-dark col-6"
+                                            value="<%= user.soldDate %>" name="user[soldDate]">
+                                    </li>
+                                    <li id="list" class="list-group-item col-6">
+                                        <label for="payDate">Pay Date:</label> <br>
+                                        <input type="text" id="payDate" class="fs-5 text-dark col-6"
+                                            value="<%= user.payDate %>" name="user[payDate]">
+                                    </li>
 
-                            </ul>
-                        </div>
 
-                        <div class="card-footer d-flex mt-2 mb-2 justify-content-evenly">
-                            <button class="btn btn-outline-primary" onclick="update()">Submit</button>
+                                    <li id="list" class="list-group-item col-6">
+                                        <label for="izdal">Izdal:</label> <br>
+                                        <input type="text" id="izdal" class="fs-5 text-dark col-6"
+                                            value="<%= user.izdal %>" name="user[izdal]">
+                                    </li>
 
-                            <a href="/all/<%= user._id %> " class="card-link d-inline btn btn-warning"><strong
-                                    class="text-dark">Go
-                                    Back</strong></a>
-                        </div>
-                    </form>
+                                </ul>
+                            </div>
+
+                            <div class="card-footer d-flex mt-2 mb-2 justify-content-evenly">
+                                <button class="btn btn-outline-primary" onclick="update()">Submit</button>
+
+                                <a href="/all/<%= user._id %> " class="card-link d-inline btn btn-warning"><strong
+                                        class="text-dark">Go
+                                        Back</strong></a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+
             </div>
 
-        </div>
 
 
 
+            <script>
+                document.getElementById('pay2').style.display = 'none';
+                //document.getElementById('hiddenInput').style.display = 'none';
+                function update() {
+                    let payed = document.getElementById('pay');
+                    if (payed.checked) {
+                        document.getElementById('pay').setAttribute('value', 'true');
+                        document.getElementById('pay').checked = true;
+                    } else {
+                        document.getElementById('pay2').setAttribute('value', 'false');
+                        document.getElementById('pay2').checked = true;
+                    }
 
-        <script>
-            document.getElementById('pay2').style.display = 'none';
-            //document.getElementById('hiddenInput').style.display = 'none';
-            function update() {
-                let payed = document.getElementById('pay');
-                if (payed.checked) {
-                    document.getElementById('pay').setAttribute('value', 'true');
-                    document.getElementById('pay').checked = true;
-                } else {
-                    document.getElementById('pay2').setAttribute('value', 'false');
-                    document.getElementById('pay2').checked = true;
                 }
-
-            }
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-            integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-            crossorigin="anonymous"></script>
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+                integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+                integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+                crossorigin="anonymous"></script>
 
 </body>
 

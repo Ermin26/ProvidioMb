@@ -15,211 +15,183 @@
 </head>
 
 <body>
-    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light mb-2">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">New Bill</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
-                <ul class="navbar-nav d-flex w-100">
-                    <li class="nav-item ms-2 mt-1">
-                        <a href="/all"><button class="btn btn-primary" id="btn-func">All bills</button></a>
-                    </li>
+    <%- include('../layouts/boilerplate.ejs') %>
 
-                    <li class="nav-item ms-2 mt-1">
-                        <a href="/search"><button class="btn btn-info" id="btn-func"><strong>Search
-                                    User</strong></button></a>
-                    </li>
-                    <li class="nav-item ms-2 mt-1 border-bottom border-3 rounded-bottom border-danger">
-                        <a href="/costs"><button class="btn btn-danger"
-                                id="btn-func"><strong>Costs</strong></button></a>
-                    </li>
-                    <li class="nav-item ms-auto">
-                        <a class="nav-link" href="/logout"><button class="btn btn-outline-info ms-1"> Log
-                                out</button></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- <div class="container text-center">-->
-    <div class="row row-cols-2">
-        <div class="col-8 text-center">
-            <div class="addBills mt-5 mb-5">
-                <button class="btn btn-primary" onclick="showInputForm()">Add new bill</button>
-            </div>
-            <div id="hideMe">
-                <div id="addBillForm" class="col d-flex bg-info justify-content-center">
-                    <form action="/addCosts" method="post">
-                        <div class="mb-2 text-center">
-                            <label for="date" class="form-label">Bill Date:</label><br>
-                            <input type="date" id="date" class="form-control text-center" name="date"
-                                placeholder="Enter Bill date" required>
-                        </div>
-
-                        <div class="mb-2 col">
-                            <label for="buyedProducts" class="form-label">Buyed products:</label>
-                            <textarea type="text" id="buyedProducts" class="form-control text-center"
-                                name="buyedProducts" placeholder="Enter buyed products" required></textarea>
-                        </div>
-
-                        <div class="mb-2">
-                            <label for="totalPrice" class="form-label">Price:</label>
-                            <input type="text" id="totalPrice" class="form-control text-center" name="totalPrice"
-                                placeholder="Enter total price &euro;" required>
-                        </div>
-
-                        <button class="btn btn-success mt-4 mb-4">Submit</button>
-                    </form>
+        <!-- <div class="container text-center">-->
+        <div class="row row-cols-2">
+            <div class="col-8 text-center">
+                <div class="addBills mt-5 mb-5">
+                    <button class="btn btn-primary" onclick="showInputForm()">Add new bill</button>
                 </div>
-            </div>
+                <div id="hideMe">
+                    <div id="addBillForm" class="col d-flex bg-info justify-content-center">
+                        <form action="/addCosts" method="post">
+                            <div class="mb-2 text-center">
+                                <label for="date" class="form-label">Bill Date:</label><br>
+                                <input type="date" id="date" class="form-control text-center" name="date"
+                                    placeholder="Enter Bill date" required>
+                            </div>
 
-            <% if(!allCosts.length) {%>
-                <h1>Nothing to show yet. Add some bills.</h1>
-                <% }else {%>
-                    <div class="header mt-3 text-center">
-                        <h1>Bills from using company money</h1>
+                            <div class="mb-2 col">
+                                <label for="buyedProducts" class="form-label">Buyed products:</label>
+                                <textarea type="text" id="buyedProducts" class="form-control text-center"
+                                    name="buyedProducts" placeholder="Enter buyed products" required></textarea>
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="totalPrice" class="form-label">Price:</label>
+                                <input type="text" id="totalPrice" class="form-control text-center" name="totalPrice"
+                                    placeholder="Enter total price &euro;" required>
+                            </div>
+
+                            <button class="btn btn-success mt-4 mb-4">Submit</button>
+                        </form>
                     </div>
+                </div>
 
-                    <div id="bills">
+                <% if(!allCosts.length) {%>
+                    <h1>Nothing to show yet. Add some bills.</h1>
+                    <% }else {%>
+                        <div class="header mt-3 text-center">
+                            <h1>Bills from using company money</h1>
+                        </div>
 
-                        <table id="tableOfCosts" class="table table-dark table-hover">
-                            <tr>
-                                <thead id="table-data">
-                                    <th>#</th>
-                                    <th>Bill date</th>
-                                    <th>Total price &euro;</th>
-                                    <th>Buyed</th>
-                                    <th>Booked date</th>
-                                    <th>Booked by user</th>
-                                    <th class="bg-danger">WARNING</th>
-                                </thead>
-                            </tr>
-                            <% for(data of allCosts) {%>
+                        <div id="bills">
+
+                            <table id="tableOfCosts" class="table table-dark table-hover">
                                 <tr>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        <%= data.date %>
-                                    </td>
-                                    <td>
-                                        <%= data.totalPrice %>
-                                    </td>
-                                    <td>
-                                        <%= data.buyedProducts %>
-
-                                    </td>
-                                    <td>
-                                        <%= data.bookedDate %>
-                                    </td>
-                                    <td>
-                                        <%= data.bookedUser %>
-                                    </td>
-                                    <td>
-                                        <form action="/costs/<%= data._id%>/?_method=DELETE" method="post">
-                                            <button class="btn btn-danger btn-sm">DELETE</button>
-                                        </form>
-                                    </td>
+                                    <thead id="table-data">
+                                        <th>#</th>
+                                        <th>Bill date</th>
+                                        <th>Total price &euro;</th>
+                                        <th>Buyed</th>
+                                        <th>Booked date</th>
+                                        <th>Booked by user</th>
+                                        <th class="bg-danger">WARNING</th>
+                                    </thead>
                                 </tr>
-                                <% } %>
+                                <% for(data of allCosts) {%>
                                     <tr>
-                                        <td>Total spend:</td>
-                                        <td></td>
-                                        <td id="spend" class="bg-danger"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>
+
+                                        </td>
+                                        <td>
+                                            <%= data.date %>
+                                        </td>
+                                        <td>
+                                            <%= data.totalPrice %>
+                                        </td>
+                                        <td>
+                                            <%= data.buyedProducts %>
+
+                                        </td>
+                                        <td>
+                                            <%= data.bookedDate %>
+                                        </td>
+                                        <td>
+                                            <%= data.bookedUser %>
+                                        </td>
+                                        <td>
+                                            <form action="/costs/<%= data._id%>/?_method=DELETE" method="post">
+                                                <button class="btn btn-danger btn-sm">DELETE</button>
+                                            </form>
+                                        </td>
                                     </tr>
+                                    <% } %>
+                                        <tr>
+                                            <td>Total spend:</td>
+                                            <td></td>
+                                            <td id="spend" class="bg-danger"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
 
-                        </table>
-                        <% } %>
-                    </div>
-        </div>
-
-        <div class="col-4">
-            <div class="total mt-5 text-start" id="costsInfo">
-                <h4 class="mt-2 mb-2"> Total Payed: <strong id="payed" class="ms-3"> </strong> &euro;</h4>
-                <h4 class="mt-2 mb-2">Total Spend: <strong id="spended" class="ms-3"></strong> &euro;</h4>
-                <h2 class="mt-2 mb-2">Total Cash: <strong id="cash" class=""></strong> &euro;</h2>
+                            </table>
+                            <% } %>
+                        </div>
             </div>
-            <table id="hide">
-                <tr>
-                    <thead>
-                        <th>Price</th>
-                    </thead>
-                </tr>
-                <% for(price of payed) {%>
+
+            <div class="col-4">
+                <div class="total mt-5 text-start" id="costsInfo">
+                    <h4 class="mt-2 mb-2"> Total Payed: <strong id="payed" class="ms-3"> </strong> &euro;</h4>
+                    <h4 class="mt-2 mb-2">Total Spend: <strong id="spended" class="ms-3"></strong> &euro;</h4>
+                    <h2 class="mt-2 mb-2">Total Cash: <strong id="cash" class=""></strong> &euro;</h2>
+                </div>
+                <table id="hide">
                     <tr>
-                        <td>
-                            <%= price%>
-                        </td>
+                        <thead>
+                            <th>Price</th>
+                        </thead>
                     </tr>
-                    <% } %>
-            </table>
+                    <% for(price of payed) {%>
+                        <tr>
+                            <td>
+                                <%= price%>
+                            </td>
+                        </tr>
+                        <% } %>
+                </table>
+            </div>
         </div>
-    </div>
-    <!-- </div> -->
+        <!-- </div> -->
 
 
-    <script>
+        <script>
 
-        document.getElementById("hideMe").style.display = "none";
-        document.getElementById("hide").style.display = "none";
-        function showInputForm() {
-            document.getElementById("hideMe").style.display = "block";
-        }
-
-        let totalTable = document.getElementById('hide')
-        if (totalTable.rows.length) {
-            let tableRows = totalTable.rows.length - 1;
-            let cash = 0;
-            for (let j = 2; j <= tableRows; j++) {
-                var y = totalTable.rows[j].cells[0].innerText;
-                cash += parseFloat(y, 10);
+            document.getElementById("hideMe").style.display = "none";
+            document.getElementById("hide").style.display = "none";
+            function showInputForm() {
+                document.getElementById("hideMe").style.display = "block";
             }
-            document.getElementById("payed").innerText = cash.toFixed(2);
-            document.getElementById("payed").style.color = 'white'
-            document.getElementById("payed").style.backgroundColor = 'lightgreen'
-        }
 
-        let myTable = document.getElementById('tableOfCosts')
-        if (myTable.rows.length) {
-            let rows = myTable.rows.length - 1
-            let pay = 0;
-            for (let i = 2; i < rows; i++) {
-                var x = myTable.rows[i].cells[2].innerHTML
-                pay += parseFloat(x, 10);
+            let totalTable = document.getElementById('hide')
+            if (totalTable.rows.length) {
+                let tableRows = totalTable.rows.length - 1;
+                let cash = 0;
+                for (let j = 2; j <= tableRows; j++) {
+                    var y = totalTable.rows[j].cells[0].innerText;
+                    cash += parseFloat(y, 10);
+                }
+                document.getElementById("payed").innerText = cash.toFixed(2);
+                document.getElementById("payed").style.color = 'white'
+                document.getElementById("payed").style.backgroundColor = 'lightgreen'
             }
-            let number = 0;
-            for (let j = 2; j < rows; j++) {
-                number += 1
-                myTable.rows[j].cells[0].innerHTML = number;
 
-                //document.getElementById('num').innerText = j
+            let myTable = document.getElementById('tableOfCosts')
+            if (myTable.rows.length) {
+                let rows = myTable.rows.length - 1
+                let pay = 0;
+                for (let i = 2; i < rows; i++) {
+                    var x = myTable.rows[i].cells[2].innerHTML
+                    pay += parseFloat(x, 10);
+                }
+                let number = 0;
+                for (let j = 2; j < rows; j++) {
+                    number += 1
+                    myTable.rows[j].cells[0].innerHTML = number;
+
+                    //document.getElementById('num').innerText = j
+                }
+                document.getElementById('spend').innerText = pay.toFixed(2);
+                document.getElementById('spended').innerText = pay.toFixed(2);
+                document.getElementById('spended').style.backgroundColor = 'red'
+                document.getElementById('spended').style.color = 'white'
             }
-            document.getElementById('spend').innerText = pay.toFixed(2);
-            document.getElementById('spended').innerText = pay.toFixed(2);
-            document.getElementById('spended').style.backgroundColor = 'red'
-            document.getElementById('spended').style.color = 'white'
-        }
 
-        let spended = document.getElementById('spended').innerText;
-        let payed = document.getElementById('payed').innerText;
-        let cash = parseFloat(payed) - parseFloat(spended)
-        document.getElementById('cash').innerHTML = cash.toFixed(2);
-        document.getElementById('cash').style.color = 'white';
-        document.getElementById('cash').style.backgroundColor = 'green';
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-        crossorigin="anonymous"></script>
+            let spended = document.getElementById('spended').innerText;
+            let payed = document.getElementById('payed').innerText;
+            let cash = parseFloat(payed) - parseFloat(spended)
+            document.getElementById('cash').innerHTML = cash.toFixed(2);
+            document.getElementById('cash').style.color = 'white';
+            document.getElementById('cash').style.backgroundColor = 'green';
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+            integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+            crossorigin="anonymous"></script>
 
 </body>
 

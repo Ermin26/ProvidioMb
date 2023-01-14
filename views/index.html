@@ -15,8 +15,8 @@
 </head>
 
 <body>
-
-
+    <%- include('../layouts/boilerplate.ejs') %>
+        <!--
     <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light mb-2">
         <div class="container-fluid">
             <a class="navbar-brand border-bottom border-3 rounded-bottom border-light" href="/">New Bill</a>
@@ -26,155 +26,186 @@
             </button>
             <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
                 <ul class="navbar-nav d-flex w-100">
-                    <li class="nav-item ms-2 mt-1">
-                        <a href="/all"><button class="btn btn-primary" id="btn-func">All bills</button></a>
+                    <li class="nav-item ms-2 mt-2 p-0">
+                        <a href="/all"><button class="btn btn-primary p-1" id="btn-func">All bills</button></a>
                     </li>
 
-                    <li class="nav-item ms-2 mt-1">
-                        <a href="/search"><button class="btn btn-info" id="btn-func"><strong>Search
-                                    User</strong></button></a>
+                    <li class="nav-item ms-2 mt-2">
+                        <a href="/search"><button class="btn btn-info p-1" id="btn-func"><strong>Search
+                                    Employee</strong></button></a>
                     </li>
-                    <li class="nav-item ms-2 mt-1">
-                        <a href="/costs"><button class="btn btn-danger"
+                    <li class="nav-item ms-2 mt-2">
+                        <a href="/costs"><button class="btn btn-danger p-1"
                                 id="btn-func"><strong>Costs</strong></button></a>
                     </li>
-                    <li class="nav-item ms-auto">
-                        <a class="nav-link" href="/logout"><button class="btn btn-outline-info ms-1"> Log
-                                out</button></a>
-                    </li>
+                    <% if(currentUser) {%>
+                        <% if(currentUser.role=='admin' || currentUser.role=='moderator' ) {%>
+                            <li class="nav-item ms-2 mt-2">
+                                <a href="/add"><button class="btn btn-success p-1" id="btn-func"><strong>Add
+                                            employee</strong></button></a>
+                            </li>
+                            <li class="nav-item ms-2 mt-2">
+                                <a href="/add"><button class="btn btn-success p-1" id="btn-func"><strong>All
+                                            employee/Users</strong></button></a>
+                            </li>
+
+
+                            <% } %>
+                                </li>
+                                <% if(currentUser.role=='admin' ) {%>
+                                    <li class="nav-item ms-2 mt-2">
+                                        <a href="/register"><button class="btn btn-success p-1"
+                                                id="btn-func"><strong>Add
+                                                    user</strong></button></a>
+                                    </li>
+                                    <% } %>
+                                        <li class="nav-item ms-auto">
+                                            <a class="nav-link" href="/logout"><button
+                                                    class="btn btn-outline-info ms-1 p-1"> Log
+                                                    out</button></a>
+                                        </li>
+                                        <% }else {%>
+                                            <li class="nav-item ms-auto">
+                                                <a class="nav-link" href="/login"><button
+                                                        class="btn btn-outline-info ms-1 p-1"> Log
+                                                        In</button></a>
+                                            </li>
+                                            <% } %>
                 </ul>
             </div>
         </div>
     </nav>
+-->
+        <div class="containerr">
 
-    <div class="containerr">
-
-        <div class="naslov text-center mt-1 mb-3 border-bottom border-2 border-dark">
-            <h3>PROVIDIO, 2000 Maribor</h4>
-        </div>
-
-        <div class="d-flex justify-content-center mt-5">
-            <%- include('../flashError') %>
-        </div>
-        <div id="hiderow" class="mb-0">
-            <button type="submit" class="d-inline btn btn-outline-primary ms-1" id="addrow" onclick="addRow()">Dodaj
-                izdelek</button>
-            <button class="d-inline btn btn-outline-primary ms-1" id="zaključi" onclick="zakjuci()"
-                onkeyup="zakljuci()">Zaključi</button>
-            <button class="d-inline btn btn-outline-primary ms-1" id="placaj" onclick="placaj()"
-                onkeyup="placaj()">Plačaj</button>
-        </div>
-
-        <form action="/sell" method="post">
-            <div id="izdal" class="kupec mt-2 ms-5 mb-3">
-
-                <p>Izdal:</p>
-
-                <div class="col">
-                    <label for="izdal">Ime in priimek delavca:</label>
-                    <input type="text" class="d-inline border border-white bg-white" name="izdal" id="izdal"
-                        value="Ermin Joldić">
-                </div>
-                <p>Podpis: ________________________ </p>
-
+            <div class="naslov text-center mt-1 mb-3 border-bottom border-2 border-dark">
+                <h3>PROVIDIO, 2000 Maribor</h4>
             </div>
 
-            <div class="row mt-5" id="dates">
-                <div id="dates-left" class="col mt-2 text-left">
-                    <label for="numPerYear">Številka/Leto:</label>
-                    <input type="text" class="border border-white text-left" name="numPerYear" id="numPerYear"
-                        value="<%=newBill%>">
-                    <input type="text" class="border border-white text-left" name="year" id="year" value="<%=year%>">
+            <div class="d-flex justify-content-center mt-5">
+                <%- include('../flashError') %>
+            </div>
+            <div id="hiderow" class="mb-0">
+                <button type="submit" class="d-inline btn btn-outline-primary ms-1" id="addrow" onclick="addRow()">Dodaj
+                    izdelek</button>
+                <button class="d-inline btn btn-outline-primary ms-1" id="zaključi" onclick="zakjuci()"
+                    onkeyup="zakljuci()">Zaključi</button>
+                <button class="d-inline btn btn-outline-primary ms-1" id="placaj" onclick="placaj()"
+                    onkeyup="placaj()">Plačaj</button>
+            </div>
 
-                    <br>
-                    <label class="" for="numPerMonth">Številka/Mesec:
-                    </label>
-                    <input type="text" class="border border-white" name="numPerMonth" id="numPerMonth"
-                        value="<%=billNew%>">
-                    <input type="text" class="border border-white" name="month" id="month" value="<%=month%>">
-                    <br>
-                    <label for="kt">Koledarski Teden:</label>
-                    <input type="text" class="border border-white" name="kt" id="kt" value="<%=currentWeek%>">
+            <form action="/sell" method="post">
+                <div id="izdal" class="kupec mt-2 ms-5 mb-3">
+
+                    <p>Izdal:</p>
+
+                    <div class="col">
+                        <label for="izdal">Ime in priimek delavca:</label>
+                        <input type="text" class="d-inline border border-white bg-white" name="izdal" id="izdal"
+                            value="Ermin Joldić">
+                    </div>
+                    <p>Podpis: ________________________ </p>
+
                 </div>
 
-                <div class="col mt-2" id="info">
-                    <ul id="info-ul" class="d-flex flex-column">
-                        <li class="d-inline">
-                            <p id="kraj" class="d-inline">Kraj: Maribor</p>
-                        </li>
-                        <li class="">
-                            <label for="payDate">Datum Plačila:</label>
-                            <input type="text" class="border border-white" id="payDate" name="payDate"
-                                value="<%= date %>">
-                        </li>
-                        <li class="d-inline">
-                            <label for="soldDate">Datum Izdaje:</label>
-                            <input type="text" class="d-inline border border-white ms-1" id="soldDate" name="soldDate"
-                                value="<%= date %>">
+                <div class="row mt-5" id="dates">
+                    <div id="dates-left" class="col mt-2 text-left">
+                        <label for="numPerYear">Številka/Leto:</label>
+                        <input type="text" class="border border-white text-left" name="numPerYear" id="numPerYear"
+                            value="<%=newBill%>">
+                        <input type="text" class="border border-white text-left" name="year" id="year"
+                            value="<%=year%>">
 
+                        <br>
+                        <label class="" for="numPerMonth">Številka/Mesec:
+                        </label>
+                        <input type="text" class="border border-white" name="numPerMonth" id="numPerMonth"
+                            value="<%=billNew%>">
+                        <input type="text" class="border border-white" name="month" id="month" value="<%=month%>">
+                        <br>
+                        <label for="kt">Koledarski Teden:</label>
+                        <input type="text" class="border border-white" name="kt" id="kt" value="<%=currentWeek%>">
+                    </div>
+
+                    <div class="col mt-2" id="info">
+                        <ul id="info-ul" class="d-flex flex-column">
+                            <li class="d-inline">
+                                <p id="kraj" class="d-inline">Kraj: Maribor</p>
+                            </li>
+                            <li class="">
+                                <label for="payDate">Datum Plačila:</label>
+                                <input type="text" class="border border-white" id="payDate" name="payDate"
+                                    value="<%= date %>">
+                            </li>
+                            <li class="d-inline">
+                                <label for="soldDate">Datum Izdaje:</label>
+                                <input type="text" class="d-inline border border-white ms-1" id="soldDate"
+                                    name="soldDate" value="<%= date %>">
+
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="table" class="row izdelki mt-5 text-center">
+                    <table id="myTable" class="table table-borderless table-responsive mt-5">
+                        <thead>
+                            <tr class="border-bottom border-dark">
+                                <th class="col-4">Izdelek</th>
+                                <th class="col-1">Količina</th>
+                                <th class="col-2">Cena</th>
+                                <th class="col-1">DDV</th>
+                                <th class="col-1">1/week</th>
+                                <th class="col-2">Neto</th>
+                                <th class="col-1">Placano</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+
+
+                            <tr class="mt-5 border border-start-0 border-end-0 border-dark" id="cash">
+                                <td>Za plačilo:</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td id="placilo"><input type="text" id="payment" class="col form-control" value=""
+                                        placeholder="0.00 €"></td>
+                                <td><input type="checkbox" id="pay" name="pay" class="form-check-input" value="">
+                                    <input type="checkbox" id="pay2" name="pay" class="form-check-input" value="false">
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="mt-5 me-5 text-end">
+                    <ul>
+                        <li id="nekaj">
+                            <label for="ime">Ime prejemnika:</label>
+                            <input class="border border-white" id="ime" name="buyer" placeholder="Ime prejemnika"
+                                required>
+                        </li>
+                        <br>
+                        <li>
+                            <h4>PODPIS PREJEMNIKA</h2>
+                                <h3>________________________</h3>
                         </li>
 
                     </ul>
                 </div>
-            </div>
-
-            <div id="table" class="row izdelki mt-5 text-center">
-                <table id="myTable" class="table table-borderless table-responsive mt-5">
-                    <thead>
-                        <tr class="border-bottom border-dark">
-                            <th class="col-4">Izdelek</th>
-                            <th class="col-1">Količina</th>
-                            <th class="col-2">Cena</th>
-                            <th class="col-1">DDV</th>
-                            <th class="col-1">1/week</th>
-                            <th class="col-2">Neto</th>
-                            <th class="col-1">Placano</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-
-
-                        <tr class="mt-5 border border-start-0 border-end-0 border-dark" id="cash">
-                            <td>Za plačilo:</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td id="placilo"><input type="text" id="payment" class="col form-control" value=""
-                                    placeholder="0.00 €"></td>
-                            <td><input type="checkbox" id="pay" name="pay" class="form-check-input" value="">
-                                <input type="checkbox" id="pay2" name="pay" class="form-check-input" value="false">
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-
-
-            <div class="mt-5 me-5 text-end">
-                <ul>
-                    <li id="nekaj">
-                        <label for="ime">Ime prejemnika:</label>
-                        <input class="border border-white" id="ime" name="buyer" placeholder="Ime prejemnika" required>
-                    </li>
-                    <br>
-                    <li>
-                        <h4>PODPIS PREJEMNIKA</h2>
-                            <h3>________________________</h3>
-                    </li>
-
-                </ul>
-            </div>
-            <% if(currentUser && currentUser.role !=='visitor' ) {%>
-                <div class="print ms-5">
-                    <button type="submit" id="hideOnPrint" onclick="window.print();"
-                        class="noPrint btn btn-success btn-sm">
-                        Print
-                    </button>
-                </div>
-                <% } %>
-        </form>
+                <% if(currentUser && currentUser.role !=='visitor' ) {%>
+                    <div class="print ms-5">
+                        <button type="submit" id="hideOnPrint" onclick="window.print();"
+                            class="noPrint btn btn-success btn-sm">
+                            Print
+                        </button>
+                    </div>
+                    <% } %>
+            </form>
 
 
 
@@ -182,127 +213,127 @@
 
 
 
-    </div>
+        </div>
 
 
 
-    <script>
+        <script>
 
-        let month = <%= month %>;
-        let year = <%= year %>;
+            let month = <%= month %>;
+            let year = <%= year %>;
 
-        document.getElementById("placilo").style.width = "85px";
-        document.getElementById("placilo").style.backgroundColor = "white";
+            document.getElementById("placilo").style.width = "85px";
+            document.getElementById("placilo").style.backgroundColor = "white";
 
-        document.getElementById('pay2').style.display = 'none'
-
-
-        function addRow() {
-            const table = document.getElementById('myTable')
-            const row = table.insertRow(1);
-            const cell1 = row.insertCell(0);
-            const cell2 = row.insertCell(1);
-            const cell3 = row.insertCell(2);
-            const cell4 = row.insertCell(3);
-            const cell5 = row.insertCell(4);
-            const cell6 = row.insertCell(5);
-            cell1.innerHTML = '<input type="text" id = "izdelek" class="col form-control" name="product" value="" placeholder="Product" required>';
-            cell2.innerHTML = '<input type="text" id = "kolicina" class="col form-control" name="qty" value="" placeholder="Količina" required>';
-            cell3.innerHTML = '<input type="text" id="cena" class="col form-control" name="price" value="" placeholder="Cena" required>';
-            cell4.innerHTML = '1.50 €';
-            cell5.innerHTML = '<input class="form-check-input" type="checkbox" value="true" id="freeProduct" name="firstOfWeek"> <input class="form-check-input" type="checkbox" value="false" id="hiddenInput" name="firstOfWeek">';
-            cell6.innerHTML = '<input type="text" class="form-control" id="total" name="total" value="" placeholder="0.00">';
+            document.getElementById('pay2').style.display = 'none'
 
 
-            cell4.id = "ddv"
-            cell5.id = "free"
-            cell6.id = "cell6"
+            function addRow() {
+                const table = document.getElementById('myTable')
+                const row = table.insertRow(1);
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                const cell4 = row.insertCell(3);
+                const cell5 = row.insertCell(4);
+                const cell6 = row.insertCell(5);
+                cell1.innerHTML = '<input type="text" id = "izdelek" class="col form-control" name="product" value="" placeholder="Product" required>';
+                cell2.innerHTML = '<input type="text" id = "kolicina" class="col form-control" name="qty" value="" placeholder="Količina" required>';
+                cell3.innerHTML = '<input type="text" id="cena" class="col form-control" name="price" value="" placeholder="Cena" required>';
+                cell4.innerHTML = '1.50 €';
+                cell5.innerHTML = '<input class="form-check-input" type="checkbox" value="true" id="freeProduct" name="firstOfWeek"> <input class="form-check-input" type="checkbox" value="false" id="hiddenInput" name="firstOfWeek">';
+                cell6.innerHTML = '<input type="text" class="form-control" id="total" name="total" value="" placeholder="0.00">';
 
-            document.getElementById('hiddenInput').style.display = 'none'
 
-        }
+                cell4.id = "ddv"
+                cell5.id = "free"
+                cell6.id = "cell6"
+
+                document.getElementById('hiddenInput').style.display = 'none'
+
+            }
 
 
 
-        function zakjuci() {
+            function zakjuci() {
 
-            const kolicina = parseFloat(document.getElementById('kolicina').value);
-            const cena = parseFloat(document.getElementById('cena').value);
-            const free = document.querySelector('#freeProduct');
-            const ddv = parseFloat(document.getElementById('ddv').innerHTML);
+                const kolicina = parseFloat(document.getElementById('kolicina').value);
+                const cena = parseFloat(document.getElementById('cena').value);
+                const free = document.querySelector('#freeProduct');
+                const ddv = parseFloat(document.getElementById('ddv').innerHTML);
 
-            document.getElementById('kolicina').setAttribute('value', kolicina);
+                document.getElementById('kolicina').setAttribute('value', kolicina);
 
-            if (free.checked) {
-                if (kolicina > 1) {
-                    const cena1 = kolicina * (cena + ddv);
-                    const cena2 = 1 * (cena + ddv);
-                    let y = parseFloat(cena1) - parseFloat(cena2);
-                    document.getElementById('total').innerHTML = y;
-                    document.getElementById('total').setAttribute('value', y.toFixed(2));
-                    document.getElementById('freeProduct').setAttribute('value', 'true')
-                    document.getElementById('freeProduct').checked = true;
-                } else {
-                    document.getElementById('total').innerHTML = 0.00;
-                    document.getElementById('total').setAttribute('value', 0.00);
-                    document.getElementById('freeProduct').setAttribute('value', 'true')
-                    document.getElementById('freeProduct').checked = true;
+                if (free.checked) {
+                    if (kolicina > 1) {
+                        const cena1 = kolicina * (cena + ddv);
+                        const cena2 = 1 * (cena + ddv);
+                        let y = parseFloat(cena1) - parseFloat(cena2);
+                        document.getElementById('total').innerHTML = y;
+                        document.getElementById('total').setAttribute('value', y.toFixed(2));
+                        document.getElementById('freeProduct').setAttribute('value', 'true')
+                        document.getElementById('freeProduct').checked = true;
+                    } else {
+                        document.getElementById('total').innerHTML = 0.00;
+                        document.getElementById('total').setAttribute('value', 0.00);
+                        document.getElementById('freeProduct').setAttribute('value', 'true')
+                        document.getElementById('freeProduct').checked = true;
+                    }
+                    //document.getElementById('hiddenInput').setAttribute('value', 'false')
                 }
-                //document.getElementById('hiddenInput').setAttribute('value', 'false')
-            }
-            else {
-                const cena1 = kolicina * (cena + ddv);
-                document.getElementById('total').innerHTML = cena1.toFixed(2);
-                document.getElementById('total').setAttribute('value', cena1.toFixed(2));
-                //document.getElementById('freeProduct').setAttribute('value', 'false');
-                document.getElementById('hiddenInput').setAttribute('value', 'false')
-                document.getElementById('hiddenInput').checked = true;
-            }
-        }
-
-        function placaj() {
-
-            let taable = document.getElementById('myTable');
-            let rows = taable.rows.length - 2
-            let payed = document.getElementById('pay')
-            //console.log(taable.rows[1].cells[5], ' i am rows')
-            /*
-            
-                        for (let i = 1; i <= rows; i++) {
-                            var x = document.getElementById('myTable').rows[i].cells[5].children[0].value;
-                            console.log(x, ' i am x');
-                            console.log(taable.rows[i].cells[5])
-                        }
-                        */
-
-
-            let pay = 0;
-            for (let i = 1; i <= rows; i++) {
-                var x = document.getElementById('myTable').rows[i].cells[5].children[0].value;
-                pay += parseFloat(x, 10);
-
-            }
-            //document.getElementById('payment').innerHTML = pay.toFixed(2);
-            document.getElementById('payment').setAttribute('value', pay.toFixed(2));
-            if (payed.checked) {
-                document.getElementById('pay').setAttribute('value', 'true');
-                document.getElementById('pay').checked = true;
-            } else {
-                document.getElementById('pay2').setAttribute('value', 'false');
-                document.getElementById('pay2').checked = true;
-                document.getElementById('payDate').innerHTML = "" + "" + "";
-                document.getElementById('payDate').setAttribute('value', "" + "" + "");
-
+                else {
+                    const cena1 = kolicina * (cena + ddv);
+                    document.getElementById('total').innerHTML = cena1.toFixed(2);
+                    document.getElementById('total').setAttribute('value', cena1.toFixed(2));
+                    //document.getElementById('freeProduct').setAttribute('value', 'false');
+                    document.getElementById('hiddenInput').setAttribute('value', 'false')
+                    document.getElementById('hiddenInput').checked = true;
+                }
             }
 
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-        crossorigin="anonymous"></script>
+            function placaj() {
+
+                let taable = document.getElementById('myTable');
+                let rows = taable.rows.length - 2
+                let payed = document.getElementById('pay')
+                //console.log(taable.rows[1].cells[5], ' i am rows')
+                /*
+                
+                            for (let i = 1; i <= rows; i++) {
+                                var x = document.getElementById('myTable').rows[i].cells[5].children[0].value;
+                                console.log(x, ' i am x');
+                                console.log(taable.rows[i].cells[5])
+                            }
+                            */
+
+
+                let pay = 0;
+                for (let i = 1; i <= rows; i++) {
+                    var x = document.getElementById('myTable').rows[i].cells[5].children[0].value;
+                    pay += parseFloat(x, 10);
+
+                }
+                //document.getElementById('payment').innerHTML = pay.toFixed(2);
+                document.getElementById('payment').setAttribute('value', pay.toFixed(2));
+                if (payed.checked) {
+                    document.getElementById('pay').setAttribute('value', 'true');
+                    document.getElementById('pay').checked = true;
+                } else {
+                    document.getElementById('pay2').setAttribute('value', 'false');
+                    document.getElementById('pay2').checked = true;
+                    document.getElementById('payDate').innerHTML = "" + "" + "";
+                    document.getElementById('payDate').setAttribute('value', "" + "" + "");
+
+                }
+
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+            integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+            crossorigin="anonymous"></script>
 
 </body>
 
