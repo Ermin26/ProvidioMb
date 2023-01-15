@@ -165,13 +165,52 @@ checkDetails();
 //! -------------------------
 
 
-app.get('/user', isLoged, async (req, res, next) => {
-    const user = req.user;
-    res.send(user.role)
+app.get('/users', isLoged, async (req, res) => {
+    const users = await People.find({})
+    const employees = await Employers.find({})
+    res.render('allUsers', { users, employees })
 });
 
-app.get('/', async (req, res) => {
+app.get('/employee/edit/:id', isLoged, async (req, res) => {
+    const { id } = req.params
+    const employee = await Employers.findById(id)
+    res.render('editEmployee', { employee })
+})
+app.put('/editEmploye/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const employee = await Employers.findByIdAndUpdate(id, { ...req.body.employers });
+    await employee.save();
+    req.flash('success', 'User data was successfully updated.');
+    res.redirect(`/users`)
+})
 
+app.delete('/employee/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const user = await Employers.findByIdAndDelete(id)
+    res.redirect('/users')
+})
+app.get('/users/edit/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const user = await People.findById(id);
+    //console.log(user);
+    res.render('editUser', { user });
+})
+app.put('/users/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const user = await People.findByIdAndUpdate(id, { ...req.body.user });
+    await user.save();
+    req.flash('success', 'User data was successfully updated.');
+    res.redirect(`/users`)
+})
+
+app.delete('/users/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const user = await People.findByIdAndDelete(id);
+    req.flash('success', 'User was successfully deleted.');
+    res.redirect('/users')
+})
+
+app.get('/', async (req, res) => {
 
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
@@ -216,11 +255,11 @@ app.get('/add', isLoged, async (req, res) => {
 
 
 app.post('/addEmploye', isLoged, async (req, res) => {
-    const { username, lastname, password } = req.body;
-    const user = await new Employers({ username: username, lastname: lastname });
+    const { username, lastname, password, emplStatus, status } = req.body;
+    const user = await new Employers({ username: username, lastname: lastname, employmentStatus: emplStatus, status: status });
     const addedUser = await Employers.register(user, password);
-    console.log('sucesfully registered', addedUser);
-    res.redirect('add')
+    req.flash('success', 'Successfully added new employee')
+    res.redirect('/users')
 })
 
 let employeeData = []
@@ -228,6 +267,14 @@ app.get('/myData', async (req, res) => {
     let findedUser = []
     let employee = employeeData[0]
     const user = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' } }).limit(1)
+    /*
+        if (user) {
+            let newUser = employeeData[0];
+            const findedEmployee = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' }, pay: 'false' })
+            res.render('userCheckByHimself', { findedEmployee, user })
+        }
+    */
+
     for (let username of user) {
         findedUser.pop();
         findedUser.push(username.buyer)
@@ -239,15 +286,17 @@ app.get('/myData', async (req, res) => {
         const findedEmployee = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' }, pay: 'false' })
         res.render('userCheckByHimself', { findedEmployee, newUser })
     }
+
 })
 
 app.get('/employee', async (req, res) => {
     res.render('employeeLogin');
 })
 
-app.post('/employee/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/employee' }), async (req, res) => {
+app.post('/employee/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/employee', keepSessionInfo: true }), async (req, res) => {
     req.flash('success', 'Successfully loged', req.session.passport.user)
     let user = req.session.passport.user;
+    console.log(req.session.passport)
     employeeData.pop();
     employeeData.push(user)
     res.redirect('/myData');
@@ -263,12 +312,6 @@ app.get('/logMeOut', (req, res, next) => {
     });
 });
 
-
-app.get('/users', isLoged, async (req, res) => {
-    const data = await People.find({});
-
-    res.send(data);
-})
 
 app.get('/login', (req, res) => {
     res.render('login');

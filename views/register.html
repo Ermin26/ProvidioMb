@@ -17,30 +17,31 @@
             <div class="info mt-5 mb-5">
                 <h1 class="mb-3">Enter Data to register user</h1>
             </div>
-            <form action="/register" method="post">
-                <div class="row">
-                    <div class="col-8 text-right">
-                        <div class="mb-2">
-
-                            <label for="username">Username:</label>
-                            <input type="text" name="username" id="username">
-                        </div>
-                        <div class="mb-2">
-
-                            <label for="password">Password:</label>
-                            <input class="ms-1" type="password" name="password" id="password">
-                        </div>
-                        <div class="mb-2">
-
-                            <label for="role">Role:</label>
-                            <input class="ms-4" type="text" name="role" id="role">
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
-                        </div>
+            <div class="col-8 ms-auto me-auto">
+                <form action="/register" method="post">
+                    <div class="mb-2 d-flex flex-column col-4 ms-auto me-auto">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" id="username">
                     </div>
-                </div>
-            </form>
+                    <div class="mb-2 d-flex flex-column col-4 ms-auto me-auto">
+
+                        <label for="password">Password:</label>
+                        <input class="ms-1" type="password" name="password" id="password">
+                    </div>
+                    <div class="mb-2 col-4 ms-auto me-auto">
+                        <label for="role">Role:</label>
+                        <select class="form-select form-select-sm ms-auto me-auto" id="role"
+                            aria-label=".form-select-sm example" name="role">
+                            <option selected>Select role</option>
+                            <option value="admin">Admin</option>
+                            <option value="moderator">Moderator</option>
+                            <option value="visitor">Visitor</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2">Submit</button>
+                </form>
+                <a href="/users"><button class="btn btn-dark mt-3">Go Back</button></a>
+            </div>
         </div>
 
 

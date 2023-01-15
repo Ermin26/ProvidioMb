@@ -12,22 +12,21 @@
                 </li>
 
                 <li class="nav-item ms-2 mt-2">
-                    <a href="/search"><button class="btn btn-info p-1" id="btn-func"><strong>Search
-                                Employee</strong></button></a>
+                    <a href="/search"><button class="btn btn-outline-info p-1 text-light" id="btn-func">Search
+                            Employee</button></a>
                 </li>
                 <li class="nav-item ms-2 mt-2">
-                    <a href="/costs"><button class="btn btn-danger p-1"
-                            id="btn-func"><strong>Costs</strong></button></a>
+                    <a href="/costs"><button class="btn btn-danger p-1" id="btn-func">Costs</button></a>
                 </li>
                 <% if(currentUser) {%>
                     <% if(currentUser.role=='admin' || currentUser.role=='moderator' ) {%>
                         <li class="nav-item ms-2 mt-2">
-                            <a href="/add"><button class="btn btn-success p-1" id="btn-func"><strong>Add
-                                        employee</strong></button></a>
+                            <a href="/add"><button class="btn btn-success p-1" id="btn-func">Add
+                                    employee</button></a>
                         </li>
                         <li class="nav-item ms-2 mt-2">
-                            <a href="/add"><button class="btn btn-success p-1" id="btn-func"><strong>All
-                                        employee/Users</strong></button></a>
+                            <a href="/users"><button class="btn btn-success p-1" id="btn-func">All
+                                    employees/Users</button></a>
                         </li>
 
 
@@ -35,8 +34,8 @@
                             </li>
                             <% if(currentUser.role=='admin' ) {%>
                                 <li class="nav-item ms-2 mt-2">
-                                    <a href="/register"><button class="btn btn-success p-1" id="btn-func"><strong>Add
-                                                user</strong></button></a>
+                                    <a href="/register"><button class="btn btn-success p-1" id="btn-func">Add
+                                            user</button></a>
                                 </li>
                                 <% } %>
                                     <li class="nav-item ms-auto">
