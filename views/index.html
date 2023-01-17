@@ -16,66 +16,7 @@
 
 <body>
     <%- include('../layouts/boilerplate.ejs') %>
-        <!--
-    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light mb-2">
-        <div class="container-fluid">
-            <a class="navbar-brand border-bottom border-3 rounded-bottom border-light" href="/">New Bill</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
-                <ul class="navbar-nav d-flex w-100">
-                    <li class="nav-item ms-2 mt-2 p-0">
-                        <a href="/all"><button class="btn btn-primary p-1" id="btn-func">All bills</button></a>
-                    </li>
 
-                    <li class="nav-item ms-2 mt-2">
-                        <a href="/search"><button class="btn btn-info p-1" id="btn-func"><strong>Search
-                                    Employee</strong></button></a>
-                    </li>
-                    <li class="nav-item ms-2 mt-2">
-                        <a href="/costs"><button class="btn btn-danger p-1"
-                                id="btn-func"><strong>Costs</strong></button></a>
-                    </li>
-                    <% if(currentUser) {%>
-                        <% if(currentUser.role=='admin' || currentUser.role=='moderator' ) {%>
-                            <li class="nav-item ms-2 mt-2">
-                                <a href="/add"><button class="btn btn-success p-1" id="btn-func"><strong>Add
-                                            employee</strong></button></a>
-                            </li>
-                            <li class="nav-item ms-2 mt-2">
-                                <a href="/add"><button class="btn btn-success p-1" id="btn-func"><strong>All
-                                            employee/Users</strong></button></a>
-                            </li>
-
-
-                            <% } %>
-                                </li>
-                                <% if(currentUser.role=='admin' ) {%>
-                                    <li class="nav-item ms-2 mt-2">
-                                        <a href="/register"><button class="btn btn-success p-1"
-                                                id="btn-func"><strong>Add
-                                                    user</strong></button></a>
-                                    </li>
-                                    <% } %>
-                                        <li class="nav-item ms-auto">
-                                            <a class="nav-link" href="/logout"><button
-                                                    class="btn btn-outline-info ms-1 p-1"> Log
-                                                    out</button></a>
-                                        </li>
-                                        <% }else {%>
-                                            <li class="nav-item ms-auto">
-                                                <a class="nav-link" href="/login"><button
-                                                        class="btn btn-outline-info ms-1 p-1"> Log
-                                                        In</button></a>
-                                            </li>
-                                            <% } %>
-                </ul>
-            </div>
-        </div>
-    </nav>
--->
         <div class="containerr">
 
             <div class="naslov text-center mt-1 mb-3 border-bottom border-2 border-dark">

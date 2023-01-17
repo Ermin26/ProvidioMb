@@ -21,7 +21,11 @@
         <div class="row row-cols-2">
             <div class="col-8 text-center">
                 <div class="addBills mt-5 mb-5">
-                    <button class="btn btn-primary" onclick="showInputForm()">Add new bill</button>
+                    <% if(currentUser.role==='visitor' ) {%>
+                        <button class="btn btn-primary" onclick="notAllowed()">Add new bill</button>
+                        <% }else {%>
+                            <button class="btn btn-primary" onclick="showInputForm()">Add new bill</button>
+                            <% } %>
                 </div>
                 <div id="hideMe">
                     <div id="addBillForm" class="col d-flex bg-info justify-content-center">
@@ -185,6 +189,9 @@
             document.getElementById('cash').innerHTML = cash.toFixed(2);
             document.getElementById('cash').style.color = 'white';
             document.getElementById('cash').style.backgroundColor = 'green';
+            function notAllowed() {
+                window.alert('Not Allowed. Only Admin or Moderator can add bill.');
+            }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
             integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"

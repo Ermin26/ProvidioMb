@@ -40,18 +40,18 @@
                     <li class="nav-item ms-1 mt-2">
                         <a href="/costs"><button class="btn btn-danger p-1" id="btn-func">Costs</button></a>
                     </li>
+                    <li class="nav-item ms-2 mt-2">
+                        <a href="/users"><button class="btn btn-success p-1" id="btn-func"><strong>All
+                                    employee/Users</strong></button></a>
+                    </li>
                     <% if(currentUser) {%>
                         <% if(currentUser.role=='admin' || currentUser.role=='moderator' ) {%>
                             <li class="nav-item ms-2 mt-2">
                                 <a href="/add"><button class="btn btn-success p-1" id="btn-func"><strong>Add
                                             employee</strong></button></a>
                             </li>
-                            <li class="nav-item ms-2 mt-2">
-                                <a href="/add"><button class="btn btn-success p-1" id="btn-func"><strong>All
-                                            employee/Users</strong></button></a>
-                            </li>
+
                             <% } %>
-                                </li>
                                 <% if(currentUser.role=='admin' ) {%>
                                     <li class="nav-item ms-2 mt-2">
                                         <a href="/register"><button class="btn btn-success p-1"

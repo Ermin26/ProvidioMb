@@ -25,6 +25,7 @@ const users = require('./models/users');
 const Week = require('./models/week');
 const Costs = require('./models/costs');
 const Employers = require('./models/employees');
+const Vacation = require('./models/vacation');
 
 const db_URL = process.env.DB_URL
 
@@ -88,16 +89,6 @@ passport.deserializeUser(People.deserializeUser());
 passport.use('local', new LocalStrategy(Employers.authenticate()));
 passport.serializeUser(Employers.serializeUser());
 passport.deserializeUser(Employers.deserializeUser());
-
-
-
-app.use((req, res, next) => {
-    //console.log("----------", req.session, "----------")
-    res.locals.currentUser = req.user;
-    res.locals.success = req.flash('success');
-    res.locals.error = req.flash('error');
-    next();
-})
 
 let currentWeek = []
 let checkWeeks = []
@@ -163,6 +154,17 @@ async function checkDetails() {
 }
 checkDetails();
 //! -------------------------
+
+app.use((req, res, next) => {
+    //console.log("----------", req.session, "----------")
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    checkDetails();
+    next();
+})
+
+
 
 
 app.get('/users', isLoged, async (req, res) => {
@@ -241,6 +243,18 @@ app.get('/register', isLoged, async (req, res) => {
     res.render('register');
 })
 
+app.get('/vacation', isLoged, async (req, res) => {
+    const employees = await Employers.find({});
+    res.render('editVacation', { employees });
+})
+
+app.post('/holidays', async (req, res) => {
+    const data = req.body;
+    const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}` })
+    userData.save();
+    req.flash('success', `Successfully updated data for ${data.user}`)
+    res.redirect('vacation')
+})
 
 app.post('/register', isLoged, async (req, res) => {
     const { username, password, role } = req.body;
@@ -263,6 +277,7 @@ app.post('/addEmploye', isLoged, async (req, res) => {
 })
 
 let employeeData = []
+let userID = []
 app.get('/myData', async (req, res) => {
     let findedUser = []
     let employee = employeeData[0]
@@ -284,9 +299,38 @@ app.get('/myData', async (req, res) => {
         res.redirect('/employee')
     } else {
         const findedEmployee = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' }, pay: 'false' })
-        res.render('userCheckByHimself', { findedEmployee, newUser })
+        const holidayInfo = await Vacation.find({ user: { $regex: `${employee}`, $options: 'i' } })
+        const holiday = await Vacation.find({})
+
+        //console.log(holidayInfo)
+        for (pending of holidayInfo) {
+            userID.pop();
+            userID.push(pending.id)
+            //console.log(pending.id)
+        }
+        res.render('userCheckByHimself', { findedEmployee, newUser, holidayInfo, year, holiday })
     }
 
+})
+
+app.get('/askForHolidays', async (req, res) => {
+    //console.log(employeeData)
+    res.render('askForHolidays', { employeeData, userID })
+})
+
+app.post('/askForHoliday', async (req, res) => {
+    const data = req.body;
+    let startDate = data.startDate;
+    const dateStart = startDate.split('-').reverse().join('.');
+    const dateEnd = data.endDate.split('-').reverse().join('.');
+    const user = await Vacation.findById(`${data.userid}`)
+    user.pendingHolidays.push({ startDate: `${dateStart}`, endDate: `${dateEnd}`, days: `${data.days}`, status: `${data.status}` });
+    await user.save();
+    console.log(user)
+    //const holiday = await Vacation.findByIdAndUpdate({ pendingHolidays: [{ startDate: `${dateStart}`, endDate: `${dateEnd}`, days: `${data.days}`, status: `${data.status}` }] })
+    //await holiday.save();
+    //console.log(data);
+    res.redirect('askForHolidays')
 })
 
 app.get('/employee', async (req, res) => {
@@ -294,9 +338,8 @@ app.get('/employee', async (req, res) => {
 })
 
 app.post('/employee/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/employee', keepSessionInfo: true }), async (req, res) => {
-    req.flash('success', 'Successfully loged', req.session.passport.user)
+    req.flash('success', 'Successfully loged', req.user.username)
     let user = req.session.passport.user;
-    console.log(req.session.passport)
     employeeData.pop();
     employeeData.push(user)
     res.redirect('/myData');
@@ -306,6 +349,8 @@ app.get('/logMeOut', (req, res, next) => {
         if (err) {
             return next(err);
         } else {
+            employeeData.pop();
+            userID.pop();
             req.flash('success', 'Logged out.');
             res.redirect('/employee');
         }
@@ -482,7 +527,7 @@ app.put('/all/:id', isLoged, async (req, res) => {
     const user = await User.findByIdAndUpdate(id, { ...req.body.user });
     await user.save();
     req.flash('success', 'User data was successfully updated.');
-    res.redirect(`/all/${user._id}`)
+    res.redirect(`/ all / ${user._id}`)
 })
 
 //? DELA

@@ -17,13 +17,29 @@
 
 <body>
 
-    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light sticky-top ms-0 me-0">
+    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light mb-2">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand border-bottom border-3 rounded-bottom border-light" href="#">
                 <%= newUser %>
             </a>
-            <a class="nav-link" href="/logMeOut"><button class="btn btn-outline-info">Logout</button></a>
-        </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
+                <ul class="navbar-nav d-flex w-100">
+                    <li class="nav-item ms-2 mt-2"> <a href="/myData"><button class="btn btn-info">Home</button></a>
+                    </li>
+
+
+                    <li class="nav-item ms-2 mt-2"> <a href="/askForHolidays"><button
+                                class="btn btn-info">Dopust</button></a></li>
+                    <li class="nav-item ms-2 mt-2">
+                        <a href="/logMeOut"><button class="btn btn-outline-info">Logout</button></a>
+                    </li>
+                </ul>
+            </div>
     </nav>
 
     <div class="container text-center mt-3">
@@ -106,8 +122,61 @@
                         </div>
                         <% } %>
             </div>
-            <div class="col-4 bg-info ms-auto me-auto mt-5">
-                col2
+            <div class="col ms-auto me-auto mt-5">
+                <caption>
+                    Stanje letnega dopusta za leto <%= year %>
+                        <table class="table table-info mb-5">
+                            <thead>
+                                <th>Lanski dopust</th>
+                                <th>Letni dopust</th>
+                                <th>Skupaj za tekoče leto</th>
+                                <th>Koriščeno</th>
+                            </thead>
+                            <tbody>
+                                <% for(user of holidayInfo) {%>
+                                    <tr>
+                                        <td>
+                                            <%= user.lastYearHolidays %>
+                                        </td>
+                                        <td>
+                                            <%= user.holidays %>
+                                        </td>
+                                        <td>32</td>
+                                        <td>0</td>
+                                        <% } %>
+                                    </tr>
+                            </tbody>
+                        </table>
+                </caption>
+                <table class="table table-light table-hover ms-auto me-auto mt-4">
+                    <thead>
+                        <th>Začetek dopusta</th>
+                        <th>Konec dopusta</th>
+                        <th>Dni</th>
+                        <th>Status</th>
+                        <th>Skupaj koriščeno</th>
+                    </thead>
+                    <% for(info of holidayInfo) {%>
+                        <% for(userInfo of info.pendingHolidays) {%>
+                            <tr>
+                                <td>
+                                    <%= userInfo.startDate%>
+                                </td>
+                                <td>
+                                    <%= userInfo.endDate%>
+                                </td>
+                                <td>
+                                    <%= userInfo.days%>
+                                </td>
+                                <td>
+                                    <%= userInfo.status%>
+                                </td>
+                                <td> 0</td>
+
+                            </tr>
+                            <% } %>
+                                <% } %>
+                </table>
             </div>
     </div>
 

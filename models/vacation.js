@@ -1,17 +1,25 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const PendingSchema = new Schema({
+    startDate: [{
+        type: String
+    }],
+    endDate: [{ type: String }],
+    days: [{ type: Number }],
+    status: [{
+        type: String,
+        default: '/',
+        enum: ['Pending', 'Approved', 'Rejected', 'Ended', '/']
+    }]
+})
 
 const VacationSchema = new Schema({
     user: String,
-    startDate: String,
-    endDate: String,
-    days: Number,
-    status: {
-        type: String,
-        default: 'Pending',
-        enum: ['Pending', 'Approved', 'Rejected']
-    }
+    lastYearHolidays: Number,
+    holidays: Number,
+    usedHolidays: Number,
+    pendingHolidays: [PendingSchema]
 })
 
 
