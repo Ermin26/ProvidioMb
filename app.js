@@ -313,6 +313,14 @@ app.get('/myData', async (req, res) => {
 
 })
 
+app.get('/myData/:id', async (req, res) => {
+    const { id } = req.params;
+    const userHoliday = await Vacation.find({ "pendingHolidays._id": '63c6fc10408117a77eeb9e19' })
+    //const holiday = userHoliday.findById(id)
+    console.log(userHoliday)
+    res.send(id)
+})
+
 app.get('/askForHolidays', async (req, res) => {
     //console.log(employeeData)
     res.render('askForHolidays', { employeeData, userID })
