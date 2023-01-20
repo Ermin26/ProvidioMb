@@ -535,7 +535,7 @@ app.put('/all/:id', isLoged, async (req, res) => {
     const user = await User.findByIdAndUpdate(id, { ...req.body.user });
     await user.save();
     req.flash('success', 'User data was successfully updated.');
-    res.redirect(`/ all / ${user._id}`)
+    res.redirect(`/all/${user._id}`)
 })
 
 //? DELA
