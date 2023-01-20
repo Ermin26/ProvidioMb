@@ -82,7 +82,7 @@ a {
     #table-head,
     #costsInfo {
         position: sticky;
-        top: 65px;
+        top: 60px;
     }
 }
 
@@ -96,7 +96,7 @@ a {
     #table-data,
     #table-head {
         position: sticky;
-        top: 65px;
+        top: 0px;
     }
 }
 
@@ -116,6 +116,6 @@ a {
     #table-data,
     #table-head {
         position: sticky;
-        top: 65px;
+        top: 0px;
     }
 }

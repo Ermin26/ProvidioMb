@@ -49,7 +49,7 @@
                                                 <a href="/employee/edit/<%= employee.id %>"><button
                                                         class="btn btn-warning">Edit</button></a>
                                                 <% }else{ %>
-                                                    <a href="#"><button class="btn btn-warning">Edit</button></a>
+                                                    <a href="#"><button class="btn btn-warning" onclick="editUser()">Edit</button></a>
                                                     <% } %>
                                         </td>
                                     </tr>
@@ -113,6 +113,9 @@
             <script>
                 function admin() {
                     window.alert("Only admin can DELETE or EDIT user.")
+                }
+                function editUser() {
+                    window.alert("Only admin or moderator can DELETE or EDIT employee data.")
                 }
             </script>
 

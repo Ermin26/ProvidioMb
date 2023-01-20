@@ -18,7 +18,7 @@
                 <div class="col ms-auto me-auto bg-info text-center mt-5">
                     <caption>
                         <h1>
-                            edit users vacation
+                            Edit users vacation
                         </h1>
                     </caption>
                     <div class="holidaysEdit mt-5 d-flex flex-column">
@@ -27,7 +27,6 @@
                                 <label for="user" class="">Employee name</label>
                                 <select name="user" id="user" class="w-25 ms-auto me-auto">
                                     <option selected>Choose employee</option>
-                                    <!-- for loop za vsakega usera -->
                                     <% for(employee of employees) {%>
                                         <option value="<%= employee.username %> <%= employee.lastname %>">
                                             <%= employee.username%>
@@ -47,10 +46,15 @@
                                 <label for="holidays">Holidays</label>
                                 <input type="number" name="holidays" class="w-25 ms-auto me-auto" id="holidays">
                             </div>
-
+                            
+                            <% if(currentUser.role =='visitor') {%>
+                                
+                                <%}else{%>
                             <div class="submit">
                                 <button class="btn btn-success">Submit</button>
                             </div>
+                            <% } %>
+                            
                         </form>
                     </div>
 
