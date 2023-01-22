@@ -1,18 +1,27 @@
 TO DO --------------
 
-    Make DB for vacation;
-    Show vacation on employee page;
-    Fix req.passport for employe pages;
+    
+    Make for admin to delete employee approved/rejected holiday?
+    Fix req/passport for employe pages;
 
 
 DOING------------------
 
-    Update function for saving holidays -- 
-    only check if everything works fine!! ----
-    not pushed to the git
+    
 
 
 
 DONE-----------------------
+    Pushed to git on 22.1.2023 at 23:15;
+    Added bg-color on rows for approved/rejected vacations;
+    Added on employee pages option for edit/delete req holiday;
+    Added aprove/reject option for vacation for admin/moderator;
+    must add delete options for vacation..;
+    makenew folder for pages for employees;
+    push to git ;
+    Added pages for add/edit/delete employee and user;
+    Make DB for vacation;;
+    Show vacation on employee page;;
+    Update function for saving holidays -- 
+    only check if everything works fine!! ----;
     
-    Added pages for add/edit/delete employee and user

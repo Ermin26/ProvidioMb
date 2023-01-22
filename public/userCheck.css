@@ -5,6 +5,7 @@ body {
     width: 100%;
     height: 100%;
     overflow-x: auto;
+    overflow-y: auto;
 }
 
 
@@ -12,8 +13,6 @@ body {
     body {
         width: 100%;
         height: 100%;
-        background-color: aqua;
-        overflow: hidden;
     }
 
     .container {

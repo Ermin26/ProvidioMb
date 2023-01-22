@@ -15,52 +15,227 @@
 
         <div class="container text-center">
             <%- include('../flashError') %>
-                <div class="col ms-auto me-auto bg-info text-center mt-5">
-                    <caption>
-                        <h1>
-                            Edit users vacation
-                        </h1>
-                    </caption>
-                    <div class="holidaysEdit mt-5 d-flex flex-column">
-                        <form action="/holidays" method="post">
-                            <div class="mb-2 d-flex flex-column">
-                                <label for="user" class="">Employee name</label>
-                                <select name="user" id="user" class="w-25 ms-auto me-auto">
-                                    <option selected>Choose employee</option>
-                                    <% for(employee of employees) {%>
-                                        <option value="<%= employee.username %> <%= employee.lastname %>">
-                                            <%= employee.username%>
-                                                <%= employee.lastname %>
+                <div class="col ms-auto me-auto bg-info text-center mt-5 p-3">
+                    <div id="addUser">
+                        <caption>
+                            <h1>
+                                Edit users vacation
+                            </h1>
+                        </caption>
+                        <div class="holidaysEdit mt-3 d-flex flex-column">
+                            <form action="/holidays" method="post">
+                                <div class="mb-2 d-flex flex-column">
+                                    <label for="user" class="">Employee name</label>
+                                    <select name="user" id="user" class="w-25 ms-auto me-auto text-center">
+                                        <option selected>Choose employee</option>
+                                        <% for(employee of employees) {%>
+                                            <option value="<%= employee.username %> <%= employee.lastname %>">
+                                                <%= employee.username%>
+                                                    <%= employee.lastname %>
 
-                                        </option>
+                                            </option>
 
+                                            <% } %>
+                                    </select>
+                                </div>
+                                <div class="mb-2 d-flex flex-column">
+                                    <label for="lastYearHolidays">Last year Holidays</label>
+                                    <input type="number" name="lastYearHolidays"
+                                        class="w-25 ms-auto me-auto text-center" id="lastYearHolidays" min="0">
+                                </div>
+                                <div class="mb-2 d-flex flex-column">
+                                    <label for="holidays">Holidays</label>
+                                    <input type="number" name="holidays" class="w-25 ms-auto me-auto text-center"
+                                        id="holidays" min="0">
+                                </div>
+
+                                <% if(currentUser.role=='visitor' ) {%>
+
+                                    <%}else{%>
+                                        <div class="submit">
+                                            <button class="btn btn-success">Submit</button>
+                                        </div>
                                         <% } %>
-                                </select>
-                            </div>
-                            <div class="mb-2 d-flex flex-column">
-                                <label for="lastYearHolidays">Last year Holidays</label>
-                                <input type="number" name="lastYearHolidays" class="w-25 ms-auto me-auto"
-                                    id="lastYearHolidays">
-                            </div>
-                            <div class="mb-2 d-flex flex-column">
-                                <label for="holidays">Holidays</label>
-                                <input type="number" name="holidays" class="w-25 ms-auto me-auto" id="holidays">
-                            </div>
-                            
-                            <% if(currentUser.role =='visitor') {%>
-                                
-                                <%}else{%>
-                            <div class="submit">
-                                <button class="btn btn-success">Submit</button>
-                            </div>
-                            <% } %>
-                            
-                        </form>
+
+                            </form>
+                        </div>
                     </div>
+                    <div id="div">
+                        <h3>Update employee holiday data.</h3>
+                        <button class="btn btn-primary" onclick="editEmployeeHolidayData()">Submit</button>
+                    </div>
+                </div>
+                <!--REQUESTED HOLIDAYS-->
+                <div class="col mt-4">
+                    <caption>
+                        <h2>Users holidays requests</h2>
+                    </caption>
+                    <table class="table table-info table-hover">
+                        <thead>
+                            <th>Employee</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Days</th>
+                            <th>Status</th>
+                            <th>Approve</th>
+                            <th>Reject</th>
+                        </thead>
+                        <tbody>
+                            <% for(vac of vacation) {%>
+                                <% for(holiday of vac.pendingHolidays) {%>
+                                    <% if(holiday.status=='Pending' ) {%>
+                                        <tr>
+                                            <td>
+                                                <%= vac.user %>
+                                            </td>
+                                            <td>
+                                                <%= holiday.startDate %>
+                                            </td>
+                                            <td>
+                                                <%= holiday.endDate %>
+                                            </td>
+                                            <td>
+                                                <%= holiday.days %>
+                                            </td>
+                                            <td class="bg-warning">
+                                                <%= holiday.status %>
+                                            </td>
+                                            <td>
+                                                <form action="/vacation/approve/<%=vac.id %>" method="post">
+                                                    <input type="text" name="holidayId" value="<%= holiday.id %>"
+                                                        hidden>
+                                                    <button class="btn btn-success">APPROVE</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form action="/vacation/reject/<%=vac.id %>" method="post">
+                                                    <input type="text" name="holidayId" hidden>
+                                                    <button class="btn btn-danger">REJECT</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+
+                                            <% } %>
+                                                <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <!--APPROVED HOLIDAYS-->
+                <div class="col mt-4">
+                    <caption>
+                        <h2>
+                            Approved holidays
+                        </h2>
+                    </caption>
+                    <table class="table table-success table-hover">
+                        <thead>
+                            <th>Employee</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Days</th>
+                            <th>Status</th>
+                            <th>Approve</th>
+                            <th>Reject</th>
+                        </thead>
+                        <tbody>
+                            <% for(vac of vacation) {%>
+                                <% for(holiday of vac.pendingHolidays) {%>
+                                    <% if(holiday.status=='Approved' ) {%>
+                                        <tr>
+                                            <td>
+                                                <%= vac.user %>
+                                            </td>
+                                            <td>
+                                                <%= holiday.startDate %>
+                                            </td>
+                                            <td>
+                                                <%= holiday.endDate %>
+                                            </td>
+                                            <td>
+                                                <%= holiday.days %>
+                                            </td>
+                                            <td class="">
+                                                <%= holiday.status %>
+                                            </td>
+                                            <% if(currentUser.role=='admin' ) {%>
+                                                <td>
+                                                    <form action="/vacation/approve/<%=vac.id %>" method="post">
+                                                        <input type="text" name="holidayId" value="<%= holiday.id %>"
+                                                            hidden>
+                                                        <button class="btn btn-success">APPROVE</button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <form action="/vacation/reject/<%=vac.id %>" method="post">
+                                                        <input type="text" name="holidayId" value="<%= holiday.id %>"" hidden>
+                                                        <button class=" btn btn-danger">REJECT</button>
+                                                    </form>
+                                                </td>
+                                                <% }else {%>
+                                                    <td><button class="bg-danger">FORBIDEN</button></td>
+                                                    <td><button class="bg-danger">FORBIDEN</button></td>
+                                                    <% } %>
+                                        </tr>
+                                        <% } %>
+                                            <% } %>
+                                                <% } %>
+                        </tbody>
+                    </table>
 
                 </div>
+                <!--REJECTED HOLIDAYS-->
+                <div class="col mt-4">
+                    <caption>
+                        <h2>
+                            Rejected holidays
+                        </h2>
+                    </caption>
+                    <table class="table table-danger table-hover">
+                        <thead>
+                            <th>Employee</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Days</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            <% for(vac of vacation) {%>
+                                <% for(holiday of vac.pendingHolidays) {%>
+                                    <% if(holiday.status=='Rejected' ) {%>
+                                        <tr>
+                                            <td>
+                                                <%= vac.user %>
+                                            </td>
+                                            <td>
+                                                <%= holiday.startDate %>
+                                            </td>
+                                            <td>
+                                                <%= holiday.endDate %>
+                                            </td>
+                                            <td>
+                                                <%= holiday.days %>
+                                            </td>
+                                            <td class="">
+                                                <%= holiday.status %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                            <% } %>
+                                                <% } %>
+                        </tbody>
+                    </table>
+                </div>
         </div>
+        <script>
+            document.getElementById('addUser').style.display = 'none';
+            function editEmployeeHolidayData() {
+                document.getElementById('addUser').style.display = 'block';
+                document.getElementById('div').style.display = 'none';
 
+            }
+
+        </script>
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
             integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"

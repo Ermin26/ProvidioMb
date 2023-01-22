@@ -26,6 +26,8 @@ const Week = require('./models/week');
 const Costs = require('./models/costs');
 const Employers = require('./models/employees');
 const Vacation = require('./models/vacation');
+const vacation = require('./models/vacation');
+const { update } = require('./models/models');
 
 const db_URL = process.env.DB_URL
 
@@ -185,12 +187,13 @@ app.put('/editEmploye/:id', isLoged, async (req, res) => {
     req.flash('success', 'User data was successfully updated.');
     res.redirect(`/users`)
 })
-
+/*
 app.delete('/employee/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const user = await Employers.findByIdAndDelete(id)
     res.redirect('/users')
 })
+*/
 app.get('/users/edit/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const user = await People.findById(id);
@@ -213,7 +216,7 @@ app.delete('/users/:id', isLoged, async (req, res) => {
 })
 
 app.get('/', async (req, res) => {
-
+    checkDetails();
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
 
@@ -245,7 +248,37 @@ app.get('/register', isLoged, async (req, res) => {
 
 app.get('/vacation', isLoged, async (req, res) => {
     const employees = await Employers.find({});
-    res.render('editVacation', { employees });
+    const vacation = await Vacation.find({});
+    res.render('editVacation', { employees, vacation });
+})
+
+app.post('/vacation/approve/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const holId = req.body.holidayId;
+    const vacation = await Vacation.findById(id);
+    for (holiday of vacation.pendingHolidays) {
+        if (holId === holiday.id) {
+            await vacation.pendingHolidays[0].status.pop()
+            await vacation.pendingHolidays[0].status.push('Approved');
+            await vacation.save();
+            res.redirect('/vacation')
+        }
+    }
+
+})
+app.post('/vacation/reject/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const holId = req.body.holidayId;
+    const vacation = await Vacation.findById(id);
+    for (holiday of vacation.pendingHolidays) {
+        if (holId === holiday.id) {
+            await vacation.pendingHolidays[0].status.pop()
+            await vacation.pendingHolidays[0].status.push('Rejected');
+            await vacation.save();
+            res.redirect('/vacation')
+        }
+    }
+
 })
 
 app.post('/holidays', async (req, res) => {
@@ -260,14 +293,12 @@ app.post('/register', isLoged, async (req, res) => {
     const { username, password, role } = req.body;
     const user = await new People({ username: username, role: role });
     const addedUser = await People.register(user, password);
-    console.log(addedUser, 'sucesfully registered');
+    console.log(addedUser, 'successfully registered');
 })
 
 app.get('/add', isLoged, async (req, res) => {
     res.render('add')
 })
-
-
 app.post('/addEmploye', isLoged, async (req, res) => {
     const { username, lastname, password, emplStatus, status } = req.body;
     const user = await new Employers({ username: username, lastname: lastname, employmentStatus: emplStatus, status: status });
@@ -275,10 +306,12 @@ app.post('/addEmploye', isLoged, async (req, res) => {
     req.flash('success', 'Successfully added new employee')
     res.redirect('/users')
 })
-
+app.get('/employee', async (req, res) => {
+    res.render('employee/employeeLogin');
+})
 let employeeData = []
 let userID = []
-app.get('/myData', async (req, res) => {
+app.get('/employee/myData', async (req, res) => {
     let findedUser = []
     let employee = employeeData[0]
     const user = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' } }).limit(1)
@@ -302,28 +335,62 @@ app.get('/myData', async (req, res) => {
         const holidayInfo = await Vacation.find({ user: { $regex: `${employee}`, $options: 'i' } })
         const holiday = await Vacation.find({})
 
-        //console.log(holidayInfo)
         for (pending of holidayInfo) {
             userID.pop();
             userID.push(pending.id)
-            //console.log(pending.id)
         }
-        res.render('userCheckByHimself', { findedEmployee, newUser, holidayInfo, year, holiday })
+        res.render('employee/userCheckByHimself', { findedEmployee, newUser, holidayInfo, year, holiday })
     }
 
 })
 
-app.get('/myData/:id', async (req, res) => {
+app.get('/employee/myData/:id', async (req, res) => {
     const { id } = req.params;
-    const userHoliday = await Vacation.find({ "pendingHolidays._id": '63c6fc10408117a77eeb9e19' })
+    const userHoliday = await Vacation.find({ user: { $regex: `${employeeData}`, $options: 'i' } })
     //const holiday = userHoliday.findById(id)
-    console.log(userHoliday)
-    res.send(id)
+    for (vac of userHoliday) {
+        for (holiday of vac.pendingHolidays) {
+            if (holiday.id === id) {
+                res.render('employee/userEditVacation', { holiday, vac })
+            }
+        }
+    }
+
+
 })
 
-app.get('/askForHolidays', async (req, res) => {
-    //console.log(employeeData)
-    res.render('askForHolidays', { employeeData, userID })
+app.put('/employee/myData/:id', async (req, res) => {
+    const { id } = req.params;
+    const vac = req.body;
+    const dateStart = vac.startDate.split('-').reverse().join('.');
+    const dateEnd = vac.endDate.split('-').reverse().join('.');
+    const updateHoliday = await Vacation.findById(id)
+    await updateHoliday.pendingHolidays.pop();
+    await updateHoliday.save();
+    await updateHoliday.pendingHolidays.push({ startDate: `${dateStart}`, endDate: `${dateEnd}`, days: `${vac.days}`, status: `${vac.status}` });
+    await updateHoliday.save();
+    req.flash('success', 'Vloga za dopust je posodobljena.')
+    res.redirect('/employee/myData')
+})
+//? EMPLOYEE DELETE VACATION
+app.post('/employee/myData/delete/:id', async (req, res) => {
+    const { id } = req.params;
+    const deleteId = req.body.deleteVacId;
+    const updateHoliday = await Vacation.findById(id)
+    for (vacations of updateHoliday.pendingHolidays) {
+        if (vacations.id == deleteId) {
+            await updateHoliday.pendingHolidays.pop(vacations);
+            await updateHoliday.save();
+            req.flash('success', 'Vloga za dopust izbrisana.')
+            res.redirect('/employee/myData')
+        }
+    }
+
+})
+
+app.get('/employee/askForHolidays', async (req, res) => {
+
+    res.render('employee/askForHolidays', { employeeData, userID })
 })
 
 app.post('/askForHoliday', async (req, res) => {
@@ -331,26 +398,21 @@ app.post('/askForHoliday', async (req, res) => {
     let startDate = data.startDate;
     const dateStart = startDate.split('-').reverse().join('.');
     const dateEnd = data.endDate.split('-').reverse().join('.');
-    const user = await Vacation.findById(`${data.userid}`)
+    const user = await Vacation.findById(data.userid)
     user.pendingHolidays.push({ startDate: `${dateStart}`, endDate: `${dateEnd}`, days: `${data.days}`, status: `${data.status}` });
     await user.save();
-    console.log(user)
-    //const holiday = await Vacation.findByIdAndUpdate({ pendingHolidays: [{ startDate: `${dateStart}`, endDate: `${dateEnd}`, days: `${data.days}`, status: `${data.status}` }] })
-    //await holiday.save();
-    //console.log(data);
-    res.redirect('askForHolidays')
+    req.flash('success', 'Vloga za dopust je odana.')
+    res.redirect('/employee/myData')
 })
 
-app.get('/employee', async (req, res) => {
-    res.render('employeeLogin');
-})
+
 
 app.post('/employee/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/employee', keepSessionInfo: true }), async (req, res) => {
     req.flash('success', 'Successfully loged', req.user.username)
     let user = req.session.passport.user;
     employeeData.pop();
     employeeData.push(user)
-    res.redirect('/myData');
+    res.redirect('/employee/myData');
 })
 app.get('/logMeOut', (req, res, next) => {
     req.logout(function (err) {
@@ -568,5 +630,5 @@ app.get('/logout', isLoged, (req, res, next) => {
 });
 
 const port = process.env.PORT || 5000
-app.listen(port,
+app.listen(port, checkDetails(),
     console.log(`listening on ${port}`))
