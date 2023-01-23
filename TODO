@@ -12,6 +12,11 @@ DOING------------------
 
 
 DONE-----------------------
+    Pushed to git on 23.1.2023 at 23:05;
+    Added apply date column on user req holiday to save date when --
+        --user applye req for vacation
+    Edited check boxes on page for new bills;
+    Fixed Approve/Reject user holiday req;
     Pushed to git on 22.1.2023 at 23:15;
     Added bg-color on rows for approved/rejected vacations;
     Added on employee pages option for edit/delete req holiday;
