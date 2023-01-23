@@ -113,8 +113,12 @@
                                 <td></td>
                                 <td id="placilo"><input type="text" id="payment" class="col form-control" value=""
                                         placeholder="0.00 €"></td>
-                                <td><input type="checkbox" id="pay" name="pay" class="form-check-input" value="">
-                                    <input type="checkbox" id="pay2" name="pay" class="form-check-input" value="false">
+                                <td class="text-center"><input type="checkbox" id="pay" name="pay"
+                                        class="form-check-input" value="">
+                                    <input type="checkbox" id="pay2" name="pay" class="form-check-input" value="false"
+                                        hidden>
+                                    <img src="../payed.jpg" alt="Payed" id="imgPayed" class="ms-4 mt-2">
+                                    <img src="../notPay.jpg" alt="Not Payed" id="imgNotPayed" class="ms-4 mt-2">
                                 </td>
                             </tr>
 
@@ -166,8 +170,9 @@
             document.getElementById("placilo").style.width = "85px";
             document.getElementById("placilo").style.backgroundColor = "white";
 
-            document.getElementById('pay2').style.display = 'none'
-
+            document.getElementById('pay2').style.display = 'none';
+            document.getElementById('imgPayed').style.display = 'none';
+            document.getElementById('imgNotPayed').style.display = 'none';
 
             function addRow() {
                 const table = document.getElementById('myTable')
@@ -182,7 +187,7 @@
                 cell2.innerHTML = '<input type="text" id = "kolicina" class="col form-control" name="qty" value="" placeholder="Količina" required>';
                 cell3.innerHTML = '<input type="text" id="cena" class="col form-control" name="price" value="" placeholder="Cena" required>';
                 cell4.innerHTML = '1.50 €';
-                cell5.innerHTML = '<input class="form-check-input" type="checkbox" value="true" id="freeProduct" name="firstOfWeek"> <input class="form-check-input" type="checkbox" value="false" id="hiddenInput" name="firstOfWeek">';
+                cell5.innerHTML = '<input class="form-check-input" type="checkbox" value="true" id="freeProduct" name="firstOfWeek"> <input class="form-check-input" type="checkbox" value="false" id="hiddenInput" name="firstOfWeek"> <img src="../payed.jpg" alt="Payed" id="freChecked" class="ms-4 mt-2"> <img src="../notPay.jpg" alt="Not Payed" id="freeNotChecked" class="ms-4 mt-2">';
                 cell6.innerHTML = '<input type="text" class="form-control" id="total" name="total" value="" placeholder="0.00">';
 
 
@@ -190,7 +195,9 @@
                 cell5.id = "free"
                 cell6.id = "cell6"
 
-                document.getElementById('hiddenInput').style.display = 'none'
+                document.getElementById('hiddenInput').style.display = 'none';
+                document.getElementById('freChecked').style.display = 'none';
+                document.getElementById('freeNotChecked').style.display = 'none';
 
             }
 
@@ -214,11 +221,16 @@
                         document.getElementById('total').setAttribute('value', y.toFixed(2));
                         document.getElementById('freeProduct').setAttribute('value', 'true')
                         document.getElementById('freeProduct').checked = true;
+                        document.getElementById('freeProduct').style.display = 'none';
+                        document.getElementById('freChecked').style.display = 'block';
+
                     } else {
                         document.getElementById('total').innerHTML = 0.00;
                         document.getElementById('total').setAttribute('value', 0.00);
                         document.getElementById('freeProduct').setAttribute('value', 'true')
                         document.getElementById('freeProduct').checked = true;
+                        document.getElementById('freeProduct').style.display = 'none';
+                        document.getElementById('freChecked').style.display = 'block';
                     }
                     //document.getElementById('hiddenInput').setAttribute('value', 'false')
                 }
@@ -229,14 +241,17 @@
                     //document.getElementById('freeProduct').setAttribute('value', 'false');
                     document.getElementById('hiddenInput').setAttribute('value', 'false')
                     document.getElementById('hiddenInput').checked = true;
+                    document.getElementById('freeProduct').style.display = 'none';
+                    document.getElementById('freChecked').style.display = 'none';
+                    document.getElementById('freeNotChecked').style.display = 'block';
                 }
             }
 
             function placaj() {
 
                 let taable = document.getElementById('myTable');
-                let rows = taable.rows.length - 2
-                let payed = document.getElementById('pay')
+                let rows = taable.rows.length - 2;
+                let payed = document.getElementById('pay');
                 //console.log(taable.rows[1].cells[5], ' i am rows')
                 /*
                 
@@ -259,9 +274,13 @@
                 if (payed.checked) {
                     document.getElementById('pay').setAttribute('value', 'true');
                     document.getElementById('pay').checked = true;
+                    document.getElementById('pay').style.display = 'none';
+                    document.getElementById('imgPayed').style.display = 'block';
                 } else {
                     document.getElementById('pay2').setAttribute('value', 'false');
                     document.getElementById('pay2').checked = true;
+                    document.getElementById('pay').style.display = 'none';
+                    document.getElementById('imgNotPayed').style.display = 'block';
                     document.getElementById('payDate').innerHTML = "" + "" + "";
                     document.getElementById('payDate').setAttribute('value', "" + "" + "");
 

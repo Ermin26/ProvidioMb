@@ -15,7 +15,7 @@
 
         <div class="container text-center">
             <%- include('../flashError') %>
-                <div class="col ms-auto me-auto bg-info text-center mt-5 p-3">
+                <div class="col border-bottom ms-auto me-auto text-center mt-5 mb-5 p-3">
                     <div id="addUser">
                         <caption>
                             <h1>
@@ -60,23 +60,24 @@
                             </form>
                         </div>
                     </div>
-                    <div id="div">
+                    <div id="div" class="mb-5">
                         <h3>Update employee holiday data.</h3>
                         <button class="btn btn-primary" onclick="editEmployeeHolidayData()">Submit</button>
                     </div>
                 </div>
                 <!--REQUESTED HOLIDAYS-->
-                <div class="col mt-4">
-                    <caption>
+                <div class="col mt-5 mb-5">
+                    <caption class="mt-5">
                         <h2>Users holidays requests</h2>
                     </caption>
-                    <table class="table table-info table-hover">
+                    <table class="table table-info table-hover mt-4 mb-5">
                         <thead>
                             <th>Employee</th>
                             <th>Start</th>
                             <th>End</th>
                             <th>Days</th>
                             <th>Status</th>
+                            <th>Apply Date</th>
                             <th>Approve</th>
                             <th>Reject</th>
                         </thead>
@@ -101,18 +102,29 @@
                                                 <%= holiday.status %>
                                             </td>
                                             <td>
-                                                <form action="/vacation/approve/<%=vac.id %>" method="post">
-                                                    <input type="text" name="holidayId" value="<%= holiday.id %>"
-                                                        hidden>
-                                                    <button class="btn btn-success">APPROVE</button>
-                                                </form>
+                                                <%= holiday.applyDate %>
                                             </td>
-                                            <td>
-                                                <form action="/vacation/reject/<%=vac.id %>" method="post">
-                                                    <input type="text" name="holidayId" hidden>
-                                                    <button class="btn btn-danger">REJECT</button>
-                                                </form>
-                                            </td>
+                                            <% if(currentUser.role !='visitor' ) {%>
+                                                <td>
+                                                    <form action="/vacation/approve/<%=vac.id %>" method="post">
+                                                        <input type="text" name="holidayId" value="<%= holiday.id %>"
+                                                            hidden>
+                                                        <button class="btn btn-success">
+                                                            Approve
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <form action="/vacation/reject/<%=vac.id %>" method="post">
+                                                        <input type="text" name="holidayId" value="<%= holiday.id %>"
+                                                            hidden>
+                                                        <button class="btn btn-danger">REJECT</button>
+                                                    </form>
+                                                </td>
+                                                <% }else {%>
+                                                    <td><button class="btn btn-sm btn-danger">FORBIDEN</button></td>
+                                                    <td><button class="btn btn-sm btn-danger">FORBIDEN</button></td>
+                                                    <% } %>
                                         </tr>
                                         <% } %>
 
@@ -122,20 +134,20 @@
                     </table>
                 </div>
                 <!--APPROVED HOLIDAYS-->
-                <div class="col mt-4">
-                    <caption>
+                <div class="col mt-5 mb-5">
+                    <caption class="mt-5">
                         <h2>
                             Approved holidays
                         </h2>
                     </caption>
-                    <table class="table table-success table-hover">
+                    <table class="table table-success table-hover mt-4 mb-5">
                         <thead>
                             <th>Employee</th>
                             <th>Start</th>
                             <th>End</th>
                             <th>Days</th>
                             <th>Status</th>
-                            <th>Approve</th>
+                            <th>Apply Date</th>
                             <th>Reject</th>
                         </thead>
                         <tbody>
@@ -158,23 +170,23 @@
                                             <td class="">
                                                 <%= holiday.status %>
                                             </td>
+                                            <td>
+                                                <%= holiday.applyDate %>
+                                            </td>
                                             <% if(currentUser.role=='admin' ) {%>
                                                 <td>
-                                                    <form action="/vacation/approve/<%=vac.id %>" method="post">
+                                                    <form action="/vacation/reject/<%=vac.id %>" method="post">
                                                         <input type="text" name="holidayId" value="<%= holiday.id %>"
                                                             hidden>
-                                                        <button class="btn btn-success">APPROVE</button>
-                                                    </form>
-                                                </td>
-                                                <td>
-                                                    <form action="/vacation/reject/<%=vac.id %>" method="post">
-                                                        <input type="text" name="holidayId" value="<%= holiday.id %>"" hidden>
-                                                        <button class=" btn btn-danger">REJECT</button>
+                                                        <button class="btn btn-danger">
+                                                            Reject
+                                                        </button>
                                                     </form>
                                                 </td>
                                                 <% }else {%>
-                                                    <td><button class="bg-danger">FORBIDEN</button></td>
-                                                    <td><button class="bg-danger">FORBIDEN</button></td>
+                                                    <td><button
+                                                            class="btn btn-sm bg-danger text-light">FORBIDEN</button>
+                                                    </td>
                                                     <% } %>
                                         </tr>
                                         <% } %>
@@ -185,19 +197,21 @@
 
                 </div>
                 <!--REJECTED HOLIDAYS-->
-                <div class="col mt-4">
+                <div class="col mt-5 mb-5">
                     <caption>
-                        <h2>
+                        <h2 class="mt-5">
                             Rejected holidays
                         </h2>
                     </caption>
-                    <table class="table table-danger table-hover">
+                    <table class="table table-danger table-hover mt-4 mb-5">
                         <thead>
                             <th>Employee</th>
                             <th>Start</th>
                             <th>End</th>
                             <th>Days</th>
                             <th>Status</th>
+                            <th>Apply Date</th>
+                            <th>Approve</th>
                         </thead>
                         <tbody>
                             <% for(vac of vacation) {%>
@@ -219,6 +233,22 @@
                                             <td class="">
                                                 <%= holiday.status %>
                                             </td>
+                                            <td>
+                                                <%= holiday.applyDate %>
+                                            </td>
+                                            <% if(currentUser.role=='admin' ) {%>
+                                                <td>
+                                                    <form action="/vacation/approve/<%=vac.id %>" method="post">
+                                                        <input type="text" name="holidayId" value="<%= holiday.id %>"
+                                                            hidden>
+                                                        <button class="btn btn-success">
+                                                            Approve
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                <% }else {%>
+                                                    <td><button class="btn btn-danger btn-sm">FORBIDEN</button></td>
+                                                    <% } %>
                                         </tr>
                                         <% } %>
                                             <% } %>

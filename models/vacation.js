@@ -11,6 +11,9 @@ const PendingSchema = new Schema({
         type: String,
         default: '/',
         enum: ['Pending', 'Approved', 'Rejected', 'Ended', '/']
+    }],
+    applyDate: [{
+        type: String,
     }]
 })
 

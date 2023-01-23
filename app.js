@@ -256,24 +256,28 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    for (holiday of vacation.pendingHolidays) {
-        if (holId === holiday.id) {
-            await vacation.pendingHolidays[0].status.pop()
-            await vacation.pendingHolidays[0].status.push('Approved');
+    for (let i = 0; i < vacation.pendingHolidays.length; i++) {
+        if (holId === vacation.pendingHolidays[i].id) {
+            await vacation.pendingHolidays[i].status.pop()
+            await vacation.pendingHolidays[i].status.push('Approved');
             await vacation.save();
             res.redirect('/vacation')
         }
     }
-
+    /*
+    for (holiday of vacation.pendingHolidays) {
+        
+    }
+*/
 })
 app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    for (holiday of vacation.pendingHolidays) {
-        if (holId === holiday.id) {
-            await vacation.pendingHolidays[0].status.pop()
-            await vacation.pendingHolidays[0].status.push('Rejected');
+    for (let i = 0; i < vacation.pendingHolidays.length; i++) {
+        if (holId === vacation.pendingHolidays[i].id) {
+            await vacation.pendingHolidays[i].status.pop()
+            await vacation.pendingHolidays[i].status.push('Rejected');
             await vacation.save();
             res.redirect('/vacation')
         }
@@ -398,8 +402,9 @@ app.post('/askForHoliday', async (req, res) => {
     let startDate = data.startDate;
     const dateStart = startDate.split('-').reverse().join('.');
     const dateEnd = data.endDate.split('-').reverse().join('.');
-    const user = await Vacation.findById(data.userid)
-    user.pendingHolidays.push({ startDate: `${dateStart}`, endDate: `${dateEnd}`, days: `${data.days}`, status: `${data.status}` });
+    const user = await Vacation.findById(data.userid);
+    const applyDate = date;
+    user.pendingHolidays.push({ startDate: `${dateStart}`, endDate: `${dateEnd}`, days: `${data.days}`, status: `${data.status}`, applyDate: `${applyDate}` });
     await user.save();
     req.flash('success', 'Vloga za dopust je odana.')
     res.redirect('/employee/myData')

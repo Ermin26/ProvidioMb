@@ -161,12 +161,13 @@
                     </h2>
                 </caption>
 
-                <table id="planiranDopust" class="table ms-auto me-auto mt-4">
+                <table id="planiranDopust" class="table ms-auto me-auto mt-4 align-items-center">
                     <thead>
                         <th>Prvi dan dopusta</th>
                         <th>Zadnji dan dopusta</th>
                         <th>Dni</th>
                         <th>Status</th>
+                        <th>Datum</th>
                         <th>Uredi</th>
                         <th>Izbriši</th>
                     </thead>
@@ -184,6 +185,9 @@
                                 </td>
                                 <td id="status" class="">
                                     <%= userInfo.status%>
+                                </td>
+                                <td>
+                                    <%= userInfo.applyDate%>
                                 </td>
                                 <% if(userInfo.status=='Pending' ) {%>
                                     <td>
