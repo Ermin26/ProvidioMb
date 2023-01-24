@@ -594,7 +594,28 @@ app.get('/all/:id/edit', isLoged, async (req, res) => {
     }
 
 });
+app.put('/all/:id/products', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+    const productId = req.body.productId;
+    const user = await User.findById(id);
 
+    for (let i = 0; i < user.products.length; i++) {
+        if (productId === user.products[i].id) {
+            await user.products[i].name.pop()
+            await user.products[i].qty.pop()
+            await user.products[i].price.pop()
+            await user.products[i].total.pop()
+            await user.products[i].name.push(data.productName);
+            await user.products[i].qty.push(data.productQty);
+            await user.products[i].price.push(data.productPrice);
+            await user.products[i].total.push(data.productTotal);
+            await user.save();
+        }
+    }
+
+    res.redirect('/all');
+})
 //? DELA
 
 app.put('/all/:id', isLoged, async (req, res) => {

@@ -183,6 +183,7 @@
                                 <th class="col">Month</th>
                                 <th class="col">Week</th>
                                 <th class="col">Payed</th>
+                                <th id="edit" class="col">Edit</th>
                                 <th class="col">Sold date</th>
                                 <th class="col">Sold by</th>
                             </thead>
@@ -209,6 +210,7 @@
                                                 <td>
                                                     <img src="../notPay.jpg" alt="Not Payed">
                                                 </td>
+                                                <td id="editLink"><a href="/all/<%= user.id %>">Edit</a></td>
                                                 <td>
                                                     <%= user.soldDate %>
                                                 </td>

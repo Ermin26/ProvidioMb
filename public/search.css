@@ -69,7 +69,9 @@ body {
     #search,
     #allBills,
     #navbar,
-    #h1Results {
+    #h1Results,
+    #edit,
+    #editLink {
         display: none;
     }
 

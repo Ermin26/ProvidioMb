@@ -53,8 +53,9 @@
                             <option value="inactive">Neaktiven</option>
                         </select>
                     </div>
-
-                    <button class="btn btn-success mt-2">Submit</button>
+                    <% if(currentUser.role !='visitor' ) {%>
+                        <button class="btn btn-success mt-2">Submit</button>
+                        <% } %>
                 </form>
                 <a href="/users"><button class="btn btn-dark mt-2">Go Back</button></a>
         </div>

@@ -168,9 +168,15 @@
                             <p id="kraj" class="d-inline">Kraj: Maribor</p>
                         </li>
                         <li class="d-inline">
-                            <label for="payDate">Datum Plačila:</label>
-                            <input type="text" class="border border-white" id="payDate" name="payDate"
-                                value="<%= userData.payDate %> ">
+                            <% if(userData.payDate) {%>
+                                <label for="payDate">Datum Plačila:</label>
+                                <input type="text" class="border border-white" id="payDate" name="payDate"
+                                    value="<%= userData.payDate %> ">
+                                <% }else {%>
+                                    <label for="payDate">Datum Plačila:</label>
+                                    <input type="text" class="border border-white" id="payDate" name="payDate"
+                                        value="Not payed">
+                                    <% } %>
                         </li>
                         <li class="d-inline">
                             <label for="soldDate">Datum Izdaje:</label>
@@ -275,6 +281,7 @@
 
 
         <script>
+            // Re-print function
             let taable = document.getElementById('myTable');
             let rows = taable.rows.length - 2
             let pay = 0;
