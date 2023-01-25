@@ -35,33 +35,35 @@
                             <th>1<sup>/</sup>Week</th>
                             <th>Payed</th>
                         </thead>
+
                         <tbody>
-                            <% for(let product of user.products) { %>
+                            <%# for(let product of user.products) { %>
+                                <% for(let i = 0; i < user.products.length; i++) {%>
                                 <tr>
                                     <td>
-                                        <input type="text" id="productId" name="productId" hidden
-                                            value="<%= product.id %>">
+                                        <input type="text" id="productId" name="productId"
+                                            value="<%= user.products[i].id %>" hidden>
+                                           
                                         <input type="text" id="productName" name="productName"
-                                            class="w-75 text-center bg-dark" value="<%= product.name %>">
-
+                                            class="w-75 text-center bg-dark" value="<%= user.products[i].name %>">
                                     </td>
                                     <td>
                                         <input type="text" id="productQty" name="productQty"
-                                            class="w-25 text-center bg-dark" value="<%= product.qty %>">
+                                            class="w-25 text-center bg-dark" value="<%= user.products[i].qty %>">
 
                                     </td>
                                     <td>
                                         <input type="text" id="productPrice" name="productPrice"
-                                            class="w-50 text-center bg-dark" value="<%= product.price %>">
+                                            class="w-50 text-center bg-dark" value="<%= user.products[i].price %>">
                                         &euro;
                                     </td>
                                     <td>
                                         <input type="text" id="productTotal" name="productTotal"
-                                            class="w-50 text-center bg-dark" value="<%= product.total %>">
+                                            class="w-50 text-center bg-dark" value="<%= user.products[i].total %>">
                                         &euro;
                                     </td>
                                     <td>
-                                        <% if(product.firstOfWeek=='true' ){ %>
+                                        <% if(user.products[i].firstOfWeek=='true' ){ %>
                                             <img src="/payed.jpg" alt="Not Payed">
                                             <% } else { %>
                                                 <img src="/notPay.jpg" alt="Not Payed">
