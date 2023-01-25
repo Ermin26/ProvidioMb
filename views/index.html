@@ -111,7 +111,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td id="placilo"><input type="text" id="payment" class="col form-control" value=""
+                                <td id="placilo"><input type="text" id="payment"
+                                        class="col form-control text-center ms-auto me-auto" value=""
                                         placeholder="0.00 €"></td>
                                 <td class="text-center justify-content-center"><input type="checkbox" id="pay"
                                         name="pay" class="form-check-input" value="">
@@ -184,12 +185,12 @@
                 const cell4 = row.insertCell(3);
                 const cell5 = row.insertCell(4);
                 const cell6 = row.insertCell(5);
-                cell1.innerHTML = '<input type="text" id = "izdelek" class="col form-control" name="product" value="" placeholder="Product" required>';
-                cell2.innerHTML = '<input type="text" id = "kolicina" class="col form-control" name="qty" value="" placeholder="Količina" required>';
-                cell3.innerHTML = '<input type="text" id="cena" class="col form-control" name="price" value="" placeholder="Cena" required>';
+                cell1.innerHTML = '<input type="text" id = "izdelek" class="col form-control text-center ms-auto me-auto" name="product" value="" placeholder="Product" required>';
+                cell2.innerHTML = '<input type="text" id = "kolicina" class="col form-control text-center ms-auto me-auto" name="qty" value="" placeholder="Količina" required>';
+                cell3.innerHTML = '<input type="text" id="cena" class="col form-control text-center ms-auto me-auto" name="price" value="" placeholder="Cena" required>';
                 cell4.innerHTML = '1.50 €';
                 cell5.innerHTML = '<input class="form-check-input" type="checkbox" value="true" id="freeProduct" name="firstOfWeek"> <input class="form-check-input" type="checkbox" value="false" id="hiddenInput" name="firstOfWeek"> <img src="../payed.jpg" alt="Payed" id="freChecked" class="ms-auto me-auto mt-2"> <img src="../notPay.jpg" alt="Not Payed" id="freeNotChecked" class="ms-auto me-auto mt-2">';
-                cell6.innerHTML = '<input type="text" class="form-control" id="total" name="total" value="" placeholder="0.00">';
+                cell6.innerHTML = '<input type="text" class="form-control text-center ms-auto me-auto" id="total" name="total" value="" placeholder="0.00">';
 
 
                 cell4.id = "ddv"

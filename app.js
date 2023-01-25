@@ -590,8 +590,8 @@ app.get('/all/:id/edit', isLoged, async (req, res) => {
         return res.redirect('/all')
     }
     else {
-        for(let product of user.products){
-            return res.render('edit', { user,product })
+        for (let product of user.products) {
+            return res.render('edit', { user, product })
         }
     }
 });
@@ -599,10 +599,10 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
     const { id } = req.params;
     const data = req.body;
     const user = await User.findById(id);
-   for(let j = 0; j< data.productId.length; j++){
-    for(let i = 0; i< user.products.length; i++){
-    if(data.productId[j] === user.products[i].id){
-        
+    for (let j = 0; j < data.productId.length; j++) {
+        for (let i = 0; i < user.products.length; i++) {
+            if (data.productId[j] === user.products[i].id) {
+
                 await user.products[i].name.pop()
                 await user.products[i].qty.pop()
                 await user.products[i].price.pop()
@@ -612,7 +612,7 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
                 await user.products[i].price.push(data.productPrice[j]);
                 await user.products[i].total.push(data.productTotal[j]);
                 await user.save();
-                
+
             }
         }
     }

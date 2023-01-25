@@ -1,3 +1,7 @@
+html {
+    overflow-x: hidden;
+}
+
 a {
     text-decoration: none;
 }
@@ -78,14 +82,19 @@ a {
     #placano,
     #niPlacano {
         display: inline-flex;
+        overflow-x: auto;
+    }
 
-
+    #all {
+        width: 100%;
+        overflow-x: auto;
     }
 
     #table-data,
     #table-head {
         position: sticky;
         top: 65px;
+
     }
 }
 
@@ -98,6 +107,12 @@ a {
     #placano,
     #niPlacano {
         display: inline-flex;
+        overflow-x: auto;
+    }
+
+    #all {
+        width: 100%;
+        overflow-x: auto;
     }
 
     #table-data,
