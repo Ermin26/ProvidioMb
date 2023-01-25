@@ -616,7 +616,8 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
             }
         }
     }
-    res.redirect('/all');
+    req.flash('success', 'Product data was successfully updated.');
+    res.redirect(`/all/${user._id}/edit`);
 })
 //? DELA
 
