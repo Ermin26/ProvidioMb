@@ -114,10 +114,15 @@ li span {
 #ime {
     display: inline-block;
     box-sizing: border-box;
-    text-align: center;
     height: 2em;
     width: auto;
     padding: 5px;
+}
+.prejemnik{
+    margin-right: 5rem;
+}
+.crta{
+    margin-right: 3rem; 
 }
 
 #hiderow {

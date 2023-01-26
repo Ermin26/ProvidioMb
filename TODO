@@ -13,6 +13,9 @@ DOING------------------
 
 DONE-----------------------
 
+    After user login check if user role is active if not can't login!
+    Edited podpis;
+    Added read only on pay and total column;
     _______________________________________
     pushed to git on 25.1.2023 at 22:50;
     Set text-center on table for new bill (index page);

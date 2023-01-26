@@ -2,6 +2,8 @@ html {
     overflow-x: hidden;
 }
 
+
+
 a {
     text-decoration: none;
 }
@@ -73,7 +75,7 @@ a {
     #btn-func {
         margin: 3px;
     }
-
+   
     .caption {
         margin-left: 10px;
     }

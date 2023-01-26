@@ -318,21 +318,22 @@ let userID = []
 app.get('/employee/myData', async (req, res) => {
     let findedUser = []
     let employee = employeeData[0]
+    const employeeStatus = await Employers.find({username: { $regex: `${employee}`, $options: 'i' }});
+    let status = ''
+    for(status of employeeStatus) {
+        status = status.status
+        
+    }
     const user = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' } }).limit(1)
-    /*
-        if (user) {
-            let newUser = employeeData[0];
-            const findedEmployee = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' }, pay: 'false' })
-            res.render('userCheckByHimself', { findedEmployee, user })
-        }
-    */
+    
 
     for (let username of user) {
         findedUser.pop();
         findedUser.push(username.buyer)
     }
     let newUser = findedUser[0];
-    if (!employee) {
+    if (!employee || status != 'active') {
+        req.flash('error', 'Employee not found or your account is not active anymore. Please contact admin if you think your status must be changed.')
         res.redirect('/employee')
     } else {
         const findedEmployee = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' }, pay: 'false' })
