@@ -1,6 +1,6 @@
 TO DO --------------
 
-    
+    Add color on active/inactive user
     Make for admin to delete employee approved/rejected holiday?
     Fix req/passport for employe pages;
 
@@ -13,6 +13,7 @@ DOING------------------
 
 DONE-----------------------
 
+    Pushed to git on 26.1.2023 at 13:40;
     After user login check if user role is active if not can't login!
     Edited podpis;
     Added read only on pay and total column;
