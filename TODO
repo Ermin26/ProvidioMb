@@ -1,5 +1,8 @@
 TO DO --------------
 
+    
+    When user apply for holiday check witch vacation
+         use "lastYear/thisYear;
     Add color on active/inactive user
     Make for admin to delete employee approved/rejected holiday?
     Fix req/passport for employe pages;
@@ -7,12 +10,15 @@ TO DO --------------
 
 DOING------------------
 
-    
+    Vloga za korištenje ur, čekiraj ako user 
+        izabere vec kot ima
 
 
 
 DONE-----------------------
-
+    
+    Add column for hours/overtime
+    _______________________________________
     Pushed to git on 26.1.2023 at 13:40;
     After user login check if user role is active if not can't login!
     Edited podpis;
@@ -50,4 +56,5 @@ DONE-----------------------
     Show vacation on employee page;;
     Update function for saving holidays -- 
     only check if everything works fine!! ----;
+    Add "used holidays" column in db;
     

@@ -21,7 +21,14 @@ const VacationSchema = new Schema({
     user: String,
     lastYearHolidays: Number,
     holidays: Number,
-    usedHolidays: Number,
+    usedHolidays: {
+        type: Number,
+        default: 0,
+    },
+    overtime: {
+        type: String,
+        default: 0,
+    },
     pendingHolidays: [PendingSchema]
 })
 

@@ -287,10 +287,16 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
 
 app.post('/holidays', async (req, res) => {
     const data = req.body;
-    const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}` })
+    const ifExistsUser = await Vacation.find({user: `${data.user}`});
+    if(ifExistsUser.length) {
+        req.flash('error', `User ${data.user} already added to database`);
+        res.redirect('vacation')
+    }else{
+    const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}` })
     userData.save();
     req.flash('success', `Successfully updated data for ${data.user}`)
     res.redirect('vacation')
+}
 })
 
 app.post('/register', isLoged, async (req, res) => {
@@ -394,10 +400,26 @@ app.post('/employee/myData/delete/:id', async (req, res) => {
 })
 
 app.get('/employee/askForHolidays', async (req, res) => {
+    if(employeeData.length){
+        const user = await Vacation.find({ user: { $regex: `${employeeData}`, $options: 'i'}});
+        for(data of user){
+            let usersData = data
+            console.log(usersData.overtime)
 
-    res.render('employee/askForHolidays', { employeeData, userID })
+            res.render('employee/askForHolidays', { employeeData, userID, usersData })
+        }
+    }else{
+        res.redirect('/employee')
+    }
+
 })
-
+/*
+app.post('/useOvertim', async (req, res) => {
+    console.log(req.body)
+    res.redirect('/employee/askForHolidays')
+    
+})
+*/
 app.post('/askForHoliday', async (req, res) => {
     const data = req.body;
     let startDate = data.startDate;
