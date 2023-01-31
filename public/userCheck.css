@@ -7,6 +7,10 @@ body {
     overflow-x: auto;
     overflow-y: auto;
 }
+.container{
+    
+    overflow-x: hidden;
+}
 
 
 @media (max-width: 550px) {
@@ -15,33 +19,23 @@ body {
         height: 100%;
     }
 
-    .container {
+    #table, #stanje, #planiran {
         margin: 0;
         padding: 0;
-        overflow-x: hidden;
-        width: 100%;
-
-    }
-
-    #table {
-        margin: 0;
-        padding: 0;
+        display: flex;
         overflow-x: auto;
         width: 100%;
 
     }
 
-    #table-info {
-        padding: 1px;
-        overflow-x: visible;
+    #table-info, #stanjeLetnegaDopusta, #planiranDopust {   
+        padding: 0px;
+        overflow-x: auto;
         width: 100%;
     }
 
-    #table-data {
+    #table-data, #stanjeHead, #planiranHead {
         margin: 0;
         overflow-x: visible;
     }
-
-
-
 }

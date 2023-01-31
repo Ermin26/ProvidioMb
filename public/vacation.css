@@ -1,0 +1,31 @@
+
+html{
+    overflow-x: hidden;
+}
+body {
+    overflow-x: hidden;
+}
+@media (max-width: 550px) {
+.container {
+    width: 100%;
+}
+#reqTable, #approvedTable,
+#rejectedTable{
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+#tableReq, 
+#tableApproved,
+#tableRejected{
+    overflow-x: auto;
+}
+
+#reqTableHead, 
+#approvedHead,
+#rejectedHead{
+    overflow-x: auto;
+}
+}
