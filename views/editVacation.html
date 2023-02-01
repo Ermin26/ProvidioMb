@@ -120,6 +120,8 @@
                                                     <form action="/vacation/approve/<%=vac.id %>" method="post">
                                                         <input type="text" name="holidayId" value="<%= holiday.id %>"
                                                             hidden>
+                                                            <input type="number" name="days" value="<%= holiday.days %>"
+                                                            hidden>
                                                         <button class="btn btn-success">
                                                             Approve
                                                         </button>

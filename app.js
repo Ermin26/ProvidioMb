@@ -218,12 +218,15 @@ app.delete('/users/:id', isLoged, async (req, res) => {
 app.get('/', async (req, res) => {
     checkDetails();
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
-    const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
+    console.log(perYear.length)
 
+    const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
+    //&& perMonth.length
     if (perYear.length && perMonth.length) {
 
-        const newBill = perYear[0].numPerYear + 1 || 1;
+        const newBill = perYear[0].numPerYear + 1;
         const billNew = perMonth[0].numPerMonth + 1 || 1;
+        console.log(newBill)
         if (month != currentMonth[0]) {
             const billNew = 1;
             currentMonth.pop();
@@ -234,7 +237,7 @@ app.get('/', async (req, res) => {
         }
     } else {
         currentMonth.push(month)
-        const newBill = 1;
+        const newBill = perYear[0].numPerYear + 1;
         const billNew = 1;
         res.render('index', { date, year, month, billNew, newBill, currentWeek })
     }
@@ -264,11 +267,7 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
             res.redirect('/vacation')
         }
     }
-    /*
-    for (holiday of vacation.pendingHolidays) {
-        
-    }
-*/
+
 })
 app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
