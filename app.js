@@ -218,15 +218,10 @@ app.delete('/users/:id', isLoged, async (req, res) => {
 app.get('/', async (req, res) => {
     checkDetails();
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
-    console.log(perYear.length)
-
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
-    //&& perMonth.length
     if (perYear.length && perMonth.length) {
-
         const newBill = perYear[0].numPerYear + 1;
         const billNew = perMonth[0].numPerMonth + 1 || 1;
-        console.log(newBill)
         if (month != currentMonth[0]) {
             const billNew = 1;
             currentMonth.pop();
@@ -583,7 +578,7 @@ app.get('/all', isLoged, async (req, res) => {
     let datum = new Date();
     let month = datum.getMonth() + 1;
     //const userData = await User.find({}).sort({ "year": "descending" });
-    const userData = await User.find({}).sort({ "year": -1, "numPerMonth": -1 });
+    const userData = await User.find({}).sort({ "year": -1, "numPerYear": -1 });
     const yearNum = await User.find({}).sort({ "numPerYear": "descending" }).limit(1)
     const payData = await User.find({ pay: 'true' }).sort({ "year": -1, "numPerMonth": -1 });
     const notPayData = await User.find({ pay: 'false' }).sort({ "year": -1, "numPerMonth": -1 });
