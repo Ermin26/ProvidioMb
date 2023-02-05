@@ -15,9 +15,9 @@
     <%- include('../layouts/boilerplate.ejs') %>
 
         <div class="container text-center">
-           
-           
-           
+
+
+
             <%- include('../flashError') %>
                 <div class="col border-bottom ms-auto me-auto text-center mt-5 mb-5 p-3">
                     <div id="addUser">
@@ -54,7 +54,8 @@
                                 </div>
                                 <div class="mb-2 d-flex flex-column">
                                     <label for="overtime">Overtime</label>
-                                    <input class="w-25 ms-auto me-auto text-center" type="text" name="overtime" id="overtime" value="0">
+                                    <input class="w-25 ms-auto me-auto text-center" type="text" name="overtime"
+                                        id="overtime" value="0">
                                 </div>
 
                                 <% if(currentUser.role=='visitor' ) {%>
@@ -82,70 +83,70 @@
                     </caption>
                     <div id="reqTable" class="row">
                         <table id="tableReq" class="table table-info table-hover mt-4 mb-5">
-                        <thead id="reqTableHead">
-                            <th>Employee</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Days</th>
-                            <th>Status</th>
-                            <th>Apply Date</th>
-                            <th>Approve</th>
-                            <th>Reject</th>
-                        </thead>
-                        <tbody>
-                            <% for(vac of vacation) {%>
-                                <% for(holiday of vac.pendingHolidays) {%>
-                                    <% if(holiday.status=='Pending' ) {%>
-                                        <tr>
-                                            <td>
-                                                <%= vac.user %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.startDate %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.endDate %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.days %>
-                                            </td>
-                                            <td class="bg-warning">
-                                                <%= holiday.status %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.applyDate %>
-                                            </td>
-                                            <% if(currentUser.role !='visitor' ) {%>
+                            <thead id="reqTableHead">
+                                <th>Employee</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Days</th>
+                                <th>Status</th>
+                                <th>Apply Date</th>
+                                <th>Approve</th>
+                                <th>Reject</th>
+                            </thead>
+                            <tbody>
+                                <% for(vac of vacation) {%>
+                                    <% for(holiday of vac.pendingHolidays) {%>
+                                        <% if(holiday.status=='Pending' ) {%>
+                                            <tr>
                                                 <td>
-                                                    <form action="/vacation/approve/<%=vac.id %>" method="post">
-                                                        <input type="text" name="holidayId" value="<%= holiday.id %>"
-                                                            hidden>
+                                                    <%= vac.user %>
+                                                </td>
+                                                <td>
+                                                    <%= holiday.startDate %>
+                                                </td>
+                                                <td>
+                                                    <%= holiday.endDate %>
+                                                </td>
+                                                <td>
+                                                    <%= holiday.days %>
+                                                </td>
+                                                <td class="bg-warning">
+                                                    <%= holiday.status %>
+                                                </td>
+                                                <td>
+                                                    <%= holiday.applyDate %>
+                                                </td>
+                                                <% if(currentUser.role !='visitor' ) {%>
+                                                    <td>
+                                                        <form action="/vacation/approve/<%=vac.id %>" method="post">
+                                                            <input type="text" name="holidayId"
+                                                                value="<%= holiday.id %>" hidden>
                                                             <input type="number" name="days" value="<%= holiday.days %>"
-                                                            hidden>
-                                                        <button class="btn btn-success">
-                                                            Approve
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                                <td>
-                                                    <form action="/vacation/reject/<%=vac.id %>" method="post">
-                                                        <input type="text" name="holidayId" value="<%= holiday.id %>"
-                                                            hidden>
-                                                        <button class="btn btn-danger">REJECT</button>
-                                                    </form>
-                                                </td>
-                                                <% }else {%>
-                                                    <td><button class="btn btn-sm btn-danger">FORBIDEN</button></td>
-                                                    <td><button class="btn btn-sm btn-danger">FORBIDEN</button></td>
-                                                    <% } %>
-                                        </tr>
-                                        <% } %>
-
+                                                                hidden>
+                                                            <button class="btn btn-success">
+                                                                Approve
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <form action="/vacation/reject/<%=vac.id %>" method="post">
+                                                            <input type="text" name="holidayId"
+                                                                value="<%= holiday.id %>" hidden>
+                                                            <button class="btn btn-danger">REJECT</button>
+                                                        </form>
+                                                    </td>
+                                                    <% }else {%>
+                                                        <td><button class="btn btn-sm btn-danger">FORBIDEN</button></td>
+                                                        <td><button class="btn btn-sm btn-danger">FORBIDEN</button></td>
+                                                        <% } %>
+                                            </tr>
                                             <% } %>
+
                                                 <% } %>
-                        </tbody>
+                                                    <% } %>
+                            </tbody>
                         </table>
-                </div>
+                    </div>
                 </div>
 
 
@@ -159,58 +160,58 @@
                     </caption>
                     <div id="approvedTable" class="row">
                         <table id="tableApproved" class="table table-success table-hover mt-4 mb-5">
-                        <thead id="approvedHead">
-                            <th>Employee</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Days</th>
-                            <th>Status</th>
-                            <th>Apply Date</th>
-                            <th>Reject</th>
-                        </thead>
-                        <tbody>
-                            <% for(vac of vacation) {%>
-                                <% for(holiday of vac.pendingHolidays) {%>
-                                    <% if(holiday.status=='Approved' ) {%>
-                                        <tr>
-                                            <td>
-                                                <%= vac.user %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.startDate %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.endDate %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.days %>
-                                            </td>
-                                            <td class="">
-                                                <%= holiday.status %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.applyDate %>
-                                            </td>
-                                            <% if(currentUser.role=='admin' ) {%>
+                            <thead id="approvedHead">
+                                <th>Employee</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Days</th>
+                                <th>Status</th>
+                                <th>Apply Date</th>
+                                <th>Reject</th>
+                            </thead>
+                            <tbody>
+                                <% for(vac of vacation) {%>
+                                    <% for(holiday of vac.pendingHolidays) {%>
+                                        <% if(holiday.status=='Approved' ) {%>
+                                            <tr>
                                                 <td>
-                                                    <form action="/vacation/reject/<%=vac.id %>" method="post">
-                                                        <input type="text" name="holidayId" value="<%= holiday.id %>"
-                                                            hidden>
-                                                        <button class="btn btn-danger">
-                                                            Reject
-                                                        </button>
-                                                    </form>
+                                                    <%= vac.user %>
                                                 </td>
-                                                <% }else {%>
-                                                    <td><button
-                                                            class="btn btn-sm bg-danger text-light">FORBIDEN</button>
+                                                <td>
+                                                    <%= holiday.startDate %>
+                                                </td>
+                                                <td>
+                                                    <%= holiday.endDate %>
+                                                </td>
+                                                <td>
+                                                    <%= holiday.days %>
+                                                </td>
+                                                <td class="">
+                                                    <%= holiday.status %>
+                                                </td>
+                                                <td>
+                                                    <%= holiday.applyDate %>
+                                                </td>
+                                                <% if(currentUser.role=='admin' ) {%>
+                                                    <td>
+                                                        <form action="/vacation/rejectAfter/<%=vac.id %>" method="post">
+                                                            <input type="text" name="holidayId"
+                                                                value="<%= holiday.id %>" hidden>
+                                                            <button class="btn btn-danger">
+                                                                Reject
+                                                            </button>
+                                                        </form>
                                                     </td>
-                                                    <% } %>
-                                        </tr>
-                                        <% } %>
+                                                    <% }else {%>
+                                                        <td><button
+                                                                class="btn btn-sm bg-danger text-light">FORBIDEN</button>
+                                                        </td>
+                                                        <% } %>
+                                            </tr>
                                             <% } %>
                                                 <% } %>
-                        </tbody>
+                                                    <% } %>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -224,59 +225,59 @@
                         </h2>
                     </caption>
                     <div id="rejectedTable" class="row">
-                    <table id="tableRejected" class="table table-danger table-hover mt-4 mb-5">
-                        <thead id="rejectedHead">
-                            <th>Employee</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Days</th>
-                            <th>Status</th>
-                            <th>Apply Date</th>
-                            <th>Approve</th>
-                        </thead>
-                        <tbody>
-                            <% for(vac of vacation) {%>
-                                <% for(holiday of vac.pendingHolidays) {%>
-                                    <% if(holiday.status=='Rejected' ) {%>
-                                        <tr>
-                                            <td>
-                                                <%= vac.user %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.startDate %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.endDate %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.days %>
-                                            </td>
-                                            <td class="">
-                                                <%= holiday.status %>
-                                            </td>
-                                            <td>
-                                                <%= holiday.applyDate %>
-                                            </td>
-                                            <% if(currentUser.role=='admin' ) {%>
+                        <table id="tableRejected" class="table table-danger table-hover mt-4 mb-5">
+                            <thead id="rejectedHead">
+                                <th>Employee</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Days</th>
+                                <th>Status</th>
+                                <th>Apply Date</th>
+                                <th>Approve</th>
+                            </thead>
+                            <tbody>
+                                <% for(vac of vacation) {%>
+                                    <% for(holiday of vac.pendingHolidays) {%>
+                                        <% if(holiday.status=='Rejected' ) {%>
+                                            <tr>
                                                 <td>
-                                                    <form action="/vacation/approve/<%=vac.id %>" method="post">
-                                                        <input type="text" name="holidayId" value="<%= holiday.id %>"
-                                                            hidden>
-                                                        <button class="btn btn-success">
-                                                            Approve
-                                                        </button>
-                                                    </form>
+                                                    <%= vac.user %>
                                                 </td>
-                                                <% }else {%>
-                                                    <td><button class="btn btn-danger btn-sm">FORBIDEN</button></td>
-                                                    <% } %>
-                                        </tr>
-                                        <% } %>
+                                                <td>
+                                                    <%= holiday.startDate %>
+                                                </td>
+                                                <td>
+                                                    <%= holiday.endDate %>
+                                                </td>
+                                                <td>
+                                                    <%= holiday.days %>
+                                                </td>
+                                                <td class="">
+                                                    <%= holiday.status %>
+                                                </td>
+                                                <td>
+                                                    <%= holiday.applyDate %>
+                                                </td>
+                                                <% if(currentUser.role=='admin' ) {%>
+                                                    <td>
+                                                        <form action="/vacation/approve/<%=vac.id %>" method="post">
+                                                            <input type="text" name="holidayId"
+                                                                value="<%= holiday.id %>" hidden>
+                                                            <button class="btn btn-success">
+                                                                Approve
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    <% }else {%>
+                                                        <td><button class="btn btn-danger btn-sm">FORBIDEN</button></td>
+                                                        <% } %>
+                                            </tr>
                                             <% } %>
                                                 <% } %>
-                        </tbody>
-                    </table>
-                </div>
+                                                    <% } %>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
         </div>
         <script>

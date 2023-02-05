@@ -16,6 +16,13 @@ DOING------------------
 
 
 DONE-----------------------
+
+    Automatically app calculate and add days to usedHolidays
+        after vacation is approved; Same for rejected
+        holidays;
+    Option for admin/moderator to update employee
+        holiday days & overtime hourse;
+____________________________________________
     
     Add column for hours/overtime
     _______________________________________

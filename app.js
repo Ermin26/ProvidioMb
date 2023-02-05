@@ -26,8 +26,7 @@ const Week = require('./models/week');
 const Costs = require('./models/costs');
 const Employers = require('./models/employees');
 const Vacation = require('./models/vacation');
-const vacation = require('./models/vacation');
-const { update } = require('./models/models');
+const { findByIdAndDelete } = require('./models/models');
 
 const db_URL = process.env.DB_URL
 
@@ -254,8 +253,15 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
+    const used = vacation.usedHolidays;
+
     for (let i = 0; i < vacation.pendingHolidays.length; i++) {
         if (holId === vacation.pendingHolidays[i].id) {
+            const newUsed = parseInt(used) + parseInt(vacation.pendingHolidays[i].days)
+
+            const updateUsedHolidays = await Vacation.findByIdAndUpdate(id, { usedHolidays: `${newUsed}` })
+            updateUsedHolidays.save();
+            //await vacation.usedHolidays = vacation.pendingHolidays[i].days
             await vacation.pendingHolidays[i].status.pop()
             await vacation.pendingHolidays[i].status.push('Approved');
             await vacation.save();
@@ -264,6 +270,8 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     }
 
 })
+
+
 app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
@@ -279,18 +287,44 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
 
 })
 
+
+app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const holId = req.body.holidayId;
+    const vacation = await Vacation.findById(id);
+    const used = vacation.usedHolidays;
+    for (let i = 0; i < vacation.pendingHolidays.length; i++) {
+        if (holId === vacation.pendingHolidays[i].id) {
+            const newUsed = parseInt(used) - parseInt(vacation.pendingHolidays[i].days)
+            const updateUsedHolidays = await Vacation.findByIdAndUpdate(id, { usedHolidays: `${newUsed}` })
+            updateUsedHolidays.save();
+            await vacation.pendingHolidays[i].status.pop()
+            await vacation.pendingHolidays[i].status.push('Rejected');
+            await vacation.save();
+            res.redirect('/vacation')
+        }
+    }
+
+})
+
+
 app.post('/holidays', async (req, res) => {
     const data = req.body;
-    const ifExistsUser = await Vacation.find({user: `${data.user}`});
-    if(ifExistsUser.length) {
-        req.flash('error', `User ${data.user} already added to database`);
+    const ifExistsUser = await Vacation.find({ user: `${data.user}` });
+    if (ifExistsUser.length) {
+        for (user of ifExistsUser) {
+            const userEdit = await Vacation.findByIdAndUpdate(user.id, { lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}` })
+            userEdit.save()
+
+        }
+        req.flash('success', `Data for user ${data.user} successfully updated`);
         res.redirect('vacation')
-    }else{
-    const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}` })
-    userData.save();
-    req.flash('success', `Successfully updated data for ${data.user}`)
-    res.redirect('vacation')
-}
+    } else {
+        const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}` })
+        userData.save();
+        req.flash('success', `Successfully added data for ${data.user}`)
+        res.redirect('vacation')
+    }
 })
 
 app.post('/register', isLoged, async (req, res) => {
@@ -310,145 +344,6 @@ app.post('/addEmploye', isLoged, async (req, res) => {
     req.flash('success', 'Successfully added new employee')
     res.redirect('/users')
 })
-app.get('/employee', async (req, res) => {
-    res.render('employee/employeeLogin');
-})
-let employeeData = []
-let userID = []
-app.get('/employee/myData', async (req, res) => {
-    let findedUser = []
-    let employee = employeeData[0]
-    const employeeStatus = await Employers.find({username: { $regex: `${employee}`, $options: 'i' }});
-    let status = ''
-    for(status of employeeStatus) {
-        status = status.status
-        
-    }
-    const user = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' } }).limit(1)
-    
-
-    for (let username of user) {
-        findedUser.pop();
-        findedUser.push(username.buyer)
-    }
-    let newUser = findedUser[0];
-    if (!employee || status != 'active') {
-        req.flash('error', 'Employee not found or your account is not active anymore. Please contact admin if you think your status must be changed.')
-        res.redirect('/employee')
-    } else {
-        const findedEmployee = await User.find({ buyer: { $regex: `${employee}`, $options: 'i' }, pay: 'false' })
-        const holidayInfo = await Vacation.find({ user: { $regex: `${employee}`, $options: 'i' } })
-        const holiday = await Vacation.find({})
-
-        for (pending of holidayInfo) {
-            userID.pop();
-            userID.push(pending.id)
-        }
-        res.render('employee/userCheckByHimself', { findedEmployee, newUser, holidayInfo, year, holiday })
-    }
-
-})
-
-app.get('/employee/myData/:id', async (req, res) => {
-    const { id } = req.params;
-    const userHoliday = await Vacation.find({ user: { $regex: `${employeeData}`, $options: 'i' } })
-    //const holiday = userHoliday.findById(id)
-    for (vac of userHoliday) {
-        for (holiday of vac.pendingHolidays) {
-            if (holiday.id === id) {
-                res.render('employee/userEditVacation', { holiday, vac })
-            }
-        }
-    }
-
-
-})
-
-app.put('/employee/myData/:id', async (req, res) => {
-    const { id } = req.params;
-    const vac = req.body;
-    const dateStart = vac.startDate.split('-').reverse().join('.');
-    const dateEnd = vac.endDate.split('-').reverse().join('.');
-    const updateHoliday = await Vacation.findById(id)
-    await updateHoliday.pendingHolidays.pop();
-    await updateHoliday.save();
-    await updateHoliday.pendingHolidays.push({ startDate: `${dateStart}`, endDate: `${dateEnd}`, days: `${vac.days}`, status: `${vac.status}` });
-    await updateHoliday.save();
-    req.flash('success', 'Vloga za dopust je posodobljena.')
-    res.redirect('/employee/myData')
-})
-//? EMPLOYEE DELETE VACATION
-app.post('/employee/myData/delete/:id', async (req, res) => {
-    const { id } = req.params;
-    const deleteId = req.body.deleteVacId;
-    const updateHoliday = await Vacation.findById(id)
-    for (vacations of updateHoliday.pendingHolidays) {
-        if (vacations.id == deleteId) {
-            await updateHoliday.pendingHolidays.pop(vacations);
-            await updateHoliday.save();
-            req.flash('success', 'Vloga za dopust izbrisana.')
-            res.redirect('/employee/myData')
-        }
-    }
-
-})
-
-app.get('/employee/askForHolidays', async (req, res) => {
-    if(employeeData.length){
-        const user = await Vacation.find({ user: { $regex: `${employeeData}`, $options: 'i'}});
-        for(data of user){
-            let usersData = data
-            console.log(usersData.overtime)
-
-            res.render('employee/askForHolidays', { employeeData, userID, usersData })
-        }
-    }else{
-        res.redirect('/employee')
-    }
-
-})
-/*
-app.post('/useOvertim', async (req, res) => {
-    console.log(req.body)
-    res.redirect('/employee/askForHolidays')
-    
-})
-*/
-app.post('/askForHoliday', async (req, res) => {
-    const data = req.body;
-    let startDate = data.startDate;
-    const dateStart = startDate.split('-').reverse().join('.');
-    const dateEnd = data.endDate.split('-').reverse().join('.');
-    const user = await Vacation.findById(data.userid);
-    const applyDate = date;
-    user.pendingHolidays.push({ startDate: `${dateStart}`, endDate: `${dateEnd}`, days: `${data.days}`, status: `${data.status}`, applyDate: `${applyDate}` });
-    await user.save();
-    req.flash('success', 'Vloga za dopust je odana.')
-    res.redirect('/employee/myData')
-})
-
-
-
-app.post('/employee/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/employee', keepSessionInfo: true }), async (req, res) => {
-    req.flash('success', 'Successfully loged', req.user.username)
-    let user = req.session.passport.user;
-    employeeData.pop();
-    employeeData.push(user)
-    res.redirect('/employee/myData');
-})
-app.get('/logMeOut', (req, res, next) => {
-    req.logout(function (err) {
-        if (err) {
-            return next(err);
-        } else {
-            employeeData.pop();
-            userID.pop();
-            req.flash('success', 'Logged out.');
-            res.redirect('/employee');
-        }
-    });
-});
-
 
 app.get('/login', (req, res) => {
     res.render('login');
