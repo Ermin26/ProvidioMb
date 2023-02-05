@@ -1,0 +1,85 @@
+html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.col1 {
+    width: 40%;
+}
+
+.col2 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 55%;
+}
+
+@media (max-width: 1023px) {
+    .containerr {
+        max-width: 100%;
+        justify-content: center;
+    }
+
+    #row {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #col {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    #tableEmployee {
+        overflow-x: auto;
+    }
+
+    #employeeTable {
+        overflow-x: auto;
+    }
+
+    #employeeThead {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 450px) {
+    .containerr {
+        max-width: 100%;
+        justify-content: center;
+    }
+
+    #row {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #col {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    #tableEmployee {
+        overflow-x: auto;
+    }
+
+    #employeeTable {
+        overflow-x: auto;
+    }
+
+    #employeeThead {
+        overflow-x: auto;
+    }
+}

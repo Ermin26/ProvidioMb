@@ -104,7 +104,6 @@ let todayDate = new Date();
 let date = todayDate.toLocaleDateString()
 let year = todayDate.getFullYear()
 let month = todayDate.getMonth() + 1;
-
 //! -------------------------
 async function checkDetails() {
     let myYear = await Week.find().select('year -_id');
@@ -551,13 +550,11 @@ app.delete('/all/:id', isLoged, async (req, res) => {
 });
 
 
-/*
-app.use((err, req, res, next) => {
-    const { statusCode = 500 } = err;
-    if (!err.message) err.message = 'Oh no, Something Went wrong!'
-    res.status(statusCode).render('error', { err });
+
+app.get('*', async (req, res) => {
+    res.render('error404')
 })
-*/
+
 
 app.get('/logout', isLoged, (req, res, next) => {
     req.logout(function (err) {

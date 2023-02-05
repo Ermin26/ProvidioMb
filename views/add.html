@@ -14,49 +14,50 @@
     <%- include('../layouts/boilerplate.ejs') %>
         <div class="container text-center">
             <%- include('../flashError') %>
-                <div class="text-center mt-3 mb-2">
+                <div class="text-center mt-3 mb-5">
                     <h1>Add new Employee</h1>
                 </div>
+                <div class="add bg-info col-6 ms-auto me-auto">
+                    <form action="/addEmploye" method="post">
+                        <div class="mb-2">
+                            <label for="username">Username</label><br>
+                            <input type="text" name="username" id="username">
+                        </div>
 
-                <form action="/addEmploye" method="post">
-                    <div class="mb-2">
-                        <label for="username">Username</label><br>
-                        <input type="text" name="username" id="username">
-                    </div>
+                        <div class="mb-2"></div>
+                        <label for="lastname">Lastname</label><br>
+                        <input type="text" name="lastname" id="lastname">
 
-                    <div class="mb-2"></div>
-                    <label for="lastname">Lastname</label><br>
-                    <input type="text" name="lastname" id="lastname">
+                        <div class="mb-2">
+                            <label for="password">Password</label><br>
+                            <input type="password" name="password" id="password">
+                        </div>
 
-                    <div class="mb-2">
-                        <label for="password">Password</label><br>
-                        <input type="password" name="password" id="password">
-                    </div>
+                        <div class="mb-2">
+                            <label for="emplStatus">Employment status:</label><br>
+                            <select class="form-select form-select-sm w-25 ms-auto me-auto" id="emplStatus"
+                                aria-label=".form-select-sm example" name="emplStatus">
+                                <option selected>Select employment status</option>
+                                <option value="zaposlen/a">Zaposlen/a</option>
+                                <option value="študent">Študent</option>
+                                <option value="upokojenec">Upokojenec</option>
+                            </select>
+                        </div>
 
-                    <div class="mb-2">
-                        <label for="emplStatus">Employment status:</label><br>
-                        <select class="form-select form-select-sm w-25 ms-auto me-auto" id="emplStatus"
-                            aria-label=".form-select-sm example" name="emplStatus">
-                            <option selected>Select employment status</option>
-                            <option value="zaposlen/a">Zaposlen/a</option>
-                            <option value="študent">Študent</option>
-                            <option value="upokojenec">Upokojenec</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-2">
-                        <label for="status">Status</label><br>
-                        <select class="form-select form-select-sm w-25 text-center ms-auto me-auto" id="status"
-                            aria-label=".form-select-sm example" name="status">
-                            <option selected>Select status</option>
-                            <option value="active">Aktiven</option>
-                            <option value="inactive">Neaktiven</option>
-                        </select>
-                    </div>
-                    <% if(currentUser.role !='visitor' ) {%>
-                        <button class="btn btn-success mt-2">Submit</button>
-                        <% } %>
-                </form>
+                        <div class="mb-2">
+                            <label for="status">Status</label><br>
+                            <select class="form-select form-select-sm w-25 text-center ms-auto me-auto" id="status"
+                                aria-label=".form-select-sm example" name="status">
+                                <option selected>Select status</option>
+                                <option value="active">Aktiven</option>
+                                <option value="inactive">Neaktiven</option>
+                            </select>
+                        </div>
+                        <% if(currentUser.role !='visitor' ) {%>
+                            <button class="btn btn-success mt-2">Submit</button>
+                            <% } %>
+                    </form>
+                </div>
                 <a href="/users"><button class="btn btn-dark mt-2">Go Back</button></a>
         </div>
 

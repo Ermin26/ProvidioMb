@@ -16,11 +16,9 @@
 
         <div class="container text-center">
 
-
-
             <%- include('../flashError') %>
                 <div class="col border-bottom ms-auto me-auto text-center mt-5 mb-5 p-3">
-                    <div id="addUser">
+                    <div id="addUser" class="bg-info">
                         <caption>
                             <h1>
                                 Edit users vacation
@@ -98,23 +96,29 @@
                                     <% for(holiday of vac.pendingHolidays) {%>
                                         <% if(holiday.status=='Pending' ) {%>
                                             <tr>
-                                                <td>
-                                                    <%= vac.user %>
+                                                <td><strong>
+                                                        <%= vac.user %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.startDate %>
+                                                <td><strong>
+                                                        <%= holiday.startDate %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.endDate %>
+                                                <td><strong>
+                                                        <%= holiday.endDate %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.days %>
+                                                <td><strong>
+                                                        <%= holiday.days %>
+                                                    </strong>
                                                 </td>
-                                                <td class="bg-warning">
-                                                    <%= holiday.status %>
+                                                <td class="bg-warning"><strong>
+                                                        <%= holiday.status %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.applyDate %>
+                                                <td><strong>
+                                                        <%= holiday.applyDate %>
+                                                    </strong>
                                                 </td>
                                                 <% if(currentUser.role !='visitor' ) {%>
                                                     <td>
@@ -136,8 +140,10 @@
                                                         </form>
                                                     </td>
                                                     <% }else {%>
-                                                        <td><button class="btn btn-sm btn-danger">FORBIDEN</button></td>
-                                                        <td><button class="btn btn-sm btn-danger">FORBIDEN</button></td>
+                                                        <td><button class="btn btn-sm btn-danger">FORBIDEN</button>
+                                                        </td>
+                                                        <td><button class="btn btn-sm btn-danger">FORBIDEN</button>
+                                                        </td>
                                                         <% } %>
                                             </tr>
                                             <% } %>
@@ -174,23 +180,29 @@
                                     <% for(holiday of vac.pendingHolidays) {%>
                                         <% if(holiday.status=='Approved' ) {%>
                                             <tr>
-                                                <td>
-                                                    <%= vac.user %>
+                                                <td><strong>
+                                                        <%= vac.user %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.startDate %>
+                                                <td><strong>
+                                                        <%= holiday.startDate %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.endDate %>
+                                                <td><strong>
+                                                        <%= holiday.endDate %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.days %>
+                                                <td><strong>
+                                                        <%= holiday.days %>
+                                                    </strong>
                                                 </td>
-                                                <td class="">
-                                                    <%= holiday.status %>
+                                                <td class=""><strong>
+                                                        <%= holiday.status %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.applyDate %>
+                                                <td><strong>
+                                                        <%= holiday.applyDate %>
+                                                    </strong>
                                                 </td>
                                                 <% if(currentUser.role=='admin' ) {%>
                                                     <td>
@@ -240,23 +252,29 @@
                                     <% for(holiday of vac.pendingHolidays) {%>
                                         <% if(holiday.status=='Rejected' ) {%>
                                             <tr>
-                                                <td>
-                                                    <%= vac.user %>
+                                                <td><strong>
+                                                        <%= vac.user %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.startDate %>
+                                                <td><strong>
+                                                        <%= holiday.startDate %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.endDate %>
+                                                <td><strong>
+                                                        <%= holiday.endDate %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.days %>
+                                                <td><strong>
+                                                        <%= holiday.days %>
+                                                    </strong>
                                                 </td>
-                                                <td class="">
-                                                    <%= holiday.status %>
+                                                <td class=""><strong>
+                                                        <%= holiday.status %>
+                                                    </strong>
                                                 </td>
-                                                <td>
-                                                    <%= holiday.applyDate %>
+                                                <td><strong>
+                                                        <%= holiday.applyDate %>
+                                                    </strong>
                                                 </td>
                                                 <% if(currentUser.role=='admin' ) {%>
                                                     <td>
@@ -269,7 +287,8 @@
                                                         </form>
                                                     </td>
                                                     <% }else {%>
-                                                        <td><button class="btn btn-danger btn-sm">FORBIDEN</button></td>
+                                                        <td><button class="btn btn-danger btn-sm">FORBIDEN</button>
+                                                        </td>
                                                         <% } %>
                                             </tr>
                                             <% } %>

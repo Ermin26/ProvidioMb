@@ -1,6 +1,7 @@
 TO DO --------------
 
-    
+    Vloga za korištenje ur, čekiraj ako user 
+        izabere vec kot ima
     When user apply for holiday check witch vacation
          use "lastYear/thisYear;
     Add color on active/inactive user
@@ -10,13 +11,16 @@ TO DO --------------
 
 DOING------------------
 
-    Vloga za korištenje ur, čekiraj ako user 
-        izabere vec kot ima
+    
 
 
 
 DONE-----------------------
-
+    git pushed on 5.2.2023 at 21:20
+    Fixed media query for vacation, All users 
+        and some css style for same;
+    Fixed css for landscape view;
+    Added page for error 404;
     Automatically app calculate and add days to usedHolidays
         after vacation is approved; Same for rejected
         holidays;
