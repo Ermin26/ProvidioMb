@@ -551,10 +551,6 @@ app.delete('/all/:id', isLoged, async (req, res) => {
 
 
 
-app.get('*', async (req, res) => {
-    res.render('error404')
-})
-
 
 app.get('/logout', isLoged, (req, res, next) => {
     req.logout(function (err) {
@@ -566,6 +562,10 @@ app.get('/logout', isLoged, (req, res, next) => {
         }
     });
 });
+
+app.get('*', async (req, res) => {
+    res.render('error404')
+})
 
 const port = process.env.PORT || 5000
 app.listen(port, checkDetails(),
