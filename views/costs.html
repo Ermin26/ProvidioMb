@@ -18,8 +18,8 @@
     <%- include('../layouts/boilerplate.ejs') %>
 
         <!-- <div class="container text-center">-->
-        <div class="row row-cols-2">
-            <div class="col-8 text-center">
+        <div id="cols" class="row row-cols-2">
+            <div id="col1" class="col-8 text-center">
                 <div class="addBills mt-5 mb-5">
                     <% if(currentUser.role==='visitor' ) {%>
                         <button class="btn btn-primary" onclick="notAllowed()">Add new bill</button>
@@ -116,8 +116,8 @@
                         </div>
             </div>
 
-            <div class="col-4">
-                <div class="total mt-5 text-start" id="costsInfo">
+            <div id="col2" class="col-4 ms-auto me-auto">
+                <div class="total mt-5 text-start ms-4 p-2 ms-auto me-auto" id="costsInfo">
                     <h4 class="mt-2 mb-2"> Total Payed: <strong id="payed" class="ms-3"> </strong> &euro;</h4>
                     <h4 class="mt-2 mb-2">Total Spend: <strong id="spended" class="ms-3"></strong> &euro;</h4>
                     <h2 class="mt-2 mb-2">Total Cash: <strong id="cash" class=""></strong> &euro;</h2>

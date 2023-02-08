@@ -1,6 +1,15 @@
+html {
+    overflow-x: hidden;
+}
+
+body {
+    overflow-x: hidden;
+}
+
 a {
     text-decoration: none;
 }
+
 
 @media (max-width: 3000px) {
     #btn-func {
@@ -87,7 +96,17 @@ a {
 }
 
 @media (max-width: 767px) {
+    #cols {
+        display: flex;
+        flex-direction: column-reverse;
+        margin-bottom: 10vh;
+    }
 
+    #col1,
+    #col2 {
+        width: 100%;
+        text-align: center;
+    }
 
     #bills {
         display: inline-flex;
