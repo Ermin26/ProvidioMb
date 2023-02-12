@@ -347,12 +347,49 @@ app.post('/addEmploye', isLoged, async (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login');
 })
-let usersData = []
-let searched = []
+let usersData = [];
+let searched = [];
+//! Naredi object keys: Product name & Product length!!!
+let buyedProducts = [];
 
 app.get('/search', isLoged, async (req, res) => {
-    res.render('search', { usersData, searched });
+    res.render('search', { usersData, searched, buyedProducts });
+
+
 });
+//? DELA
+
+app.post('/search', isLoged, async (req, res, next) => {
+    usersData.pop();
+    searched.pop();
+    buyedProducts.pop()
+    const user = req.body.username;
+    const data = await User.find({ buyer: { $regex: `${user}`, $options: 'i' } })
+    const productName = await User.find({ buyer: { $regex: `${user}`, $options: 'i' }, 'products.name': `${req.body.product}` })
+    
+    if (!data.length) {
+        req.flash('error', 'Sorry, employee not found.');
+        res.redirect('/search');
+    } else {
+        usersData.pop();
+        usersData.push(data);
+        if (productName.length) {
+            if (req.body.username && req.body.product) {
+                let buyed = { productName: `${req.body.product}`, productsBuyed: `${productName.length}` }
+                buyedProducts.push(buyed)
+            }
+        } else {
+            //! Don't work
+            req.flash('error', "Can't find product")
+        }
+        for (people of data) {
+            searched.pop()
+            searched.push(people.buyer);
+        }
+        res.redirect('/search');
+    }
+});
+
 
 //isLoged,
 app.get('/costs', isLoged, async (req, res) => {
@@ -391,26 +428,6 @@ app.delete('/costs/:id', isLoged, async (req, res) => {
     res.redirect('/costs')
 })
 
-//? DELA
-
-app.post('/search', isLoged, async (req, res, next) => {
-    usersData.pop();
-    searched.pop();
-    const user = req.body.username;
-    const data = await User.find({ buyer: { $regex: `${user}`, $options: 'i' } })
-    if (!data.length) {
-        req.flash('error', 'Sorry, employee not found.');
-        res.redirect('/search');
-    } else {
-        usersData.pop();
-        usersData.push(data);
-        for (people of data) {
-            searched.pop()
-            searched.push(people.buyer);
-        }
-        res.redirect('/search');
-    }
-});
 
 
 app.post('/login', passport.authenticate('local-people', { failureFlash: true, failureRedirect: '/login', keepSessionInfo: true }), async (req, res) => {

@@ -3,9 +3,14 @@
     padding: 0;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 #row {
@@ -28,14 +33,22 @@ body {
     }
 
     #search {
-        height: 200px;
+        height: auto;
         width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+
+    }
+
+    #qtyBuyedProducts,
+    #tableProducts {
+        box-sizing: border-box;
         text-align: center;
     }
 
     #result {
-        margin-top: 100px;
         padding: 0;
+        box-sizing: border-box;
         width: 100%;
     }
 
@@ -75,16 +88,22 @@ body {
         display: none;
     }
 
+    #allBills {
+        transform: translate(00px, -65px);
+        -webkit-transform: translate(00px, -65px);
+        -moz-transform: translate(00px, -65px);
+        -ms-transform: translate(00px, -65px);
+        -o-transform: translate(00px, -65px);
+    }
+
     #data {
+        background-color: transparent;
+        color: black;
         overflow: hidden;
     }
 
-    #table {
-        margin: 200;
-    }
 
-    #unPayedBills,
-    #allBills {
+    #unPayedBills {
         transform: translate(00px, -90px);
         -webkit-transform: translate(00px, -90px);
         -moz-transform: translate(00px, -90px);
@@ -94,9 +113,9 @@ body {
         color: black;
     }
 
-
     #searched,
     #unPayedH1 {
+        font-size: medium;
         text-align: center;
     }
 }

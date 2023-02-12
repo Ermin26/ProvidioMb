@@ -74,6 +74,7 @@
                             <div id="tableEmployee">
                                 <table id="employeeTable" class="table">
                                     <thead id="employeeThead">
+                                        <th>#</th>
                                         <th>Name</th>
                                         <th>Last name</th>
                                         <th>Employment status</th>
@@ -83,6 +84,7 @@
                                     <tbody>
                                         <% for(employee of employees) {%>
                                             <tr>
+                                                <td></td>
                                                 <td><strong>
                                                         <%= employee.username %>
                                                     </strong>
@@ -96,7 +98,7 @@
                                                     </strong>
                                                 </td>
                                                 <td id="status"><strong>
-                                                        <%= employee.status %>
+                                                        <%=employee.status%>
                                                     </strong>
                                                 </td>
 
@@ -131,10 +133,12 @@
 
                 let employee = document.getElementById('employeeTable')
                 let employeeRows = employee.rows.length - 1
+                let number = 0
                 for (let i = 1; i <= employeeRows; i++) {
-                    let status = document.getElementById('employeeTable').rows[i].cells[3].innerText;
+                    let status = document.getElementById('employeeTable').rows[i].cells[4].innerText;
+                    number += 1
+                    employee.rows[i].cells[0].innerHTML = number;
                     if (status == 'inactive') {
-                        console.log('yooo')
                         document.getElementById('employeeTable').rows[i].setAttribute('class', 'bg-danger')
                     } else {
                         document.getElementById('employeeTable').rows[i].setAttribute('class', 'bg-success')

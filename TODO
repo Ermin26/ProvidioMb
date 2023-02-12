@@ -3,10 +3,8 @@ TO DO --------------
     Vloga za korištenje ur, čekiraj ako user 
         izabere vec kot ima
     When user apply for holiday check witch vacation
-         use "lastYear/thisYear;
-    Add color on active/inactive user
+       to  use "lastYear/thisYear;
     Make for admin to delete employee approved/rejected holiday?
-    Fix req/passport for employe pages;
 
 
 DOING------------------
@@ -14,7 +12,11 @@ DOING------------------
 
 
 
-DONE-----------------------
+DONE----------------------- 
+    pushed to git on the 12.02.2023 at 20:40
+    Added numbers on users table;
+    Added option to search product buyed by user;
+______________________________________________________
     Pushed to git on 8.2.2023 at 17:35
     Update mostly css for pages and queris
     Added calendar on vacation page
@@ -23,6 +25,7 @@ ______________________________________________________
     Fixed media query for vacation, All users 
         and some css style for same;
     Fixed css for landscape view;
+    Add color on active/inactive user;
     Added page for error 404;
     Automatically app calculate and add days to usedHolidays
         after vacation is approved; Same for rejected

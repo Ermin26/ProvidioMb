@@ -13,55 +13,24 @@
 
 <body>
     <%- include('../layouts/boilerplate.ejs') %>
-        <!--
-    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light mb-2">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">New Bill</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
-                <ul class="navbar-nav d-flex w-100">
-                    <li class="nav-item ms-2 mt-1">
-                        <a href="/all"><button class="btn btn-primary" id="btn-func">All bills</button></a>
-                    </li>
-
-                    <li class="nav-item ms-2 mt-1 border-bottom border-3 rounded-bottom border-info">
-                        <a href="/search"><button class="btn btn-info" id="btn-func"><strong>Search
-                                    User</strong></button></a>
-                    </li>
-                    <li class="nav-item ms-2 mt-1">
-                        <a href="/costs"><button class="btn btn-danger"
-                                id="btn-func"><strong>Costs</strong></button></a>
-                    </li>
-                    <% if(currentUser) {%>
-                        <li class="nav-item ms-auto">
-                            <a class="nav-link" href="/logout"><button class="btn btn-outline-info ms-1"> Log
-                                    out</button></a>
-                        </li>
-                        <% }else {%>
-                            <li class="nav-item ms-auto">
-                                <a class="nav-link" href="/login"><button class="btn btn-outline-info ms-1"> Log
-                                        In</button></a>
-                            </li>
-                            <% } %>
-                </ul>
-            </div>
-        </div>
-    </nav>
--->
 
         <div class="row row-cols-2" id="row">
             <div class="col-3" id="search">
                 <div class="ms-3 text-center border-bottom border-5">
-                    <h1 class="mt-1">Enter employee name</h1>
+                    <h1 class="mt-1">Search employee</h1>
                     <form class="text-center" action="/search" method="post">
                         <div class="form-group mt-3 w-50 ms-auto me-auto">
-                            <label for="user"></label>
+                            <label for="user">Employee</label>
                             <input type="text" class="form-control w-100 border-2 border-dark" name="username" id="user"
-                                placeholder="John Wick" required>
+                                placeholder="required" required>
                         </div>
+
+                        <div class="form-group mt-3 w-50 ms-auto me-auto">
+                            <label for="product">Product</label>
+                            <input type="text" class="form-control w-100 border-2 border-dark" name="product"
+                                id="product" placeholder="Not required">
+                        </div>
+
                         <div class="footer mb-4">
                             <button class="btn btn-sm btn-primary mt-3 ms-2">Submit</button>
                         </div>
@@ -76,6 +45,41 @@
                         </div>
                     </div>
                     <% } %>
+                        <% if(buyedProducts.length) {%>
+                            <div id="qtyBuyedProducts" class="mt-3 mb-5">
+
+                                <caption>
+                                    <h2 class="text-center">Product buyed</h2>
+                                </caption>
+
+                                <table id="tableProducts" class="table table-info table-hover text-center">
+                                    <thead>
+                                        <th>Product</th>
+                                        <th>Buyed</th>
+                                        <th>Next price</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <% for (productBuyed of buyedProducts) {%>
+                                                <td>
+                                                    <%= productBuyed.productName%>
+                                                </td>
+                                                <td>
+                                                    <%= productBuyed.productsBuyed %>
+                                                </td>
+                                                <% if(productBuyed.productsBuyed <'3') {%>
+                                                    <td class="bg-success">P3</td>
+                                                    <% }else {%>
+                                                        <td class="bg-danger">P4</td>
+                                                        <% } %>
+                                                            <% } %>
+                                                                <%# } %>
+                                                                    <%# } %>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <% } %>
             </div>
 
             <div class="col-9" id="result">
@@ -162,79 +166,78 @@
                                     </div>
 
                                     <% } %>
-                                        <% } %>
                 </div>
-
-                <!-- UNPAYED BILLS-->
-                <div id="unPayedBills" class="text-center">
-                    <div class="mt-4 mb-3">
-                        <h1 id="unPayedH1" class="text-danger">Unpayed bills from user <br>
-                            <strong class="text-primary">
-                                <%= searched %>
-                            </strong>
-                        </h1>
-                    </div>
-                    <% for(data of usersData) {%>
-                        <table id="notPayedTable" class="table table-dark table-hover mt-3 text-center">
-                            <thead id="table-data">
-                                <th class="col">Product</th>
-                                <th class="col">Qty</th>
-                                <th class="col">Total</th>
-                                <th class="col">Month</th>
-                                <th class="col">Week</th>
-                                <th class="col">Payed</th>
-                                <th id="edit" class="col">Edit</th>
-                                <th class="col">Sold date</th>
-                                <th class="col">Sold by</th>
-                            </thead>
-                            <tbody>
-                                <% for(user of data) {%>
-                                    <% if(user.pay=="false" ) {%>
-                                        <% for(products of user.products) {%>
-                                            <tr>
-                                                <td>
-                                                    <%= products.name %>
-                                                </td>
-                                                <td>
-                                                    <%= products.qty %>
-                                                </td>
-                                                <td>
-                                                    <%= products.total %>
-                                                </td>
-                                                <td>
-                                                    <%= user.month %>
-                                                </td>
-                                                <td>
-                                                    <%= user.kt %>
-                                                </td>
-                                                <td>
-                                                    <img src="../notPay.jpg" alt="Not Payed">
-                                                </td>
-                                                <td id="editLink"><a href="/all/<%= user.id %>">Edit</a></td>
-                                                <td>
-                                                    <%= user.soldDate %>
-                                                </td>
-                                                <td>
-                                                    <%= user.izdal %>
-                                                </td>
-                                            </tr>
-                                            <% } %>
+                <% } %>
+                    <!-- UNPAYED BILLS-->
+                    <div id="unPayedBills" class="text-center">
+                        <div class="mt-4 mb-3">
+                            <h1 id="unPayedH1" class="text-danger">Unpayed bills from user <br>
+                                <strong class="text-primary">
+                                    <%= searched %>
+                                </strong>
+                            </h1>
+                        </div>
+                        <% for(data of usersData) {%>
+                            <table id="notPayedTable" class="table table-dark table-hover mt-3 text-center">
+                                <thead id="table-data">
+                                    <th class="col">Product</th>
+                                    <th class="col">Qty</th>
+                                    <th class="col">Total</th>
+                                    <th class="col">Month</th>
+                                    <th class="col">Week</th>
+                                    <th class="col">Payed</th>
+                                    <th id="edit" class="col">Edit</th>
+                                    <th class="col">Sold date</th>
+                                    <th class="col">Sold by</th>
+                                </thead>
+                                <tbody>
+                                    <% for(user of data) {%>
+                                        <% if(user.pay=="false" ) {%>
+                                            <% for(products of user.products) {%>
+                                                <tr>
+                                                    <td>
+                                                        <%= products.name %>
+                                                    </td>
+                                                    <td>
+                                                        <%= products.qty %>
+                                                    </td>
+                                                    <td>
+                                                        <%= products.total %>
+                                                    </td>
+                                                    <td>
+                                                        <%= user.month %>
+                                                    </td>
+                                                    <td>
+                                                        <%= user.kt %>
+                                                    </td>
+                                                    <td>
+                                                        <img src="../notPay.jpg" alt="Not Payed">
+                                                    </td>
+                                                    <td id="editLink"><a href="/all/<%= user.id %>">Edit</a></td>
+                                                    <td>
+                                                        <%= user.soldDate %>
+                                                    </td>
+                                                    <td>
+                                                        <%= user.izdal %>
+                                                    </td>
+                                                </tr>
                                                 <% } %>
                                                     <% } %>
-                                                        <tr class="bg-danger">
-                                                            <td>Skupaj</td>
-                                                            <td id="qtys"></td>
-                                                            <td id="payed" class="bg-danger"></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                            </tbody>
-                        </table>
-                        <% } %>
-                </div>
+                                                        <% } %>
+                                                            <tr class="bg-danger">
+                                                                <td>Skupaj</td>
+                                                                <td id="qtys"></td>
+                                                                <td id="payed" class="bg-danger"></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                </tbody>
+                            </table>
+                            <% } %>
+                    </div>
 
 
             </div>
