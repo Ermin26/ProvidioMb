@@ -95,7 +95,7 @@ a {
     #table-data,
     #table-head {
         position: sticky;
-        top: 65px;
+        top: 15px;
 
     }
 }
@@ -116,12 +116,13 @@ a {
         width: 100%;
         overflow-x: auto;
     }
-
+/*
     #table-data,
     #table-head {
         position: sticky;
-        top: 65px;
+        top: 15px;
     }
+    */
 }
 
 @media (max-width: 450px) {
@@ -141,12 +142,14 @@ a {
 
     #all {
         width: 100%;
+        height: auto;
         overflow-x: auto;
     }
-
+/*
     #table-data,
     #table-head {
         position: sticky;
         top: 65px;
     }
+    */
 }

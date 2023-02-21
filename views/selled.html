@@ -97,8 +97,9 @@
     <!-- ALL BILLS -->
 
     <div id="allUsers" class="text-center mb-0 ">
-        <table id="all" class="table table-dark table-striped-columns table-hover mb-0 ">
-            <thead id="table-data" class="text-center ">
+        <table id="all" class="table table-striped-columns table-hover mb-0 ">
+            <thead id="table-data" class="table-dark text-center align-middle border-bottom">
+                <tr>
                 <th class="col">User</th>
                 <th class="col">Product</th>
                 <th class="col-1">Qty</th>
@@ -114,13 +115,14 @@
                 <th class="col">Year</th>
                 <th class="col">Sold Date</th>
                 <th class="col">Izdal</th>
+            </tr>
             </thead>
-            <tbody class="tableBody">
+            <tbody class="tableBody mt-3 align-middle">
                 <% if(userData.length) {%>
 
                     <% for(let data of userData) { %>
                         <% for(let product of data.products) {%>
-                            <tr>
+                            <tr class="m-1">
 
                                 <% if(!data.payDate) {%>
                                     <td class="bg-danger">
@@ -131,7 +133,7 @@
                                         </a>
                                     </td>
                                     <% } else{%>
-                                        <td class="bg-success">
+                                        <td class="bg-success p-0">
                                             <a href="/all/<%= data._id %>">
                                                 <strong class="text-dark">
                                                     <%= data.buyer %>

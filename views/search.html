@@ -56,7 +56,6 @@
                                     <thead>
                                         <th>Product</th>
                                         <th>Buyed</th>
-                                        <th>Next price</th>
                                     </thead>
                                     <tbody>
                                         <tr>
@@ -67,14 +66,7 @@
                                                 <td>
                                                     <%= productBuyed.productsBuyed %>
                                                 </td>
-                                                <% if(productBuyed.productsBuyed <'3') {%>
-                                                    <td class="bg-success">P3</td>
-                                                    <% }else {%>
-                                                        <td class="bg-danger">P4</td>
-                                                        <% } %>
-                                                            <% } %>
-                                                                <%# } %>
-                                                                    <%# } %>
+                                                <% } %>
                                         </tr>
                                     </tbody>
                                 </table>

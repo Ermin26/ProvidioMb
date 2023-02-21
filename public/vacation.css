@@ -81,7 +81,7 @@ body {
 }
 
 
-@media (max-width: 750px) {
+@media (max-width: 1505px) {
     html {
         overflow-x: hidden;
         overflow-y: visible;
@@ -132,7 +132,7 @@ body {
     #rejectedTable {
         display: flex;
         max-width: 100%;
-        margin-top: 10;
+        margin-top: 5;
         padding: 0;
         overflow: auto;
     }
