@@ -161,13 +161,14 @@
 
         </div>
 
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
 
         <script>
-
+/*
             $('body').on('click', 'input.deleteDep', function() {
                 $(this).parents('tr').remove();  
             });
+            */
             let month = <%= month %>;
             let year = <%= year %>;
 
@@ -178,7 +179,6 @@
             document.getElementById('imgPayed').style.display = 'none';
             document.getElementById('imgNotPayed').style.display = 'none';
 
-            let rowNumbers = 0;
             function addRow() {
                 const table = document.getElementById('myTable')
                 const row = table.insertRow(1);
@@ -195,7 +195,7 @@
                 cell4.innerHTML = '1.50 €';
                 cell5.innerHTML = '<input class="form-check-input" type="checkbox" value="true" id="freeProduct" name="firstOfWeek"> <input class="form-check-input" type="checkbox" value="false" id="hiddenInput" name="firstOfWeek"> <img src="../payed.jpg" alt="Payed" id="freChecked" class="ms-auto me-auto mt-2"> <img src="../notPay.jpg" alt="Not Payed" id="freeNotChecked" class="ms-auto me-auto mt-2">';
                 cell6.innerHTML = '<input type="text" class="form-control text-center ms-auto me-auto" id="total" name="total" value="" placeholder="0.00" readonly>';
-                cell7.innerHTML = `<input id="deleteRow" type="button" class="deleteDep btn btn-sm btn-danger" value="Delete">`
+                cell7.innerHTML = '<input id="rowDelete" type="button" class="deleteDep btn btn-sm btn-danger" value="Delete" onclick="deleteOneRow(this)">';
 
                 cell4.id = "ddv"
                 cell5.id = "free"
@@ -204,7 +204,12 @@
                 document.getElementById('hiddenInput').style.display = 'none';
                 document.getElementById('freChecked').style.display = 'none';
                 document.getElementById('freeNotChecked').style.display = 'none';
-                rowNumbers += 1;
+            }
+
+            function deleteOneRow(r){
+                var i = r.parentNode.parentNode.rowIndex;
+                console.log(i)
+            document.getElementById("myTable").deleteRow(i);
             }
 
             function zakjuci() {
