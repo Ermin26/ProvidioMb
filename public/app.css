@@ -376,7 +376,7 @@ li span {
     #zaključi,
     #placaj,
     #hideOnPrint,
-    #hiderow {
+    #hiderow, #deleteRow {
         display: none;
     }
 
