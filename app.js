@@ -328,9 +328,16 @@ app.post('/holidays', async (req, res) => {
 
 app.post('/register', isLoged, async (req, res) => {
     const { username, password, role } = req.body;
-    const user = await new People({ username: username, role: role });
-    const addedUser = await People.register(user, password);
-    console.log(addedUser, 'successfully registered');
+    const checkUser = await People.find({username: `${username}`})
+    if(!checkUser.length){
+        const user = await new People({ username: username, role: role });
+        const addedUser = await People.register(user, password);
+        req.flash('success', 'Successfully registered `${username}`');
+        res.redirect('/users')
+    }else{
+        req.flash('error', "User `${username}` is already registered.")
+        res.redirect('/register')
+    }
 })
 
 app.get('/add', isLoged, async (req, res) => {
