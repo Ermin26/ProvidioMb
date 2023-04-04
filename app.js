@@ -338,10 +338,16 @@ app.get('/add', isLoged, async (req, res) => {
 })
 app.post('/addEmploye', isLoged, async (req, res) => {
     const { username, lastname, password, emplStatus, status } = req.body;
-    const user = await new Employers({ username: username, lastname: lastname, employmentStatus: emplStatus, status: status });
-    const addedUser = await Employers.register(user, password);
-    req.flash('success', 'Successfully added new employee')
-    res.redirect('/users')
+    const checkUser = await Employers.find({username: `${username}`});
+    if (!checkUser.length){
+        const user = await new Employers({ username: username, lastname: lastname, employmentStatus: emplStatus, status: status });
+        const addedUser = await Employers.register(user, password);
+        req.flash('success', 'Successfully added new employee')
+        res.redirect('/users')
+    }else{
+        req.flash('error', "User with that name already registered. Please try again with diferrent username.");
+        res.redirect('/add')
+    }
 })
 
 app.get('/login', (req, res) => {
