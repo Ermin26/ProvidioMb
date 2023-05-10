@@ -332,7 +332,7 @@ app.post('/register', isLoged, async (req, res) => {
     if(!checkUser.length){
         const user = await new People({ username: username, role: role });
         const addedUser = await People.register(user, password);
-        req.flash('success', 'Successfully registered `${username}`');
+        req.flash('success', `Successfully registered ${username} as ${role.}`);
         res.redirect('/users')
     }else{
         req.flash('error', "User `${username}` is already registered.")
