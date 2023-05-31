@@ -4,11 +4,13 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 
 const NotificationsSchema = new Schema({
+    _id: String,
     username: String,
-    lastname: String,
+    days: Number,
     status: {
         type: String,
         default: 'false',
+        enum: ['false', 'true']
     }
 });
 
