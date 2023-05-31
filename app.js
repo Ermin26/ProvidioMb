@@ -26,6 +26,7 @@ const Week = require('./models/week');
 const Costs = require('./models/costs');
 const Employers = require('./models/employees');
 const Vacation = require('./models/vacation');
+const Notifications = require('./models/notifications');
 const { findByIdAndDelete } = require('./models/models');
 
 const db_URL = process.env.DB_URL
@@ -170,13 +171,15 @@ app.use((req, res, next) => {
 app.get('/users', isLoged, async (req, res) => {
     const users = await People.find({})
     const employees = await Employers.find({})
-    res.render('allUsers', { users, employees })
+    const notifications = await Notifications.find({ status: 'false' });
+    res.render('allUsers', { users, employees, notifications })
 });
 
 app.get('/employee/edit/:id', isLoged, async (req, res) => {
     const { id } = req.params
     const employee = await Employers.findById(id)
-    res.render('editEmployee', { employee })
+    const notifications = await Notifications.find({ status: 'false' });
+    res.render('editEmployee', { employee, notifications })
 })
 app.put('/editEmploye/:id', isLoged, async (req, res) => {
     const { id } = req.params;
@@ -195,8 +198,9 @@ app.delete('/employee/:id', isLoged, async (req, res) => {
 app.get('/users/edit/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const user = await People.findById(id);
+    const notifications = await Notifications.find({ status: 'false' });
     //console.log(user);
-    res.render('editUser', { user });
+    res.render('editUser', { user, notifications });
 })
 app.put('/users/:id', isLoged, async (req, res) => {
     const { id } = req.params;
@@ -217,6 +221,7 @@ app.get('/', async (req, res) => {
     checkDetails();
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
+    const notifications = await Notifications.find({ status: 'false' });
     if (perYear.length && perMonth.length) {
         const newBill = perYear[0].numPerYear + 1;
         const billNew = perMonth[0].numPerMonth + 1 || 1;
@@ -224,15 +229,15 @@ app.get('/', async (req, res) => {
             const billNew = 1;
             currentMonth.pop();
             currentMonth.push(month);
-            res.render('index', { date, year, month, newBill, billNew, currentWeek })
+            res.render('index', { date, year, month, newBill, billNew, currentWeek, notifications })
         } else {
-            return res.render('index', { date, year, month, newBill, billNew, currentWeek })
+            return res.render('index', { date, year, month, newBill, billNew, currentWeek, notifications })
         }
     } else {
         currentMonth.push(month)
         const newBill = perYear[0].numPerYear + 1;
         const billNew = 1;
-        res.render('index', { date, year, month, billNew, newBill, currentWeek })
+        res.render('index', { date, year, month, billNew, newBill, currentWeek, notifications })
     }
 
 })
@@ -245,13 +250,15 @@ app.get('/register', isLoged, async (req, res) => {
 app.get('/vacation', isLoged, async (req, res) => {
     const employees = await Employers.find({});
     const vacation = await Vacation.find({});
-    res.render('editVacation', { employees, vacation });
+    const notifications = await Notifications.find({ status: 'false' });
+    res.render('editVacation', { employees, vacation, notifications });
 })
 
 app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
+    const notifications = await Notifications.find({ status: 'false' });
     const used = vacation.usedHolidays;
 
     for (let i = 0; i < vacation.pendingHolidays.length; i++) {
@@ -275,6 +282,7 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
+    const notifications = await Notifications.find({ status: 'false' });
     for (let i = 0; i < vacation.pendingHolidays.length; i++) {
         if (holId === vacation.pendingHolidays[i].id) {
             await vacation.pendingHolidays[i].status.pop()
@@ -292,6 +300,7 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
     const used = vacation.usedHolidays;
+    const notifications = await Notifications.find({ status: 'false' });
     for (let i = 0; i < vacation.pendingHolidays.length; i++) {
         if (holId === vacation.pendingHolidays[i].id) {
             const newUsed = parseInt(used) - parseInt(vacation.pendingHolidays[i].days)
@@ -328,30 +337,31 @@ app.post('/holidays', async (req, res) => {
 
 app.post('/register', isLoged, async (req, res) => {
     const { username, password, role } = req.body;
-    const checkUser = await People.find({username: `${username}`})
-    if(!checkUser.length){
+    const checkUser = await People.find({ username: `${username}` })
+    if (!checkUser.length) {
         const user = await new People({ username: username, role: role });
         const addedUser = await People.register(user, password);
         req.flash('success', `Successfully registered ${username} as ${role}.`);
         res.redirect('/users')
-    }else{
+    } else {
         req.flash('error', "User `${username}` is already registered.")
         res.redirect('/register')
     }
 })
 
 app.get('/add', isLoged, async (req, res) => {
-    res.render('add')
+    const notifications = await Notifications.find({ status: 'false' });
+    res.render('add', { notifications })
 })
 app.post('/addEmploye', isLoged, async (req, res) => {
     const { username, lastname, password, emplStatus, status } = req.body;
-    const checkUser = await Employers.find({username: `${username}`});
-    if (!checkUser.length){
+    const checkUser = await Employers.find({ username: `${username}` });
+    if (!checkUser.length) {
         const user = await new Employers({ username: username, lastname: lastname, employmentStatus: emplStatus, status: status });
         const addedUser = await Employers.register(user, password);
         req.flash('success', 'Successfully added new employee')
         res.redirect('/users')
-    }else{
+    } else {
         req.flash('error', "User with that name already registered. Please try again with diferrent username.");
         res.redirect('/add')
     }
@@ -366,9 +376,8 @@ let searched = [];
 let buyedProducts = [];
 
 app.get('/search', isLoged, async (req, res) => {
-    res.render('search', { usersData, searched, buyedProducts });
-
-
+    const notifications = await Notifications.find({ status: 'false' });
+    res.render('search', { usersData, searched, buyedProducts, notifications });
 });
 //? DELA
 
@@ -379,7 +388,7 @@ app.post('/search', isLoged, async (req, res, next) => {
     const user = req.body.username;
     const data = await User.find({ buyer: { $regex: `${user}`, $options: 'i' } })
     const productName = await User.find({ buyer: { $regex: `${user}`, $options: 'i' }, 'products.name': `${req.body.product}` })
-    
+
     if (!data.length) {
         req.flash('error', 'Sorry, employee not found.');
         res.redirect('/search');
@@ -409,6 +418,7 @@ app.get('/costs', isLoged, async (req, res) => {
     let payed = [];
     const allCosts = await Costs.find({})
     const payData = await User.find({ pay: 'true' })
+    const notifications = await Notifications.find({ status: 'false' });
     for (info of payData) {
         for (productPrice of info.products) {
             for (price of productPrice.total) {
@@ -417,9 +427,9 @@ app.get('/costs', isLoged, async (req, res) => {
         }
     }
     if (!allCosts.length) {
-        res.render('costs', { allCosts })
+        res.render('costs', { allCosts, notifications })
     } else {
-        res.render('costs', { allCosts, payData, payed })
+        res.render('costs', { allCosts, payData, payed, notifications })
     }
 
 })
@@ -507,32 +517,35 @@ app.get('/all', isLoged, async (req, res) => {
     const payData = await User.find({ pay: 'true' }).sort({ "year": -1, "numPerMonth": -1 });
     const notPayData = await User.find({ pay: 'false' }).sort({ "year": -1, "numPerMonth": -1 });
     const thisMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' })
+    const notifications = await Notifications.find({ status: 'false' });
     let payedLength = payData.length;
     let notPayedLength = notPayData.length;
-    return res.render('selled', { userData, payData, notPayData, yearNum, payedLength, notPayedLength, thisMonth })
+    return res.render('selled', { userData, payData, notPayData, yearNum, payedLength, notPayedLength, thisMonth, notifications })
 });
 
 //? DELA
 
 app.get('/all/:id', isLoged, async (req, res) => {
     const userData = await User.findById(req.params.id);
+    const notifications = await Notifications.find({ status: 'false' });
     if (!userData) {
         req.flash('error', 'User not found');
         return res.redirect('/all');
     }
-    res.render('user', { userData })
+    res.render('user', { userData, notifications })
 });
 //? DELA
 app.get('/all/:id/edit', isLoged, async (req, res) => {
     const { id } = req.params
     const user = await User.findById(id);
+    const notifications = await Notifications.find({ status: 'false' });
 
     if (!user) {
         return res.redirect('/all')
     }
     else {
         for (let product of user.products) {
-            return res.render('edit', { user, product })
+            return res.render('edit', { user, product, notifications })
         }
     }
 });
