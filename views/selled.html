@@ -22,30 +22,30 @@
             </button>
             <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
                 <ul class="navbar-nav d-flex w-100">
-                    <li id="vsi" class="nav-item ms-1 mt-1">
+                    <li id="vsi" class="nav-item ms-1 mt-2">
                         <button class="btn btn-primary p-1" id="btn-func" onclick="allBills()">All bills</button>
                     </li>
 
-                    <li id="placali" class="nav-item ms-1 mt-1">
+                    <li id="placali" class="nav-item ms-1 mt-2">
                         <button class="btn btn-success p-1" id="btn-func" onclick="payedBills()">Payed</button>
                     </li>
-                    <li id="nePlacali" class="nav-item ms-1 mt-1">
+                    <li id="nePlacali" class="nav-item ms-1 mt-2">
                         <button class="btn btn-danger p-1" id="btn-func" onclick="notPayedBills()">Not Payed</button>
                     </li>
                     </li>
-                    <li class="nav-item ms-1 mt-1">
+                    <li class="nav-item ms-2 mt-2">
                         <a href="/search"><button class="btn btn-outline-info p-1 text-light" id="btn-func">Search
                                 User</button></a>
                     </li>
-                    <li class="nav-item ms-1 mt-1">
+                    <li class="nav-item ms-2 mt-2">
                         <a href="/costs"><button class="btn btn-danger p-1" id="btn-func">Costs</button></a>
                     </li>
-                    <li class="nav-item ms-1 mt-1">
+                    <li class="nav-item ms-2 mt-2">
                         <a href="/vacation"><button class="btn btn-info p-1" id="btn-func">
                                 Vacation</button></a>
                     </li>
 
-                    <li class="nav-item dropdown ms-1 mt-1 p-1">
+                    <li class="nav-item dropdown ms-1 mt-2 p-1">
                         <a href="/users"><button type="button" class="btn btn-info p-1">Users</button></a>
                         <button type="button" class="btn btn-info dropdown-toggle  dropdown-toggle-split p-1"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,7 +57,7 @@
                                         employee</button></a>
                             </li>
 
-                            <li class="dropdown-item">
+                            <li class="dropdown-item ">
                                 <a href="/register"><button class="btn btn-success p-1" id="btn-func">Add
                                         user</button></a>
                             </li>
@@ -65,8 +65,42 @@
                         </ul>
                     </li>
                     <% if(currentUser) {%>
-                        <li class="nav-item ms-auto mt-1">
-                            <a class="nav-link" href="/logout"><button class="btn btn-outline-info ms-1 p-1"> Log
+                        <li class="nav-item dropdown ms-auto me-right mt-1 p-1">
+                            <% if(notifications.length) {%>
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red"
+                                        class="bi bi-bell" viewBox="0 0 22 22">
+                                        <path
+                                            d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+                                    </svg>
+                                    <sab class="text-light">
+                                        <%= notifications.length %>
+                                    </sab>
+
+                                </button>
+                                <% }else{ %>
+                                    <button class="btn btn-primary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white"
+                                            class="bi bi-bell" viewBox="0 0 22 22">
+                                            <path
+                                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+                                        </svg>
+
+                                    </button>
+                                    <% } %>
+                                        <ul id="notifications" class="dropdown-menu">
+                                            <% for(not of notifications) {%>
+                                                <a href="/vacation">
+                                                    <li>User: <%= not.username %>, days: <%= not.days %>
+                                                    </li>
+                                                </a>
+                                                <% } %>
+                                        </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout"><button class="btn btn-outline-info"> Log
                                     out</button></a>
                         </li>
                         <% }else {%>
@@ -100,22 +134,22 @@
         <table id="all" class="table table-striped-columns table-hover mb-0 ">
             <thead id="table-data" class="table-dark text-center align-middle border-bottom">
                 <tr>
-                <th class="col">User</th>
-                <th class="col">Product</th>
-                <th class="col-1">Qty</th>
-                <th class="col-1">Price</th>
-                <th class="col-1">DDV</th>
-                <th class="col">1<sup>st</sup> / Week</th>
-                <th class="col">Week</th>
-                <th class="col">Total</th>
-                <th class="col-1">Payed</th>
-                <th class="col-1">Num / Month</th>
-                <th class="col-1">Month</th>
-                <th class="col-1">Num / Year</th>
-                <th class="col">Year</th>
-                <th class="col">Sold Date</th>
-                <th class="col">Izdal</th>
-            </tr>
+                    <th class="col">User</th>
+                    <th class="col">Product</th>
+                    <th class="col-1">Qty</th>
+                    <th class="col-1">Price</th>
+                    <th class="col-1">DDV</th>
+                    <th class="col">1<sup>st</sup> / Week</th>
+                    <th class="col">Week</th>
+                    <th class="col">Total</th>
+                    <th class="col-1">Payed</th>
+                    <th class="col-1">Num / Month</th>
+                    <th class="col-1">Month</th>
+                    <th class="col-1">Num / Year</th>
+                    <th class="col">Year</th>
+                    <th class="col">Sold Date</th>
+                    <th class="col">Izdal</th>
+                </tr>
             </thead>
             <tbody class="tableBody mt-3 align-middle">
                 <% if(userData.length) {%>

@@ -222,7 +222,6 @@ app.get('/', async (req, res) => {
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
     const notifications = await Notifications.find({ status: 'false' });
-    console.log(notifications)
     if (perYear.length && perMonth.length) {
         const newBill = perYear[0].numPerYear + 1;
         const billNew = perMonth[0].numPerMonth + 1 || 1;
