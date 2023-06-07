@@ -258,13 +258,12 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    const notifications = await Notifications.find({ status: 'false' });
+    const notifications = await Notifications.findByIdAndDelete(id);
     const used = vacation.usedHolidays;
 
     for (let i = 0; i < vacation.pendingHolidays.length; i++) {
         if (holId === vacation.pendingHolidays[i].id) {
             const newUsed = parseInt(used) + parseInt(vacation.pendingHolidays[i].days)
-
             const updateUsedHolidays = await Vacation.findByIdAndUpdate(id, { usedHolidays: `${newUsed}` })
             updateUsedHolidays.save();
             //await vacation.usedHolidays = vacation.pendingHolidays[i].days
@@ -282,7 +281,7 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    const notifications = await Notifications.find({ status: 'false' });
+    const notifications = await Notifications.findByIdAndDelete(id)
     for (let i = 0; i < vacation.pendingHolidays.length; i++) {
         if (holId === vacation.pendingHolidays[i].id) {
             await vacation.pendingHolidays[i].status.pop()
