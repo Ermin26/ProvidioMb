@@ -552,25 +552,40 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
     const { id } = req.params;
     const data = req.body;
     const user = await User.findById(id);
-    for (let j = 0; j < data.productId.length; j++) {
-        for (let i = 0; i < user.products.length; i++) {
-            if (data.productId[j] === user.products[i].id) {
-
-                await user.products[i].name.pop()
-                await user.products[i].qty.pop()
-                await user.products[i].price.pop()
-                await user.products[i].total.pop()
-                await user.products[i].name.push(data.productName[j]);
-                await user.products[i].qty.push(data.productQty[j]);
-                await user.products[i].price.push(data.productPrice[j]);
-                await user.products[i].total.push(data.productTotal[j]);
-                await user.save();
-
+    console.log(user)
+    console.log("///////////////user//////////")
+    if (Array.isArray(data.productId)) {
+        for (let j = 0; j < data.productId.length; j++) {
+            for (let i = 0; i < user.products.length; i++) {
+                if (data.productId[j] === user.products[i].id) {
+                    console.log(data.productId[j], user.products[i].id);
+                    await user.products[i].name.pop()
+                    await user.products[i].qty.pop()
+                    await user.products[i].price.pop()
+                    await user.products[i].total.pop()
+                    await user.products[i].name.push(data.productName[j]);
+                    await user.products[i].qty.push(data.productQty[j]);
+                    await user.products[i].price.push(data.productPrice[j]);
+                    await user.products[i].total.push(data.productTotal[j]);
+                    await user.save();
+    
+                }
             }
-        }
+            }
+    } else {
+        await user.products[0].name.pop()
+        await user.products[0].qty.pop()
+        await user.products[0].price.pop()
+        await user.products[0].total.pop()
+        await user.products[0].name.push(data.productName);
+        await user.products[0].qty.push(data.productQty);
+        await user.products[0].price.push(data.productPrice);
+        await user.products[0].total.push(data.productTotal);
+        await user.save();
+    
     }
     req.flash('success', 'Product data was successfully updated.');
-    res.redirect(`/all/${user._id}/edit`);
+    res.redirect(`/all/${user._id}`);
 })
 //? DELA
 
