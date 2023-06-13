@@ -258,7 +258,7 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    const notifications = await Notifications.findByIdAndDelete(id);
+    const notifications = await Notifications.deleteOne({vac_id: `${holId}`});
     const used = vacation.usedHolidays;
 
     for (let i = 0; i < vacation.pendingHolidays.length; i++) {
@@ -281,7 +281,7 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    const notifications = await Notifications.findByIdAndDelete(id)
+    const notifications = await Notifications.deleteOne({vac_id: `${holId}`});
     for (let i = 0; i < vacation.pendingHolidays.length; i++) {
         if (holId === vacation.pendingHolidays[i].id) {
             await vacation.pendingHolidays[i].status.pop()
@@ -299,7 +299,6 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
     const used = vacation.usedHolidays;
-    const notifications = await Notifications.find({ status: 'false' });
     for (let i = 0; i < vacation.pendingHolidays.length; i++) {
         if (holId === vacation.pendingHolidays[i].id) {
             const newUsed = parseInt(used) - parseInt(vacation.pendingHolidays[i].days)
@@ -552,14 +551,11 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
     const { id } = req.params;
     const data = req.body;
     const user = await User.findById(id);
-    console.log(user)
-    console.log("///////////////user//////////")
     if (Array.isArray(data.productId)) {
         for (let j = 0; j < data.productId.length; j++) {
             for (let i = 0; i < user.products.length; i++) {
                 if (data.productId[j] === user.products[i].id) {
-                    console.log(data.productId[j], user.products[i].id);
-                    await user.products[i].name.pop()
+                   await user.products[i].name.pop()
                     await user.products[i].qty.pop()
                     await user.products[i].price.pop()
                     await user.products[i].total.pop()
@@ -572,7 +568,8 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
                 }
             }
             }
-    } else {
+    }
+    else {
         await user.products[0].name.pop()
         await user.products[0].qty.pop()
         await user.products[0].price.pop()
