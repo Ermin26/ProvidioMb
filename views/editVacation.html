@@ -54,6 +54,7 @@
                 </div>
 
                 <div id="middle" class="col-6">
+                    <h1>Hey i am date : <%= checkDate %></h1>
                     <div class="container text-center">
 
                         <!--REQUESTED HOLIDAYS-->
@@ -187,6 +188,20 @@
                                                         <td><strong>
                                                                 <%= holiday.applyDate %>
                                                             </strong>
+                                                            <% let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]+/;%>
+                                                            <% let currentDate = new Date() %>
+                                                            <%let applyDate = new Date(holiday.applyDate)  %>
+
+                                                            <% if(format.test(holiday.applyDate)) {%>
+                                                                <% if(applyDate < currentDate) {%>
+                                                                    yooooooo
+                                                                    <%= currentDate %>
+                                                                <% } %>
+                                                                <% } %>
+                                                              
+                                                            
+                                                            
+
                                                         </td>
                                                         <% if(currentUser.role=='admin' ) {%>
                                                             <td>
@@ -652,6 +667,7 @@
                     let userUsed = myTable.rows[i].cells[3].innerHTML;
                     myTable.rows[i].cells[4].innerHTML = parseInt(userLast) + parseInt(userThis) - parseInt(userUsed);
                 }
+
 
             </script>
 

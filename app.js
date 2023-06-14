@@ -105,6 +105,8 @@ let todayDate = new Date();
 let date = todayDate.toLocaleDateString()
 let year = todayDate.getFullYear()
 let month = todayDate.getMonth() + 1;
+
+
 //! -------------------------
 async function checkDetails() {
     let myYear = await Week.find().select('year -_id');
@@ -251,7 +253,10 @@ app.get('/vacation', isLoged, async (req, res) => {
     const employees = await Employers.find({});
     const vacation = await Vacation.find({});
     const notifications = await Notifications.find({ status: 'false' });
-    res.render('editVacation', { employees, vacation, notifications });
+    let checkDate = month + '/'+ todayDate.getDate().toString() + '/' + year
+    let myDate = todayDate.getDate().toString() + '/'+ month + '/' + year
+    
+    res.render('editVacation', { employees, vacation, notifications, checkDate, myDate });
 })
 
 app.post('/vacation/approve/:id', isLoged, async (req, res) => {
