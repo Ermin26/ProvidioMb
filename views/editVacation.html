@@ -26,13 +26,17 @@
                                 <th>Last year</th>
                                 <th>This year</th>
                                 <th>Used</th>
-                                <th>Together</th>
+                                <th>Remaining</th>
                             </thead>
                             <tbody>
-                                <% for(user of vacation) {%>
+                                <% for (status of employees) {%>
+                                    <% let users = status.username + ' ' + status.lastname%>
+                                    <% for(user of vacation) {%>
+                                    <% if(status.status === 'active' && status.employmentStatus === 'zaposlen/a' && users == user.user  ) {%>
                                     <tr>
                                         <td>
-                                            <%= user.user %>
+                                            <%= status.username %>
+                                            <%= status.lastname %>
                                         </td>
                                         <td>
                                             <%= user.lastYearHolidays %>
@@ -44,9 +48,11 @@
                                             <%= user.usedHolidays %>
                                         </td>
                                         <td id="preostalo">
-
+                                            
                                         </td>
                                     </tr>
+                                        <% } %>
+                                    <% } %>
                                     <% } %>
                             </tbody>
                         </table>
@@ -54,9 +60,7 @@
                 </div>
 
                 <div id="middle" class="col-6">
-                    <h1>Hey i am date : <%= checkDate %></h1>
                     <div class="container text-center">
-
                         <!--REQUESTED HOLIDAYS-->
                         <div class="col mt-5 mb-5">
                             <caption class="mt-5">
@@ -164,6 +168,15 @@
                                         <% for(vac of vacation) {%>
                                             <% for(holiday of vac.pendingHolidays) {%>
                                                 <% if(holiday.status=='Approved' ) {%>
+                                                    <% let format=/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;%>
+                                                    <% let currentDate=new Date() %>
+                                                    <% let dateParts=[]; %>
+                                                    <% let dateString=holiday.endDate.toString();%>
+                                                    <% let hasDot=dateString.includes('.');%>
+                                                    <% if(hasDot) {%>
+                                                        <% dateParts=dateString.split('.');%>
+                                                        <% secondDateFormat=new Date(dateParts[2],dateParts[1]-1,dateParts[0])%>
+                                                        <% if(secondDateFormat > currentDate) {%>
                                                     <tr>
                                                         <td><strong>
                                                                 <%= vac.user %>
@@ -187,32 +200,7 @@
                                                         </td>
                                                         <td><strong>
                                                                 <%= holiday.applyDate %>
-                                                            </strong>
-                                                            <% let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;%>
-                                                            <% let currentDate = new Date() %>
-                                                            <%let applyDate = new Date(holiday.applyDate)  %>
-                                                            
-                                                            <% let dateParts = []; %>
-                                                            <% let dateString = holiday.applyDate.toString(); %>
-                                                            <% let hasDot = dateString.includes('.'); %>
-                                                            <% console.log('yooo',hasDot) %>
-                                                                <%# console.log(holiday.applyDate.includes('.')) %>
-                                                                <% if(applyDate < currentDate) {%>
-                                                                    ejjjj if
-                                                                   
-                                                                <% }else if(hasDot){ %>
-                                                                    yooo
-                                                                          <% dateParts = dateString.split('.'); %>  
-                                                                          <% secondDateFormat = new Date(dateParts[2], dateParts[0] - 1,dateParts[0]) %>
-                                                                            <% if(secondDateFormat < currentDate) {%>
-                                                                                else if
-                                                                                <% } %>
-                                                                    <% } %>
-                                                              
-                                                            
-                                                            
-
-                                                        </td>
+                                                            </strong>              
                                                         <% if(currentUser.role=='admin' ) {%>
                                                             <td>
                                                                 <form action="/vacation/rejectAfter/<%=vac.id %>"
@@ -230,6 +218,8 @@
                                                                 </td>
                                                                 <% } %>
                                                     </tr>
+                                                    <% } %>
+                                                    <% } %>
                                                     <% } %>
                                                         <% } %>
                                                             <% } %>
@@ -260,6 +250,15 @@
                                         <% for(vac of vacation) {%>
                                             <% for(holiday of vac.pendingHolidays) {%>
                                                 <% if(holiday.status=='Rejected' ) {%>
+                                                    <% let format=/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;%>
+                                                    <% let currentDate=new Date() %>
+                                                    <% let dateParts=[]; %>
+                                                    <% let dateString=holiday.endDate.toString();%>
+                                                    <% let hasDot=dateString.includes('.');%>
+                                                    <% if(hasDot) {%>
+                                                        <% dateParts=dateString.split('.');%>
+                                                        <% secondDateFormat=new Date(dateParts[2],dateParts[1]-1,dateParts[0])%>
+                                                        <% if(secondDateFormat > currentDate) {%>
                                                     <tr>
                                                         <td><strong>
                                                                 <%= vac.user %>
@@ -302,6 +301,8 @@
                                                                 </td>
                                                                 <% } %>
                                                     </tr>
+                                                    <% } %>
+                                                    <% } %>
                                                     <% } %>
                                                         <% } %>
                                                             <% } %>
