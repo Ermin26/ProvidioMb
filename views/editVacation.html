@@ -188,16 +188,26 @@
                                                         <td><strong>
                                                                 <%= holiday.applyDate %>
                                                             </strong>
-                                                            <% let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]+/;%>
+                                                            <% let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;%>
                                                             <% let currentDate = new Date() %>
                                                             <%let applyDate = new Date(holiday.applyDate)  %>
-
-                                                            <% if(format.test(holiday.applyDate)) {%>
+                                                            
+                                                            <% let dateParts = []; %>
+                                                            <% let dateString = holiday.applyDate.toString(); %>
+                                                            <% let hasDot = dateString.includes('.'); %>
+                                                            <% console.log('yooo',hasDot) %>
+                                                                <%# console.log(holiday.applyDate.includes('.')) %>
                                                                 <% if(applyDate < currentDate) {%>
-                                                                    yooooooo
-                                                                    <%= currentDate %>
-                                                                <% } %>
-                                                                <% } %>
+                                                                    ejjjj if
+                                                                   
+                                                                <% }else if(hasDot){ %>
+                                                                    yooo
+                                                                          <% dateParts = dateString.split('.'); %>  
+                                                                          <% secondDateFormat = new Date(dateParts[2], dateParts[0] - 1,dateParts[0]) %>
+                                                                            <% if(secondDateFormat < currentDate) {%>
+                                                                                else if
+                                                                                <% } %>
+                                                                    <% } %>
                                                               
                                                             
                                                             
