@@ -247,13 +247,16 @@
                                         <th>Approve</th>
                                     </thead>
                                     <tbody>
+                                        <% for (status of employees) {%>
+                                            <% let users = status.username + ' ' + status.lastname%>
                                         <% for(vac of vacation) {%>
+                                            <% if(status.status === 'active' && status.employmentStatus === 'zaposlen/a' && users == vac.user  ) {%>
                                             <% for(holiday of vac.pendingHolidays) {%>
                                                 <% if(holiday.status=='Rejected' ) {%>
                                                     <% let format=/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;%>
                                                     <% let currentDate=new Date() %>
                                                     <% let dateParts=[]; %>
-                                                    <% let dateString=holiday.endDate.toString();%>
+                                                    <% let dateString=holiday.startDate.toString();%>
                                                     <% let hasDot=dateString.includes('.');%>
                                                     <% if(hasDot) {%>
                                                         <% dateParts=dateString.split('.');%>
@@ -305,6 +308,8 @@
                                                     <% } %>
                                                     <% } %>
                                                         <% } %>
+                                                            <% } %>
+                                                            <% } %>
                                                             <% } %>
                                     </tbody>
                                 </table>
