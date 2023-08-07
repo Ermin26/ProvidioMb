@@ -222,7 +222,8 @@ app.delete('/users/:id', isLoged, async (req, res) => {
 app.get('/', async (req, res) => {
     checkDetails();
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
-    const perMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' }).limit(1)
+    const perMonth = await User.find({ "month": `${month}`, "year": `${year}` }).sort({ "numPerMonth": 'descending' }).limit(1)
+    
     const notifications = await Notifications.find({ status: 'false' });
     if (perYear.length && perMonth.length) {
         const newBill = perYear[0].numPerYear + 1;
