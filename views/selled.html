@@ -119,11 +119,11 @@
 
     <div class="caption" id="caption">
         <%- include('../flashError') %>
-            <h1><strong class="fs-1 text-primary">Vsi računi</strong></h1>
-            <h2><strong class="fs-2 text-info">Toti mesec:
+            <h1><strong class="fs-1 text-primary">All bills</strong></h1>
+            <h2><strong class="fs-2 text-info">This month:
                     <%= thisMonth.length %>
                 </strong></h2>
-            <h2><strong class="fs-2 text-primary">Skupaj izdanih računov:
+            <h2><strong class="fs-2 text-primary">Number of all bills:
                     <%= userData.length - 1 %>
                 </strong></h2>
     </div>
@@ -148,7 +148,7 @@
                     <th class="col-1">Num / Year</th>
                     <th class="col">Year</th>
                     <th class="col">Sold Date</th>
-                    <th class="col">Izdal</th>
+                    <th class="col">Issued by</th>
                 </tr>
             </thead>
             <tbody class="tableBody mt-3 align-middle">
@@ -159,6 +159,7 @@
                             <tr class="m-1">
 
                                 <% if(!data.payDate) {%>
+                                    <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                     <td class="bg-danger">
                                         <a href="/all/<%= data._id %>">
                                             <strong class="text-info">
@@ -166,7 +167,11 @@
                                             </strong>
                                         </a>
                                     </td>
+                                    <% }else {%>
+                                        <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                        <% } %>
                                     <% } else{%>
+                                        <% if(currentUser.role != 'visitor') {%>
                                         <td class="bg-success p-0">
                                             <a href="/all/<%= data._id %>">
                                                 <strong class="text-dark">
@@ -174,6 +179,9 @@
                                                 </strong>
                                             </a>
                                         </td>
+                                        <% }else {%>
+                                            <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                            <% } %>
                                         <% } %>
                                             <td>
                                                 <%= product.name %>
@@ -224,9 +232,13 @@
                                             <td>
                                                 <%= data.soldDate %>
                                             </td>
+                                            <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                             <td>
                                                 <%= data.izdal %>
                                             </td>
+                                            <% }else {%>
+                                        <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                        <% } %>
                             </tr>
                             <% } %>
                                 <% } %>
@@ -241,9 +253,13 @@
     <!-- PAYED BILLS -->
 
     <div class="caption" id="payedCaption">
-        <h1 class=""><strong class="fs-1 text-success">Plačani Računi</strong></h1>
-        <h2 class="d-inline"><strong class="fs-1 text-success" id="skupajPlacano"></strong></h2><br>
-        <h3 class="d-inline"><strong class="fs-2 text-success">Skupaj plačano računov:
+        <h1 class=""><strong class="fs-1 text-success">Payed bills</strong></h1>
+        
+        <h2 class="d-inline text-success"><% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%><strong class="fs-1 text-success" id="skupajPlacano"></strong><% }else {%>
+            Total: <strong class="text-success">Not available</strong>
+            <% } %></h2><br>
+        
+        <h3 class="d-inline"><strong class="fs-2 text-success">Number of payed bills:
                 <%= payedLength %>
             </strong>
         </h3>
@@ -261,7 +277,7 @@
                 <th>Week</th>
                 <th>Sold Date</th>
                 <th>Pay Date</th>
-                <th>Izdal</th>
+                <th>Issued by</th>
             </thead>
             <tbody>
                 <% if(payData.length) {%>
@@ -270,10 +286,14 @@
                     <% for(let user of payData) { %>
                         <% for(product of user.products) {%>
                             <tr class="fs-4">
+                                <% if(currentUser.role == 'visitor' && currentUser.username !='jan') {%>
+                                    <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                    <% }else {%>
                                 <td><a href="/all/<%= userData._id%>">
                                         <%= user.buyer %>
                                     </a>
                                 </td>
+                                <% } %>
 
                                 <td>
                                     <%= product.name %>
@@ -303,9 +323,13 @@
                                 <td>
                                     <%= user.payDate %>
                                 </td>
+                                <% if(currentUser.role == 'visitor' && currentUser.username !='jan') {%>
+                                    <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                    <% }else {%>
                                 <td>
                                     <%= user.izdal %>
                                 </td>
+                                <% } %>
                             </tr>
                             <% } %>
                                 <% } %>
@@ -319,9 +343,9 @@
     <!-- NOT PAYED BILLS -->
 
     <div class="caption" id="notPayedcaption">
-        <h1><strong class="fs-1 text-danger">Dolžniki:</strong></h1>
+        <h1><strong class="fs-1 text-danger border-4 border-bottom">Debtors:</strong></h1>
         <h2 class="d-inline"><strong class="fs-2 text-danger" id="dolg"></strong></h2><br>
-        <h3 class="d-inline"><strong class="fs-2 text-danger">Skupaj za plačat <%= notPayedLength %> računov!
+        <h3 class="d-inline"><strong class="fs-2 text-danger">Number of bills to pay: <%= notPayedLength %>!
 
             </strong>
         </h3>
@@ -341,7 +365,7 @@
                 <th>Week</th>
                 <th>Sold Date</th>
                 <th>Pay Date</th>
-                <th>Izdal</th>
+                <th>Issued by</th>
             </thead>
             <tbody class="text-danger">
                 <% if(notPayData.length) {%>
@@ -350,11 +374,15 @@
                     <% for(let users of notPayData) { %>
                         <% for(product of users.products) {%>
                             <tr>
+                                <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                 <td class="fs-4">
                                     <a href="/all/<%= users._id%>">
                                         <%= users.buyer %>
                                     </a>
                                 </td>
+                                <% }else {%>
+                                    <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                    <% } %>
 
                                 <td>
                                     <%= product.name %>
@@ -386,15 +414,19 @@
                                                 Not payed
                                                 <% } %>
                                 </td>
+                                <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                 <td>
                                     <%= users.izdal %>
                                 </td>
+                                <% }else {%>
+                                    <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                    <% } %>
                             </tr>
                             <% } %>
                                 <% } %>
                                     <% } %>
                                         <tr class="fs-1">
-                                            <td>Skupaj:</td>
+                                            <td>Total:</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -445,7 +477,7 @@
                 var x = document.getElementById('payed').rows[i].cells[3].innerText;
                 totalPayed += parseFloat(x, 10);
             }
-            document.getElementById('skupajPlacano').innerHTML = "Skupaj: " + " " + totalPayed.toFixed(2) + " €";
+            document.getElementById('skupajPlacano').innerHTML = "Total: " + " " + totalPayed.toFixed(2) + " €";
 
         }
         function notPayedBills() {
@@ -471,7 +503,7 @@
                 total += parseFloat(x, 10);
             }
             document.getElementById('total').innerHTML = "<strong>" + total.toFixed(2) + " " + "€" + "</strong>";
-            document.getElementById('dolg').innerHTML = "Skupaj dolg:" + " " + total.toFixed(2) + " " + "€";
+            document.getElementById('dolg').innerHTML = "Total to pay:" + " " + total.toFixed(2) + " " + "€";
 
 
         }

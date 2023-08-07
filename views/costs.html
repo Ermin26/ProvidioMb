@@ -82,9 +82,13 @@
                                         <td>
                                             <%= data.date %>
                                         </td>
+                                        <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                         <td>
                                             <%= data.totalPrice %>
                                         </td>
+                                        <% }else{%>
+                                            <td> €</td>
+                                            <% } %>
                                         <td>
                                             <%= data.buyedProducts %>
 
@@ -105,7 +109,11 @@
                                         <tr>
                                             <td>Total spend:</td>
                                             <td></td>
+                                            <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                             <td id="spend" class="bg-danger"></td>
+                                            <% }else {%>
+                                                <td>Not available</td>
+                                                <% } %>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -118,9 +126,21 @@
 
             <div id="col2" class="col-4 ms-auto me-auto">
                 <div class="total mt-5 text-start ms-4 p-2 ms-auto me-auto" id="costsInfo">
-                    <h4 class="mt-2 mb-2"> Total Payed: <strong id="payed" class="ms-3"> </strong> &euro;</h4>
-                    <h4 class="mt-2 mb-2">Total Spend: <strong id="spended" class="ms-3"></strong> &euro;</h4>
-                    <h2 class="mt-2 mb-2">Total Cash: <strong id="cash" class=""></strong> &euro;</h2>
+                    <h4 class="mt-2 mb-2"> Total Payed: <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                        <strong id="payed" class="ms-3"> </strong> &euro;</h4>
+                        <% }else {%>
+                                <strong>Not available for visitors</strong>    
+                            <% } %>
+                    <h4 class="mt-2 mb-2">Total Spend: <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                        <strong id="spended" class="ms-3"></strong> &euro;</h4>
+                        <% }else {%>
+                                <strong>Not available for visitors</strong>
+                            <% } %>
+                    <h2 class="mt-2 mb-2">Total Cash: <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                        <strong id="cash" class=""></strong> &euro;</h2>
+                        <% }else {%>
+                                <strong>Not available for visitors</strong>
+                            <% } %>
                 </div>
                 <table id="hide">
                     <tr>

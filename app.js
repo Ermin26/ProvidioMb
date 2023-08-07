@@ -247,7 +247,8 @@ app.get('/', async (req, res) => {
 
 
 app.get('/register', isLoged, async (req, res) => {
-    res.render('register');
+    const notifications = await Notifications.find({ status: 'false' });
+    res.render('register', { notifications});
 })
 
 app.get('/vacation', isLoged, async (req, res) => {
@@ -520,7 +521,7 @@ app.get('/all', isLoged, async (req, res) => {
     const yearNum = await User.find({}).sort({ "numPerYear": "descending" }).limit(1)
     const payData = await User.find({ pay: 'true' }).sort({ "year": -1, "numPerMonth": -1 });
     const notPayData = await User.find({ pay: 'false' }).sort({ "year": -1, "numPerMonth": -1 });
-    const thisMonth = await User.find({ "month": `${month}` }).sort({ "numPerMonth": 'descending' })
+    const thisMonth = await User.find({ "month": `${month}`, "year": `${year}` }).sort({ "numPerMonth": 'descending' })
     const notifications = await Notifications.find({ status: 'false' });
     let payedLength = payData.length;
     let notPayedLength = notPayData.length;
