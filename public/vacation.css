@@ -6,6 +6,12 @@ body {
     overflow-x: hidden;
 }
 
+.holidayTable{
+    table-layout: fixed;
+}
+.table-responsive{
+    margin-bottom: 10vh;
+}
 @media (max-width: 3000px) {
     #section {
         overflow: hidden;
@@ -16,13 +22,18 @@ body {
         height: 100vh;
         overflow-y: auto;
     }
+    div#left{
+        height: 100vh;
+        overflow-y: auto;
+        margin-bottom: 10vh;
+    }
 
     .container {
         margin-bottom: 10vh;
     }
 
 }
-
+/*
 @media (max-width: 1200px) {
     #section {
         display: flex;
@@ -79,7 +90,7 @@ body {
         overflow-x: auto;
     }
 }
-
+*/
 
 @media (max-width: 1505px) {
     html {

@@ -252,7 +252,7 @@ app.get('/register', isLoged, async (req, res) => {
 })
 
 app.get('/vacation', isLoged, async (req, res) => {
-    const employees = await Employers.find({});
+    const employees = await Employers.find({employmentStatus:'zaposlen/a', status: 'active'});
     const vacation = await Vacation.find({});
     const notifications = await Notifications.find({ status: 'false' });
     let checkDate = month + '/'+ todayDate.getDate().toString() + '/' + year

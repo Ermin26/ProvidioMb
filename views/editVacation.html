@@ -57,6 +57,36 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="table-responsive">
+                        <% for(let employe of employees) {%>
+                            <% let userName = employe.username + ' ' + employe.lastname%>
+                            <caption><h2><%= userName %></h2></caption>
+                            <table class="mb-5 table table-bordered holidayTable bg-success">
+                            <thead>
+                                <th scope="col">Start date</th>
+                                <th scope="col">End date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Days</th>
+                            </thead>
+                            <tbody>
+                                <% for(let user of vacation) {%>
+                                <% for(let usedVac of user.pendingHolidays) {%>
+                                    <% if(usedVac.status == 'Approved' && user.user == userName) {%>
+                                        <tr>
+                                            
+                                    <td scope="col"><strong><%= usedVac.startDate %></strong></td>
+                                    <td scope="col"><strong><%= usedVac.endDate %></strong></td>
+                                    <td scope="col"><strong><%= usedVac.status %></strong></td>
+                                    <td scope="col"><strong><%= usedVac.days %></strong></td>
+                                </tr>
+                                <% } %>
+                        <% } %>
+                        <%} %>
+                            </tbody>
+                        </table>
+                        
+                        <% } %>
+                    </div>
                 </div>
 
                 <div id="middle" class="col-6">
