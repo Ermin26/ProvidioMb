@@ -257,7 +257,6 @@ app.get('/vacation', isLoged, async (req, res) => {
     const notifications = await Notifications.find({ status: 'false' });
     let checkDate = month + '/'+ todayDate.getDate().toString() + '/' + year
     let myDate = todayDate.getDate().toString() + '/'+ month + '/' + year
-    
     res.render('editVacation', { employees, vacation, notifications, checkDate, myDate });
 })
 
@@ -288,7 +287,8 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    const notifications = await Notifications.deleteOne({vac_id: `${holId}`});
+    const forDelete = await Notifications.deleteOne({ vac_id: `${holId}` });
+    
     for (let i = 0; i < vacation.pendingHolidays.length; i++) {
         if (holId === vacation.pendingHolidays[i].id) {
             await vacation.pendingHolidays[i].status.pop()
