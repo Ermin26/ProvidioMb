@@ -28,9 +28,10 @@ const Employers = require('./models/employees');
 const Vacation = require('./models/vacation');
 const Notifications = require('./models/notifications');
 const { findByIdAndDelete } = require('./models/models');
+const nodemailer = require('nodemailer');
 
 const db_URL = process.env.DB_URL
-
+const yoo = process.env.YOO
 mongoose.connect(db_URL);
 
 const db = mongoose.connection;
@@ -276,6 +277,34 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
             await vacation.pendingHolidays[i].status.pop()
             await vacation.pendingHolidays[i].status.push('Approved');
             await vacation.save();
+            const dopust = await Vacation.findById(id);
+            console.log("This is dopust",dopust.pendingHolidays[i])
+            let transporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                    user: "jolda.ermin@gmail.com",
+                    pass: `${yoo}`,
+                },
+                tls: {
+                    rejectUnauthorized: false,
+                }
+            });
+            
+            let mailOptions = {
+                from: "jolda.ermin@gmail.com",
+                to: "mb2.providio@gmail.com",
+                subject: "DOPUST",
+                text: `Odobren dopust za ${dopust.user}, od ${dopust.pendingHolidays[i].startDate} - ${dopust.pendingHolidays[i].endDate}. Vloga odana dne - ${dopust.pendingHolidays[i].applyDate}.`,
+            };
+            
+            transporter.sendMail(mailOptions, function (err, success) {
+                if (err) {
+                    console.log(err.message);
+                } else {
+                    console.log("Email sended");
+                }
+            })
+
             res.redirect('/vacation')
         }
     }
