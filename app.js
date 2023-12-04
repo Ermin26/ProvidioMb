@@ -186,9 +186,14 @@ app.get('/employee/edit/:id', isLoged, async (req, res) => {
 })
 app.put('/editEmploye/:id', isLoged, async (req, res) => {
     const { id } = req.params;
-    const employee = await Employers.findByIdAndUpdate(id, { ...req.body.employers });
-    await employee.save();
-    req.flash('success', 'User data was successfully updated.');
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+    }
+    else{
+        const employee = await Employers.findByIdAndUpdate(id, { ...req.body.employers });
+        await employee.save();
+        req.flash('success', 'User data was successfully updated.');
+    }
     res.redirect(`/users`)
 })
 /*
@@ -207,16 +212,26 @@ app.get('/users/edit/:id', isLoged, async (req, res) => {
 })
 app.put('/users/:id', isLoged, async (req, res) => {
     const { id } = req.params;
-    const user = await People.findByIdAndUpdate(id, { ...req.body.user });
-    await user.save();
-    req.flash('success', 'User data was successfully updated.');
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+    }
+    else{
+        const user = await People.findByIdAndUpdate(id, { ...req.body.user });
+        await user.save();
+        req.flash('success', 'User data was successfully updated.');
+    }
     res.redirect(`/users`)
 })
 
 app.delete('/users/:id', isLoged, async (req, res) => {
     const { id } = req.params;
-    const user = await People.findByIdAndDelete(id);
-    req.flash('success', 'User was successfully deleted.');
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+    }
+    else{
+        const user = await People.findByIdAndDelete(id);
+        req.flash('success', 'User was successfully deleted.');
+    }
     res.redirect('/users')
 })
 
@@ -246,7 +261,6 @@ app.get('/', async (req, res) => {
 
 })
 
-
 app.get('/register', isLoged, async (req, res) => {
     const notifications = await Notifications.find({ status: 'false' });
     res.render('register', { notifications});
@@ -265,47 +279,51 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    const notifications = await Notifications.deleteOne({vac_id: `${holId}`});
-    const used = vacation.usedHolidays;
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect('/vacation');
+    }
+    else{
+        const notifications = await Notifications.deleteOne({vac_id: `${holId}`});
+        const used = vacation.usedHolidays;
+        for (let i = 0; i < vacation.pendingHolidays.length; i++) {
+            if (holId === vacation.pendingHolidays[i].id) {
+                const newUsed = parseInt(used) + parseInt(vacation.pendingHolidays[i].days)
+                const updateUsedHolidays = await Vacation.findByIdAndUpdate(id, { usedHolidays: `${newUsed}` })
+                updateUsedHolidays.save();
+                //await vacation.usedHolidays = vacation.pendingHolidays[i].days
+                await vacation.pendingHolidays[i].status.pop()
+                await vacation.pendingHolidays[i].status.push('Approved');
+                await vacation.save();
+                const dopust = await Vacation.findById(id);
+                console.log("This is dopust",dopust.pendingHolidays[i])
+                let transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                        user: "jolda.ermin@gmail.com",
+                        pass: `${yoo}`,
+                    },
+                    tls: {
+                        rejectUnauthorized: false,
+                    }
+                });
 
-    for (let i = 0; i < vacation.pendingHolidays.length; i++) {
-        if (holId === vacation.pendingHolidays[i].id) {
-            const newUsed = parseInt(used) + parseInt(vacation.pendingHolidays[i].days)
-            const updateUsedHolidays = await Vacation.findByIdAndUpdate(id, { usedHolidays: `${newUsed}` })
-            updateUsedHolidays.save();
-            //await vacation.usedHolidays = vacation.pendingHolidays[i].days
-            await vacation.pendingHolidays[i].status.pop()
-            await vacation.pendingHolidays[i].status.push('Approved');
-            await vacation.save();
-            const dopust = await Vacation.findById(id);
-            console.log("This is dopust",dopust.pendingHolidays[i])
-            let transporter = nodemailer.createTransport({
-                service: "gmail",
-                auth: {
-                    user: "jolda.ermin@gmail.com",
-                    pass: `${yoo}`,
-                },
-                tls: {
-                    rejectUnauthorized: false,
-                }
-            });
-            
-            let mailOptions = {
-                from: "jolda.ermin@gmail.com",
-                to: "mb2.providio@gmail.com",
-                subject: "DOPUST",
-                text: `Odobren dopust za ${dopust.user}, od ${dopust.pendingHolidays[i].startDate} - ${dopust.pendingHolidays[i].endDate}. Vloga odana dne - ${dopust.pendingHolidays[i].applyDate}.`,
-            };
-            
-            transporter.sendMail(mailOptions, function (err, success) {
-                if (err) {
-                    console.log(err.message);
-                } else {
-                    console.log("Email sended");
-                }
-            })
+                let mailOptions = {
+                    from: "jolda.ermin@gmail.com",
+                    to: "mb2.providio@gmail.com",
+                    subject: "DOPUST",
+                    text: `Odobren dopust za ${dopust.user}, od ${dopust.pendingHolidays[i].startDate} - ${dopust.pendingHolidays[i].endDate}. Vloga odana dne - ${dopust.pendingHolidays[i].applyDate}.`,
+                };
 
-            res.redirect('/vacation')
+                transporter.sendMail(mailOptions, function (err, success) {
+                    if (err) {
+                        console.log(err.message);
+                    } else {
+                        console.log("Email sended");
+                    }
+                })
+                res.redirect('/vacation')
+            }
         }
     }
 
@@ -316,14 +334,19 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    const forDelete = await Notifications.deleteOne({ vac_id: `${holId}` });
-    
-    for (let i = 0; i < vacation.pendingHolidays.length; i++) {
-        if (holId === vacation.pendingHolidays[i].id) {
-            await vacation.pendingHolidays[i].status.pop()
-            await vacation.pendingHolidays[i].status.push('Rejected');
-            await vacation.save();
-            res.redirect('/vacation')
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect('/vacation')
+    }
+    else{
+        const forDelete = await Notifications.deleteOne({ vac_id: `${holId}` });
+        for (let i = 0; i < vacation.pendingHolidays.length; i++) {
+            if (holId === vacation.pendingHolidays[i].id) {
+                await vacation.pendingHolidays[i].status.pop()
+                await vacation.pendingHolidays[i].status.push('Rejected');
+                await vacation.save();
+                res.redirect('/vacation')
+            }
         }
     }
 
@@ -335,51 +358,70 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
     const used = vacation.usedHolidays;
-    for (let i = 0; i < vacation.pendingHolidays.length; i++) {
-        if (holId === vacation.pendingHolidays[i].id) {
-            const newUsed = parseInt(used) - parseInt(vacation.pendingHolidays[i].days)
-            const updateUsedHolidays = await Vacation.findByIdAndUpdate(id, { usedHolidays: `${newUsed}` })
-            updateUsedHolidays.save();
-            await vacation.pendingHolidays[i].status.pop()
-            await vacation.pendingHolidays[i].status.push('Rejected');
-            await vacation.save();
-            res.redirect('/vacation')
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect('/vacation');
+    }
+    else{
+        for (let i = 0; i < vacation.pendingHolidays.length; i++) {
+            if (holId === vacation.pendingHolidays[i].id) {
+                const newUsed = parseInt(used) - parseInt(vacation.pendingHolidays[i].days)
+                const updateUsedHolidays = await Vacation.findByIdAndUpdate(id, { usedHolidays: `${newUsed}` })
+                updateUsedHolidays.save();
+                await vacation.pendingHolidays[i].status.pop()
+                await vacation.pendingHolidays[i].status.push('Rejected');
+                await vacation.save();
+                res.redirect('/vacation')
+            }
         }
     }
-
 })
 
 
 app.post('/holidays', async (req, res) => {
     const data = req.body;
     const ifExistsUser = await Vacation.find({ user: `${data.user}` });
-    if (ifExistsUser.length) {
-        for (user of ifExistsUser) {
-            const userEdit = await Vacation.findByIdAndUpdate(user.id, { lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}` })
-            userEdit.save()
-
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect('/vacation');
+    }
+    else{
+        if(req.user.username === 'test1'){
+            req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         }
-        req.flash('success', `Data for user ${data.user} successfully updated`);
-        res.redirect('vacation')
-    } else {
-        const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}` })
-        userData.save();
-        req.flash('success', `Successfully added data for ${data.user}`)
-        res.redirect('vacation')
+        if (ifExistsUser.length) {
+            for (user of ifExistsUser) {
+                const userEdit = await Vacation.findByIdAndUpdate(user.id, { lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}` })
+                userEdit.save()
+            }
+            req.flash('success', `Data for user ${data.user} successfully updated`);
+            res.redirect('/vacation')
+        } else {
+            const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}` })
+            userData.save();
+            req.flash('success', `Successfully added data for ${data.user}`)
+            res.redirect('/vacation')
+        }
     }
 })
 
 app.post('/register', isLoged, async (req, res) => {
     const { username, password, role } = req.body;
     const checkUser = await People.find({ username: `${username}` })
-    if (!checkUser.length) {
-        const user = await new People({ username: username, role: role });
-        const addedUser = await People.register(user, password);
-        req.flash('success', `Successfully registered ${username} as ${role}.`);
-        res.redirect('/users')
-    } else {
-        req.flash('error', "User `${username}` is already registered.")
-        res.redirect('/register')
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect('/register');
+    }
+    else{
+        if (!checkUser.length) {
+            const user = await new People({ username: username, role: role });
+            const addedUser = await People.register(user, password);
+            req.flash('success', `Successfully registered ${username} as ${role}.`);
+            res.redirect('/users')
+        } else {
+            req.flash('error', "User `${username}` is already registered.")
+            res.redirect('/register')
+        }
     }
 })
 
@@ -390,14 +432,20 @@ app.get('/add', isLoged, async (req, res) => {
 app.post('/addEmploye', isLoged, async (req, res) => {
     const { username, lastname, password, emplStatus, status } = req.body;
     const checkUser = await Employers.find({ username: `${username}` });
-    if (!checkUser.length) {
-        const user = await new Employers({ username: username, lastname: lastname, employmentStatus: emplStatus, status: status });
-        const addedUser = await Employers.register(user, password);
-        req.flash('success', 'Successfully added new employee')
-        res.redirect('/users')
-    } else {
-        req.flash('error', "User with that name already registered. Please try again with diferrent username.");
-        res.redirect('/add')
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect('/users');
+    }
+    else{
+        if (!checkUser.length) {
+            const user = await new Employers({ username: username, lastname: lastname, employmentStatus: emplStatus, status: status });
+            const addedUser = await Employers.register(user, password);
+            req.flash('success', 'Successfully added new employee')
+            res.redirect('/users')
+        } else {
+            req.flash('error', "User with that name already registered. Please try again with diferrent username.");
+            res.redirect('/add')
+        }
     }
 })
 
@@ -419,30 +467,35 @@ app.post('/search', isLoged, async (req, res, next) => {
     usersData.pop();
     searched.pop();
     buyedProducts.pop()
-    const user = req.body.username;
-    const data = await User.find({ buyer: { $regex: `${user}`, $options: 'i' } })
-    const productName = await User.find({ buyer: { $regex: `${user}`, $options: 'i' }, 'products.name': `${req.body.product}` })
-
-    if (!data.length) {
-        req.flash('error', 'Sorry, employee not found.');
+    if(req.user.username === 'test1'){
+        req.flash('success', `User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database. Search data: ${req.body.username}`);
         res.redirect('/search');
-    } else {
-        usersData.pop();
-        usersData.push(data);
-        if (productName.length) {
-            if (req.body.username && req.body.product) {
-                let buyed = { productName: `${req.body.product}`, productsBuyed: `${productName.length}` }
-                buyedProducts.push(buyed)
-            }
+    }
+    else{
+        const user = req.body.username;
+        const data = await User.find({ buyer: { $regex: `${user}`, $options: 'i' } })
+        const productName = await User.find({ buyer: { $regex: `${user}`, $options: 'i' }, 'products.name': `${req.body.product}` })
+        if (!data.length) {
+            req.flash('error', 'Sorry, employee not found.');
+            res.redirect('/search');
         } else {
-            //! Don't work
-            req.flash('error', "Can't find product")
+            usersData.pop();
+            usersData.push(data);
+            if (productName.length) {
+                if (req.body.username && req.body.product) {
+                    let buyed = { productName: `${req.body.product}`, productsBuyed: `${productName.length}` }
+                    buyedProducts.push(buyed)
+                }
+            } else {
+                //! Don't work
+                req.flash('error', "Can't find product")
+            }
+            for (people of data) {
+                searched.pop()
+                searched.push(people.buyer);
+            }
+            res.redirect('/search');
         }
-        for (people of data) {
-            searched.pop()
-            searched.push(people.buyer);
-        }
-        res.redirect('/search');
     }
 });
 
@@ -472,16 +525,26 @@ app.post('/addCosts', isLoged, async (req, res) => {
     let datum = new Date();
     let date = datum.toLocaleDateString()
     const bill = req.body;
-
-    const newBill = await new Costs({ date: `${bill.date}`, buyedProducts: `${bill.buyedProducts}`, totalPrice: `${bill.totalPrice}`, bookedDate: `${date}`, bookedUser: req.session.passport.user })
-    await newBill.save()
-    res.redirect('costs')
+    if(req.user.username === 'test1'){
+        req.flash('success', `User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.`);
+    }
+    else{
+        const newBill = await new Costs({ date: `${bill.date}`, buyedProducts: `${bill.buyedProducts}`, totalPrice: `${bill.totalPrice}`, bookedDate: `${date}`, bookedUser: req.session.passport.user })
+        await newBill.save()
+        req.flash('success', "Uspešno dodan novi račun.")
+    }
+    res.redirect('/costs')
 })
 
 app.delete('/costs/:id', isLoged, async (req, res) => {
     const { id } = req.params;
-    const deleteMe = await Costs.findByIdAndDelete(id)
-    req.flash('success', 'Successfully deleted.');
+    if(req.user.username === 'test1') {
+        req.flash('success', `User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.`);
+    }
+    else{
+        const deleteMe = await Costs.findByIdAndDelete(id)
+        req.flash('success', 'Successfully deleted.');
+    }
     res.redirect('/costs')
 })
 
@@ -507,6 +570,11 @@ app.get('/delete', async (req, res) => {
 app.post('/sell', isLoged, async (req, res) => {
 
     const data = (req.body);
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect('/')
+    }
+    else{
     if (Array.isArray(data.product)) {
 
         const selledProduct = await new User({ izdal: `${data.izdal}`, buyer: `${data.buyer}`, soldDate: `${data.soldDate}`, year: `${data.year}`, month: `${data.month}`, numPerYear: `${data.numPerYear}`, numPerMonth: `${data.numPerMonth}`, pay: `${data.pay}` })
@@ -534,6 +602,7 @@ app.post('/sell', isLoged, async (req, res) => {
         await selledProduct.save();
         req.flash('success', 'Successful added to the base')
         return res.redirect('/')
+    }
     }
 
 
@@ -587,11 +656,15 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
     const { id } = req.params;
     const data = req.body;
     const user = await User.findById(id);
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+    }
+    else{
     if (Array.isArray(data.productId)) {
         for (let j = 0; j < data.productId.length; j++) {
             for (let i = 0; i < user.products.length; i++) {
                 if (data.productId[j] === user.products[i].id) {
-                   await user.products[i].name.pop()
+                    await user.products[i].name.pop()
                     await user.products[i].qty.pop()
                     await user.products[i].price.pop()
                     await user.products[i].total.pop()
@@ -600,7 +673,7 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
                     await user.products[i].price.push(data.productPrice[j]);
                     await user.products[i].total.push(data.productTotal[j]);
                     await user.save();
-    
+
                 }
             }
             }
@@ -617,6 +690,7 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
         await user.save();
     
     }
+    }
     req.flash('success', 'Product data was successfully updated.');
     res.redirect(`/all/${user._id}`);
 })
@@ -624,18 +698,29 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
 
 app.put('/all/:id', isLoged, async (req, res) => {
     const { id } = req.params;
-    const user = await User.findByIdAndUpdate(id, { ...req.body.user });
-    await user.save();
-    req.flash('success', 'User data was successfully updated.');
-    res.redirect(`/all/${user._id}`)
+    if(req.user.username == 'test1' || req.user.username == 'jan'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect(`/all/${id}`)
+    }
+    else{
+        const user = await User.findByIdAndUpdate(id, { ...req.body.user });
+        await user.save();
+        req.flash('success', 'User data was successfully updated.');
+        res.redirect(`/all/${user._id}`)
+    }
 })
 
 //? DELA
 
 app.delete('/all/:id', isLoged, async (req, res) => {
     const { id } = req.params
-    const user = await User.findByIdAndDelete(id);
-    req.flash('success', 'User successfully deleted.');
+    if(req.user.username === 'test1'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+    }
+    else{
+        const user = await User.findByIdAndDelete(id);
+        req.flash('success', 'User successfully deleted.');
+    }
     res.redirect('/all')
 });
 

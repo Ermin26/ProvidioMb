@@ -35,8 +35,13 @@
                                     <% if(status.status === 'active' && status.employmentStatus === 'zaposlen/a' && users == user.user  ) {%>
                                     <tr>
                                         <td>
-                                            <%= status.username %>
-                                            <%= status.lastname %>
+                                            <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                                                <%= status.username %>
+                                                <%= status.lastname %>
+                                            <% }else{ %>
+                                                <p>Not available for visitors</p>
+                                                <% } %>
+
                                         </td>
                                         <td>
                                             <%= user.lastYearHolidays %>
@@ -48,7 +53,6 @@
                                             <%= user.usedHolidays %>
                                         </td>
                                         <td id="preostalo">
-                                            
                                         </td>
                                     </tr>
                                         <% } %>
@@ -60,7 +64,11 @@
                     <div class="table-responsive">
                         <% for(let employe of employees) {%>
                             <% let userName = employe.username + ' ' + employe.lastname%>
-                            <caption><h2><%= userName %></h2></caption>
+                            <% if(currentUser.role != 'visitor' || currentUser == 'jan') {%>
+                                <caption><h2><%= userName %></h2></caption>
+                            <% }else{%>
+                                <caption><h2>Not available for visitors</h2></caption>
+                            <% } %>
                             <table class="mb-5 table table-bordered holidayTable bg-success">
                             <thead>
                                 <th scope="col">Start date</th>
@@ -73,7 +81,6 @@
                                 <% for(let usedVac of user.pendingHolidays) {%>
                                     <% if(usedVac.status == 'Approved' && user.user == userName) {%>
                                         <tr>
-                                            
                                     <td scope="col"><strong><%= usedVac.startDate %></strong></td>
                                     <td scope="col"><strong><%= usedVac.endDate %></strong></td>
                                     <td scope="col"><strong><%= usedVac.status %></strong></td>
@@ -114,7 +121,11 @@
                                                 <% if(holiday.status=='Pending' ) {%>
                                                     <tr>
                                                         <td><strong>
+                                                            <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                                                 <%= vac.user %>
+                                                                <% }else{ %>
+                                                                    <p>Not available for users</p>
+                                                                    <% } %>
                                                             </strong>
                                                         </td>
                                                         <td><strong>
@@ -209,7 +220,11 @@
                                                         <% if(secondDateFormat > currentDate) {%>
                                                     <tr>
                                                         <td><strong>
+                                                            <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                                                 <%= vac.user %>
+                                                                <% }else{ %>
+                                                                    <p>Not available for users</p>
+                                                                    <% } %>
                                                             </strong>
                                                         </td>
                                                         <td><strong>
@@ -294,7 +309,11 @@
                                                         <% if(secondDateFormat > currentDate) {%>
                                                     <tr>
                                                         <td><strong>
+                                                            <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                                                 <%= vac.user %>
+                                                                <% }else{ %>
+                                                                    <p>Not available for users</p>
+                                                                    <% } %>
                                                             </strong>
                                                         </td>
                                                         <td><strong>
@@ -362,10 +381,11 @@
                                     <select name="user" id="user" class="w-50 ms-auto me-auto text-center">
                                         <option selected>Choose employee</option>
                                         <% for(employee of employees) {%>
-                                            <option value="<%= employee.username %> <%= employee.lastname %>">
-                                                <%= employee.username%>
+                                            <option value="<% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%><%= employee.username %> <%= employee.lastname %><% }else {%> Not available for visitors <% }%>">
+                                                <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                                                    <%= employee.username%>
                                                     <%= employee.lastname %>
-
+                                                    <% }else {%> Not available for visitors <% }%>
                                             </option>
 
                                             <% } %>
@@ -386,14 +406,9 @@
                                     <input class="w-50 ms-auto me-auto text-center" type="text" name="overtime"
                                         id="overtime" value="0">
                                 </div>
-
-                                <% if(currentUser.role=='visitor' ) {%>
-
-                                    <%}else{%>
-                                        <div class="submit">
-                                            <button class="btn btn-success">Submit</button>
-                                        </div>
-                                        <% } %>
+                                    <div class="submit">
+                                        <button class="btn btn-success">Submit</button>
+                                    </div>
 
                             </form>
                         </div>

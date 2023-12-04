@@ -14,9 +14,10 @@
 
 <body>
     <%- include('../layouts/boilerplate.ejs') %>
+    <%- include('../flashError.ejs')  %>
         <div class="container text-center mb-5">
             <div class="info mt-5 mb-5">
-                <h1 class="mb-3">Edit data for user <%= user.username %>
+                <h1 class="mb-3">Edit data for user <% if(currentUser.role != 'visitor' || currentUser.username == 'jan'){ %> <%= user.username %> <% }else{ %>/ <% } %>
                 </h1>
             </div>
 
@@ -24,7 +25,11 @@
                 <form action="/users/<%= user.id %>/?_method=PUT" method="post">
                     <div class="mb-2 bg-warning col-4 d-flex flex-column text-center ms-auto me-auto">
                         <label for="username">Username:</label>
+                        <% if(currentUser.role != 'visitor' ||currentUser == 'jan') {%>
                         <input type="text" name="user[username]" id="username" value="<%= user.username %>">
+                        <%} else{ %>
+                        <input type="text" class="text-center" name="user[username]" id="username" value="/">
+                        <% } %>
                     </div>
 
                     <div class="mb-2 bg-warning col-4 d-flex flex-column ms-auto me-auto">

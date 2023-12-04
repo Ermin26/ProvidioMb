@@ -21,7 +21,7 @@
         <div class="text-center mt-3">
             <h1 class="text-info">Edit data of user:</h1>
             <h2 class=" fs-2 text-primary">
-                <%= user.buyer %>
+              <% if(currentUser.role != 'visitor' || currentUser == 'jan') {%><%= user.buyer %> <% }else {%> / <% } %>
             </h2>
         </div>
         <div id="container" class="container justify-content-center">
@@ -46,7 +46,6 @@
                                     <td>
                                         <input type="text" id="productId" name="productId"
                                             value="<%= user.products[i].id %>" hidden>
-                                           
                                         <input type="text" id="productName" name="productName"
                                             class="w-75 text-center bg-dark" value="<%= user.products[i].name %>">
                                     </td>
@@ -165,7 +164,7 @@
                                     <li id="list" class="list-group-item col-6">
                                         <label for="izdal">Izdal:</label> <br>
                                         <input type="text" id="izdal" class="fs-5 text-dark col-6"
-                                            value="<%= user.izdal %>" name="user[izdal]">
+                                            value="<% if(currentUser.role != 'visitor' || currentUser == 'jan') {%><%= user.izdal %><% }else {%> / <% } %>" name="user[izdal]">
                                     </li>
 
                                 </ul>

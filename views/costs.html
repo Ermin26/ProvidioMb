@@ -16,16 +16,12 @@
 
 <body>
     <%- include('../layouts/boilerplate.ejs') %>
-
+    <%- include('../flashError.ejs') %>
         <!-- <div class="container text-center">-->
         <div id="cols" class="row row-cols-2">
             <div id="col1" class="col-8 text-center">
                 <div class="addBills mt-5 mb-5">
-                    <% if(currentUser.role==='visitor' ) {%>
-                        <button class="btn btn-primary" onclick="notAllowed()">Add new bill</button>
-                        <% }else {%>
-                            <button class="btn btn-primary" onclick="showInputForm()">Add new bill</button>
-                            <% } %>
+                    <button class="btn btn-primary" onclick="showInputForm()">Add new bill</button>
                 </div>
                 <div id="hideMe">
                     <div id="addBillForm" class="col d-flex bg-info justify-content-center">
@@ -97,7 +93,11 @@
                                             <%= data.bookedDate %>
                                         </td>
                                         <td>
-                                            <%= data.bookedUser %>
+                                            <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                                                <%= data.bookedUser %>
+                                            <% }else{ %>
+                                                <p>Not available</p>
+                                            <% } %>
                                         </td>
                                         <td>
                                             <form action="/costs/<%= data._id%>/?_method=DELETE" method="post">
@@ -129,17 +129,17 @@
                     <h4 class="mt-2 mb-2"> Total Payed: <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                         <strong id="payed" class="ms-3"> </strong> &euro;</h4>
                         <% }else {%>
-                                <strong>Not available for visitors</strong>    
+                                <strong>/</strong>    
                             <% } %>
                     <h4 class="mt-2 mb-2">Total Spend: <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                         <strong id="spended" class="ms-3"></strong> &euro;</h4>
                         <% }else {%>
-                                <strong>Not available for visitors</strong>
+                                <strong>/</strong>
                             <% } %>
                     <h2 class="mt-2 mb-2">Total Cash: <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                         <strong id="cash" class=""></strong> &euro;</h2>
                         <% }else {%>
-                                <strong>Not available for visitors</strong>
+                                <strong>/</strong>
                             <% } %>
                 </div>
                 <table id="hide">

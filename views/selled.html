@@ -168,7 +168,7 @@
                                         </a>
                                     </td>
                                     <% }else {%>
-                                        <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                        <td class="bg-warning"><a href="/all/<%= data._id %>"><strong>Not available for visitors</strong></a></td>
                                         <% } %>
                                     <% } else{%>
                                         <% if(currentUser.role != 'visitor') {%>
@@ -180,7 +180,7 @@
                                             </a>
                                         </td>
                                         <% }else {%>
-                                            <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                            <td class="bg-warning"><a href="/all/<%= data._id %>"><strong>Not available for visitors</strong></a></td>
                                             <% } %>
                                         <% } %>
                                             <td>
@@ -287,7 +287,7 @@
                         <% for(product of user.products) {%>
                             <tr class="fs-4">
                                 <% if(currentUser.role == 'visitor' && currentUser.username !='jan') {%>
-                                    <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                    <td class="bg-warning"><a href="/all/<%= userData._id%>"><strong>Not available for visitors</strong></a></td>
                                     <% }else {%>
                                 <td><a href="/all/<%= userData._id%>">
                                         <%= user.buyer %>
@@ -344,7 +344,12 @@
 
     <div class="caption" id="notPayedcaption">
         <h1><strong class="fs-1 text-danger border-4 border-bottom">Debtors:</strong></h1>
-        <h2 class="d-inline"><strong class="fs-2 text-danger" id="dolg"></strong></h2><br>
+        <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+        <h2 class="d-inline"><strong class="fs-2 text-danger" id="dolg"></strong></h2>
+        <% }else{%>
+            <h2 class="d-inline text-danger"><strong class="fs-2 text-danger">Total to pay:  Not available for visitors</strong></h2>
+            <% } %>
+        <br>
         <h3 class="d-inline"><strong class="fs-2 text-danger">Number of bills to pay: <%= notPayedLength %>!
 
             </strong>
@@ -381,7 +386,7 @@
                                     </a>
                                 </td>
                                 <% }else {%>
-                                    <td class="bg-warning"><strong>Not available for visitors</strong></td>
+                                    <td class="bg-warning"><a href="/all/<%= users._id%>"><strong>Not available for visitors</strong></a></td>
                                     <% } %>
 
                                 <td>

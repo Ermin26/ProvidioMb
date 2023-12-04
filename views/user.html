@@ -20,8 +20,13 @@
         <div id="hideOnPrint" class="text-center">
             <%- include('../flashError') %>
                 <h1 class="mt-3 text-center">
-                    <%= userData.buyer %> <br>
+                    <% if(currentUser.role != 'visitor' || currentUser === 'jan') {%>
+                        <%= userData.buyer %>
                         Bill ID: <%= userData._id %>
+                        <% }else{ %>
+                            Name: <br>
+                            <strong>Not available for visitors</strong>
+                            <% } %> <br>
                 </h1>
         </div>
         <div class="mt-3" id="containerr">
@@ -47,7 +52,11 @@
                     <% for(product of userData.products) {%>
                         <tr>
                             <td class="fs-4 text-info">
+                                <% if(currentUser.role != 'visitor' || currentUser === 'jan') {%>
                                 <%= userData.buyer %>
+                                <% }else{ %>
+                                    <p>Not available for visitors</p>
+                                    <% } %>
                             </td>
 
                             <td>
@@ -92,11 +101,6 @@
                             <td>
                                 <%= userData.izdal %>
                             </td>
-                            <% if(currentUser.role==='visitor' ) {%>
-                                <td> <button class="btn btn-sm btn-danger text-light"> Forbiden</button></td>
-                                <td> <button class="btn btn-sm btn-danger text-light"> Forbiden</button></td>
-                                <td> <button class="btn btn-sm btn-danger text-light"> Forbiden</button></td>
-                                <% }else{ %>
                                     <td><a href="/all/<%= userData._id%>/edit"><button class="btn btn-warning btn-sm">
                                                 EDIT
                                             </button>
@@ -110,7 +114,6 @@
                                     </td>
                                     <td><button class="btn btn-success btn-sm" id="gideOnPrint"
                                             onclick=window.print()>Print</button></td>
-                                    <% } %>
                         </tr>
                         <% } %>
 

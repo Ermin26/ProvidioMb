@@ -33,12 +33,11 @@
                                     <% for(user of users) {%>
                                         <tr>
                                             <td>
-                                                <%= user.username %>
+                                                <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%> <%= user.username %><% }else {%> / <% } %>
                                             </td>
                                             <td>
                                                 <%= user.role %>
                                             </td>
-                                            <% if(currentUser.role==='admin' ) {%>
                                                 <td>
                                                     <a href="/users/edit/<%= user.id %> "><button
                                                             class="btn btn-warning">Edit</button></a>
@@ -48,17 +47,6 @@
                                                         <button class="btn btn-danger">DELETE</button>
                                                     </form>
                                                 </td>
-                                                <% }else {%>
-                                                    <td>
-                                                        <a href="#"><button class="btn btn-warning"
-                                                                onclick="admin()">Edit</button></a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#"><button class="btn btn-danger"
-                                                                onclick="admin()">DELETE</button></a>
-
-                                                    </td>
-                                                    <% } %>
                                         </tr>
                                         <% } %>
                                 </tbody>
@@ -86,11 +74,11 @@
                                             <tr>
                                                 <td></td>
                                                 <td><strong>
-                                                        <%= employee.username %>
+                                                      <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%> <%= employee.username %><% }else {%> / <% } %>
                                                     </strong>
                                                 </td>
                                                 <td><strong>
-                                                        <%= employee.lastname %>
+                                                    <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%><%= employee.lastname %><% }else {%> / <% } %>
                                                     </strong>
                                                 </td>
                                                 <td><strong>
@@ -103,14 +91,8 @@
                                                 </td>
 
                                                 <td>
-                                                    <% if(currentUser.role==='admin' || currentUser.role==='moderator' )
-                                                        {%>
                                                         <a href="/employee/edit/<%= employee.id %>"><button
                                                                 class="btn btn-warning">Edit</button></a>
-                                                        <% }else{ %>
-                                                            <a href="#"><button class="btn btn-warning"
-                                                                    onclick="editUser()">Edit</button></a>
-                                                            <% } %>
                                                 </td>
                                             </tr>
                                             <% } %>
