@@ -340,7 +340,7 @@ ul {
 
     #hideOnPrint,
     #containerr,
-    #navbar {
+    #navbar,#successAlert, #errorAlert {
         display: none;
     }
 

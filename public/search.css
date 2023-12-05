@@ -84,7 +84,7 @@ body {
     #navbar,
     #h1Results,
     #edit,
-    #editLink {
+    #editLink, #successAlert, #errorAlert {
         display: none;
     }
 

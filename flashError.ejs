@@ -1,5 +1,5 @@
 <% if(success.length){ %>
-    <div class="alert alert-success alert-dismissible fade show w-lg-25 w-md-100 text-center text-dark" role="alert">
+    <div id="successAlert" class="alert alert-success alert-dismissible fade show w-lg-25 w-md-100 text-center text-dark" role="alert">
         <strong class="text-dark">
             <%= success %>
         </strong>
@@ -11,7 +11,7 @@
 
 
         <% if(error.length){ %>
-            <div class="alert alert-danger alert-dismissible fade show w-lg-25 w-md-100 text-center" role="alert">
+            <div id="errorAlert" class="alert alert-danger alert-dismissible fade show w-lg-25 w-md-100 text-center" role="alert">
                 <strong>
                     <%= error %>
                 </strong>

@@ -143,32 +143,22 @@
 
                     </ul>
                 </div>
-                <%# if(currentUser && currentUser.role !=='visitor' ) {%>
+                <% if(currentUser ) {%>
                     <div class="print ms-5">
                         <button type="submit" id="hideOnPrint" onclick="window.print();"
                             class="noPrint btn btn-success btn-sm">
                             Print
                         </button>
                     </div>
-                    <%# } %>
+                    <%} %>
             </form>
-
-
-
-
-
-
 
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
 
         <script>
-/*
-            $('body').on('click', 'input.deleteDep', function() {
-                $(this).parents('tr').remove();  
-            });
-            */
+
             let month = <%= month %>;
             let year = <%= year %>;
 
@@ -261,17 +251,6 @@
                 let taable = document.getElementById('myTable');
                 let rows = taable.rows.length - 2;
                 let payed = document.getElementById('pay');
-                //console.log(taable.rows[1].cells[5], ' i am rows')
-                /*
-                
-                            for (let i = 1; i <= rows; i++) {
-                                var x = document.getElementById('myTable').rows[i].cells[5].children[0].value;
-                                console.log(x, ' i am x');
-                                console.log(taable.rows[i].cells[5])
-                            }
-                            */
-
-
                 let pay = 0;
                 for (let i = 1; i <= rows; i++) {
                     var x = document.getElementById('myTable').rows[i].cells[5].children[0].value;
