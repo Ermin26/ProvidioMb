@@ -169,72 +169,6 @@ app.use((req, res, next) => {
 })
 
 
-
-
-app.get('/users', isLoged, async (req, res) => {
-    const users = await People.find({})
-    const employees = await Employers.find({})
-    const notifications = await Notifications.find({ status: 'false' });
-    res.render('allUsers', { users, employees, notifications })
-});
-
-app.get('/employee/edit/:id', isLoged, async (req, res) => {
-    const { id } = req.params
-    const employee = await Employers.findById(id)
-    const notifications = await Notifications.find({ status: 'false' });
-    res.render('editEmployee', { employee, notifications })
-})
-app.put('/editEmploye/:id', isLoged, async (req, res) => {
-    const { id } = req.params;
-    if(req.user.username === 'test1'){
-        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
-    }
-    else{
-        const employee = await Employers.findByIdAndUpdate(id, { ...req.body.employers });
-        await employee.save();
-        req.flash('success', 'User data was successfully updated.');
-    }
-    res.redirect(`/users`)
-})
-/*
-app.delete('/employee/:id', isLoged, async (req, res) => {
-    const { id } = req.params;
-    const user = await Employers.findByIdAndDelete(id)
-    res.redirect('/users')
-})
-*/
-app.get('/users/edit/:id', isLoged, async (req, res) => {
-    const { id } = req.params;
-    const user = await People.findById(id);
-    const notifications = await Notifications.find({ status: 'false' });
-    //console.log(user);
-    res.render('editUser', { user, notifications });
-})
-app.put('/users/:id', isLoged, async (req, res) => {
-    const { id } = req.params;
-    if(req.user.username === 'test1'){
-        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
-    }
-    else{
-        const user = await People.findByIdAndUpdate(id, { ...req.body.user });
-        await user.save();
-        req.flash('success', 'User data was successfully updated.');
-    }
-    res.redirect(`/users`)
-})
-
-app.delete('/users/:id', isLoged, async (req, res) => {
-    const { id } = req.params;
-    if(req.user.username === 'test1'){
-        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
-    }
-    else{
-        const user = await People.findByIdAndDelete(id);
-        req.flash('success', 'User was successfully deleted.');
-    }
-    res.redirect('/users')
-})
-
 app.get('/', async (req, res) => {
     checkDetails();
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
@@ -261,6 +195,72 @@ app.get('/', async (req, res) => {
 
 })
 
+app.get('/users', isLoged, async (req, res) => {
+    const users = await People.find({})
+    const employees = await Employers.find({})
+    const notifications = await Notifications.find({ status: 'false' });
+    res.render('allUsers', { users, employees, notifications })
+});
+
+app.get('/employee/edit/:id', isLoged, async (req, res) => {
+    const { id } = req.params
+    const employee = await Employers.findById(id)
+    const notifications = await Notifications.find({ status: 'false' });
+    res.render('editEmployee', { employee, notifications })
+})
+app.put('/editEmploye/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    if(req.user.role === 'visitor'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+    }
+    else{
+        const employee = await Employers.findByIdAndUpdate(id, { ...req.body.employers });
+        await employee.save();
+        req.flash('success', 'User data was successfully updated.');
+    }
+    res.redirect(`/users`)
+})
+/*
+app.delete('/employee/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const user = await Employers.findByIdAndDelete(id)
+    res.redirect('/users')
+})
+*/
+app.get('/users/edit/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const user = await People.findById(id);
+    const notifications = await Notifications.find({ status: 'false' });
+    //console.log(user);
+    res.render('editUser', { user, notifications });
+})
+app.put('/users/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    if(req.user.role === 'visitor'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+    }
+    else{
+        const user = await People.findByIdAndUpdate(id, { ...req.body.user });
+        await user.save();
+        req.flash('success', 'User data was successfully updated.');
+    }
+    res.redirect(`/users`)
+})
+
+app.delete('/users/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    if(req.user.role === 'visitor'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+    }
+    else{
+        const user = await People.findByIdAndDelete(id);
+        req.flash('success', 'User was successfully deleted.');
+    }
+    res.redirect('/users')
+})
+
+
+
 app.get('/register', isLoged, async (req, res) => {
     const notifications = await Notifications.find({ status: 'false' });
     res.render('register', { notifications});
@@ -279,7 +279,7 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation');
     }
@@ -334,7 +334,7 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation')
     }
@@ -358,7 +358,7 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
     const used = vacation.usedHolidays;
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation');
     }
@@ -381,7 +381,7 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
 app.post('/holidays', async (req, res) => {
     const data = req.body;
     const ifExistsUser = await Vacation.find({ user: `${data.user}` });
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation');
     }
@@ -408,7 +408,7 @@ app.post('/holidays', async (req, res) => {
 app.post('/register', isLoged, async (req, res) => {
     const { username, password, role } = req.body;
     const checkUser = await People.find({ username: `${username}` })
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/register');
     }
@@ -432,7 +432,7 @@ app.get('/add', isLoged, async (req, res) => {
 app.post('/addEmploye', isLoged, async (req, res) => {
     const { username, lastname, password, emplStatus, status } = req.body;
     const checkUser = await Employers.find({ username: `${username}` });
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/users');
     }
@@ -467,7 +467,7 @@ app.post('/search', isLoged, async (req, res, next) => {
     usersData.pop();
     searched.pop();
     buyedProducts.pop()
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', `User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database. Search data: ${req.body.username}`);
         res.redirect('/search');
     }
@@ -525,7 +525,7 @@ app.post('/addCosts', isLoged, async (req, res) => {
     let datum = new Date();
     let date = datum.toLocaleDateString()
     const bill = req.body;
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', `User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.`);
     }
     else{
@@ -538,7 +538,7 @@ app.post('/addCosts', isLoged, async (req, res) => {
 
 app.delete('/costs/:id', isLoged, async (req, res) => {
     const { id } = req.params;
-    if(req.user.username === 'test1') {
+    if(req.user.role === 'visitor') {
         req.flash('success', `User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.`);
     }
     else{
@@ -570,7 +570,7 @@ app.get('/delete', async (req, res) => {
 app.post('/sell', isLoged, async (req, res) => {
 
     const data = (req.body);
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/')
     }
@@ -656,7 +656,7 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
     const { id } = req.params;
     const data = req.body;
     const user = await User.findById(id);
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
     }
     else{
@@ -698,7 +698,7 @@ app.put('/all/:id/products', isLoged, async (req, res) => {
 
 app.put('/all/:id', isLoged, async (req, res) => {
     const { id } = req.params;
-    if(req.user.username == 'test1' || req.user.username == 'jan'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect(`/all/${id}`)
     }
@@ -714,7 +714,7 @@ app.put('/all/:id', isLoged, async (req, res) => {
 
 app.delete('/all/:id', isLoged, async (req, res) => {
     const { id } = req.params
-    if(req.user.username === 'test1'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
     }
     else{
