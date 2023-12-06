@@ -13,25 +13,25 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 ## Tehnologije
 
-    ** HTML
-    ### CSS
-    ### Bootstrap
-    ### JavaScript
-    ### Node.js
-    ### EJS-MATE
-    ### Express
-    ### Nodemailer
-    ### Dotenv
-    ### Flash
-    ### Method-override
-    ### Passport
-    ### Mongoose
+    ** HTML **
+    ** CSS **
+    ** Bootstrap **   
+    ** JavaScript ** 
+    ** Node.js **
+    ** EJS-MATE **
+    ** Express **
+    ** Nodemailer **
+    ** Dotenv **
+    ** Flash **
+    ** Method-override **
+    ** Passport **
+    ** Mongoose **
     
 
 
 
-# Uporaba
-     ## Domaća stran
+## Uporaba
+     ### Domaća stran
      
          Domaća stran je narejena za dodavanje računa. Korisnik naredi novi račun tako, da s klikom na gumb "Dodaj izdelek" doda
           vrstico v katero vpiše ime izdelka, količino, ceno, "ddv" (interni ddv), z checkboxom označi, če je izdelek brezplačen in
@@ -42,7 +42,7 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
          Z gumbom "Print" sharani podatke v bazo podatkov in eventualno printa račun na formatu A4.
          
-    ## "All bills" stran 
+    ### "All bills" stran 
 
         Po kliku na "all bills" (vsi računi) boste preusmereni na stran "all bils" kjer bojo prikazani vsi računi v navbar-u pa boste meli dodatna 2 gumba za prikaz plačanih ali ne plačanih računov.
         Vsaka vrstica/račun je hiper povezava do pogleda v podatke izbranega računa. Po kliku na eden od računov boste preusmereni na stran kjer bodo prikazani podatki za izbrani račun.
@@ -51,7 +51,7 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
         z klikom na EDIT boste preusmereni na stran edit kjer boste lahko spremenili podatke o produktih ali pa podatke o izdaji in plačilu.
     
-    ## Search Employee
+    ### Search Employee
 
         Na search strani lahko vpišete ime delavca in kot rezultat boste dobili seznam produktov ki jih je slednji kupil. Če pa dodate še ime produkta boste dobili
             še eno tabelo na levi strani v kateri bo ime produkta ter kolikokrat ga je delavec v kupil. 
@@ -59,18 +59,18 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
             Po kliku na submit boste imeli na voljo opcije za prikaz vseh (default) ali ne plačanih računov ter opcijo za printanje 
                 podatkov ki ste jih dobili kot rezultat vašega iskanja.
                 
-    ## Vacations
+    ### Vacations
 
         Stran je razdeljena v 3 stolpca. 
 
-        ### 1 stolpec
+        #### 1 stolpec
         
             Na vacation strani so prikazani podatki o dopustih vseh delavcih. Prvi stolpec oziroma na levi strani (če ste na računalniku) na vrhu bo tabela s podatki
                 o dopustih kot so, ime delavca ter lanski in letošnji dopust ter število koriščenega in preostalega dopusta. 
 
                 Spodaj bo za vsakega delavca posebej tabela v kateri so prikazani odobreni dopusti s prikazanim začetkom in koncem dopusta ter številom dni.
                 
-        ### 2 stolpec
+        #### 2 stolpec
         
             V drugem stolpcu so 3 tabele. Prva tabela je tabela oddanih dopustov ki še niso odobreni ali zavrnjeni. 
                 Tabela zajema tudi gumb za odobritev ali zavrnitev dopusta.
@@ -81,17 +81,17 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
             V tretji tabeli pa so zavrnjene vloge dopustov ampak samo če je prvi dan dopusta pred današnjim datumom.
                 Tabela zajema tudi gumb za odobritev dopusta.
                 
-        ### 3 stolpec
+        #### 3 stolpec
 
             V tretjem stolpcu je form za urejanje dopusta in nadur za delavce ki se prikaže ob kliku na button "Submit".
                  V prvem input oziroma select polju se izbere ime delavca, v drugem se vpiše število lanskega dopusta, 
                  v tretjem pa letošnji dopust in na koncu v  četrtem polju upišemo število nadur delavca. 
 
-    ## Users
+    ### Users
 
         Stran users je razdeljena v 2 stolpca.
 
-        ### 1 stolpec
+        #### 1 stolpec
 
             V prvem stolpcu je tabela s podatki korisnikov ki se lahko prijavijo na spletno stran-
             Tabela zajema podatke kot so username, role, Edit ter Delete.
@@ -99,7 +99,7 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
             S klikom na delete izbrišemo korisnika iz baze podatkov (People).
             Edit gumb pa nas preusmeri na users edit page kjer imamo 2 opciji. Lahko spremenimo username ali pa role.
 
-        ### 2 stolpec
+        #### 2 stolpec
 
             Drugi stolpec zajema tabelo v kateri so shranjeni vsi zaposleni in tisti ki so včasih bili zaposleni v podjetju.
 
@@ -108,11 +108,11 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
             Edit pa nas preusmeri na stran employee/edit kjer lahko spremenimo podatke zaposlenog kot so ime,priimek, zaposlitveni status in trenutni status zaposlenog v podjetju.
             
-    ## Add employee
+    ### Add employee
 
         Add employee stran je stran ki zajema form za dodavanje novega zaposlenga. Podatke ki jih je potrebno vnest so Ime,priimek,geslo, zaposlitveni status ter trenutni status.
 
-    ## Add user
+    ### Add user
 
         Na add user strani imamo from z username-om, password-om ter Role.
         
@@ -122,69 +122,69 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
     Za bazo podatkov sem uporabljal MongoDB. Število baz ki jih uporabljam je 8.
     Baze podatkov ki jih uporabljam:
 
-## Costs -     V bazo podatkov se shranjujejo računi od porabljenega denarja od interne prodaje blaga.
-                 ## Podatki ki se shranjujejo v bazo so:
-                     ### Datum računa,
-                     ### Kupljeni produkti,
-                     ### Končni znesek računa;
+### Costs -     V bazo podatkov se shranjujejo računi od porabljenega denarja od interne prodaje blaga.
+                 #### Podatki ki se shranjujejo v bazo so:
+                     ##### Datum računa,
+                     ##### Kupljeni produkti,
+                     ##### Končni znesek računa;
 
 
-## Employees - Shranjevanje podatkov zaposlenih delavcev.
-                 ## Podatki ki se shranjujejo so:
-                     ### username,
-                     ### lastname,
-                     ### password,
-                     ### status,
-                     ### vrsta zaposliteve;
+### Employees - Shranjevanje podatkov zaposlenih delavcev.
+                 #### Podatki ki se shranjujejo so:
+                     ##### username,
+                     ##### lastname,
+                     ##### password,
+                     ##### status,
+                     ##### vrsta zaposliteve;
                  
-## People - V to bazo so shranjeni podatki oseb ki se lahko prijavijo na spletno stran "Izdaja blaga" in eventualno pregledajo ali spremenijo podatke.
-             ## Podatki ki se shranjujejo so:
-                 ### username,
-                 ### role,
-                 ### password;
+### People - V to bazo so shranjeni podatki oseb ki se lahko prijavijo na spletno stran "Izdaja blaga" in eventualno pregledajo ali spremenijo podatke.
+             #### Podatki ki se shranjujejo so:
+                 ##### username,
+                 ##### role,
+                 ##### password;
 
-## Users - V to bazo so shranjeni vsi podatki kadar se doda novi račun.
-            Podatki ki se shranjujejo so:
-                  ### izdal,
-                  ### kupec,
-                  ### datum prodaje,
-                  ### koledarski teden,
-                  ### leto,
-                  ### mesec,
-                  ### številka v tekočem letu,
-                  ### številka v tekočem mesecu,
-                  ### datum plačila,
-                  ### plačano (boolean),
-                  ### products - nested array object :
-                      ### ime produkta,
-                      ### količina,
-                      ### cena,
-                      ### 1 izdelek na teden,
-                      ### skupna cena,
+### Users - V to bazo so shranjeni vsi podatki kadar se doda novi račun.
+          ####  Podatki ki se shranjujejo so:
+                  ##### izdal,
+                  ##### kupec,
+                  ##### datum prodaje,
+                  ##### koledarski teden,
+                  ##### leto,
+                  ##### mesec,
+                  ##### številka v tekočem letu,
+                  ##### številka v tekočem mesecu,
+                  ##### datum plačila,
+                  ##### plačano (boolean),
+                  ##### products - nested array object :
+                      ##### ime produkta,
+                      ##### količina,
+                      ##### cena,
+                      ##### 1 izdelek na teden,
+                      ##### skupna cena,
 
-## Vacations - V to bazo so shranjeni podatki zaposlenog ter število ur, dopust iz preteklega in tekočega leta ter oddane vloge za dopust.
-                ## Podatki ki se shranjujejo so:
-                    ### delavec
-                    ### lanski dopust
-                    ### letošnji dopust
-                    ### koriščen dopust
-                    ### nadure
-                    ### oddane vloge za dopust NESTED OBJECTS kjer se shranjujejo vse oddane vloge:
-                        ### 1 dan dopusta,
-                        ### zadnji dan dopusta,
-                        ### število dni,
-                        ### status (default "pending"),
-                        ### datum oddaje vloge
+### Vacations - V to bazo so shranjeni podatki zaposlenog ter število ur, dopust iz preteklega in tekočega leta ter oddane vloge za dopust.
+                #### Podatki ki se shranjujejo so:
+                    ##### delavec
+                    ##### lanski dopust
+                    ##### letošnji dopust
+                    ##### koriščen dopust
+                    ##### nadure
+                    ##### oddane vloge za dopust NESTED OBJECTS kjer se shranjujejo vse oddane vloge:
+                        ##### 1 dan dopusta,
+                        ##### zadnji dan dopusta,
+                        ##### število dni,
+                        ##### status (default "pending"),
+                        ##### datum oddaje vloge
                         
-## Notifications - V to bazo podatkov so shranjeni podatki o obvestilih. Obvestila so prikazana na spletni strani kadar user odda vlogo za dopust.
-                     ## Podatki ki se shranjujejo so:
-                         ### Ime in priimek delavca,
-                         ### id delavca
-                         ### id dopust objecta
-                         ### število dni
-                         ### status (default "false") se spremeni kadar šef odobri ali ne odobri dopust.
+### Notifications - V to bazo podatkov so shranjeni podatki o obvestilih. Obvestila so prikazana na spletni strani kadar user odda vlogo za dopust.
+                     #### Podatki ki se shranjujejo so:
+                         ##### Ime in priimek delavca,
+                         ##### id delavca
+                         ##### id dopust objecta
+                         ##### število dni
+                         ##### status (default "false") se spremeni kadar šef odobri ali ne odobri dopust.
 
-## Session - session podatki kadar se korisnik prijavi na spletno stran.
+### Session - session podatki kadar se korisnik prijavi na spletno stran.
 
 
 # Avtor
@@ -201,7 +201,7 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 
 # Dodatni Nasveti
-    # Za kakršnokoli spreminjanje podatkov na spletni strani je mogoče samo za korisnike čigav role == Admin ali Moderator.
+    ## Za kakršnokoli spreminjanje podatkov na spletni strani je mogoče samo za korisnike čigav role == Admin ali Moderator.
 
     Visitor role ima dostop do pogleda strani in lahko testira req, post forms in kot rezultat bo dobil flash msg z info sporočilom
         da je urejanje dovoljeno samo za Admina ali moderatora.
