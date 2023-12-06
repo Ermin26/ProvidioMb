@@ -31,9 +31,9 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 
 ## Uporaba
-     ### Domaća stran
+1. Domaća stran
      
-         Domaća stran je narejena za dodavanje računov. Korisnik naredi novi račun tako, da s klikom na gumb "Dodaj izdelek" doda
+         Domaća stran je narejena za dodavanje računov. Korisnik naredi novi račun tako, da s klikom na gumb "Dodaj             izdelek" doda
           vrstico v katero vpiše ime izdelka, količino, ceno, "ddv" (interni ddv), z checkboxom označi, če je izdelek brezplačen in
           potem s klikom na gumb "Zaključi" aktivira JS za izračun cene za ta produkt. 
   
@@ -42,8 +42,8 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
          Ko je korisnik končal z dodavanjem produktov s klikom na gumb "Plačaj" aktivira JS za izračun cene za celoten račun.
 
          Z gumbom "Print" sharani podatke v bazo podatkov in eventualno printa račun na formatu A4.
-         
-    ### "All bills" stran 
+
+2. "All bills" stran 
 
         Po kliku na "all bills" (vsi računi) boste preusmereni na stran "all bils" kjer bojo prikazani vsi računi v navbar-u pa boste meli dodatna 2 gumba za prikaz plačanih ali ne plačanih računov.
         Vsaka vrstica/račun je hiper povezava do pogleda v podatke izbranega računa. Po kliku na eden od računov boste preusmereni na stran kjer bodo prikazani podatki za izbrani račun.
@@ -52,70 +52,71 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
         z klikom na EDIT boste preusmereni na stran edit kjer boste lahko spremenili podatke o produktih ali pa podatke o izdaji in plačilu.
     
-    ### Search Employee
+3. Search Employee
 
-        Na search strani lahko vpišete ime delavca in kot rezultat boste dobili seznam produktov ki jih je slednji kupil. Če pa dodate še ime produkta boste dobili
-            še eno tabelo na levi strani v kateri bo ime produkta ter kolikokrat ga je delavec v kupil. 
+Na search strani lahko vpišete ime delavca in kot rezultat boste dobili seznam produktov ki jih je slednji kupil. Če pa         dodate še ime produkta boste dobili še eno tabelo na levi strani v kateri bo ime produkta ter 
+    kolikokrat ga je delavec v kupil. 
             
-            Po kliku na submit boste imeli na voljo opcije za prikaz vseh (default) ali ne plačanih računov ter opcijo za printanje 
+Po kliku na submit boste imeli na voljo opcije za prikaz vseh (default) ali ne plačanih računov ter opcijo za printanje 
                 podatkov ki ste jih dobili kot rezultat vašega iskanja.
                 
-    ### Vacations
+4. Vacations
 
         Stran je razdeljena v 3 stolpca. 
 
-        #### 1 stolpec
+   _ 1 stolpec
         
-            Na vacation strani so prikazani podatki o dopustih vseh delavcih. Prvi stolpec oziroma na levi strani (če ste na računalniku) na vrhu bo tabela s podatki
-                o dopustih kot so, ime delavca ter lanski in letošnji dopust ter število koriščenega in preostalega dopusta. 
+    Na vacation strani so prikazani podatki o dopustih vseh delavcih. Prvi stolpec oziroma na levi strani (če ste na                 računalniku) na vrhu bo tabela s podatki o dopustih kot so,
+         ime delavca ter lanski in letošnji dopust ter število koriščenega in preostalega dopusta. 
 
-                Spodaj bo za vsakega delavca posebej tabela v kateri so prikazani odobreni dopusti s prikazanim začetkom in koncem dopusta ter številom dni.
+   Spodaj bo za vsakega delavca posebej tabela v kateri so prikazani odobreni dopusti s prikazanim začetkom in koncem             dopusta ter številom dni.
                 
-        #### 2 stolpec
+   _ 2 stolpec
         
-            V drugem stolpcu so 3 tabele. Prva tabela je tabela oddanih dopustov ki še niso odobreni ali zavrnjeni. 
-                Tabela zajema tudi gumb za odobritev ali zavrnitev dopusta.
+   V drugem stolpcu so 3 tabele. Prva tabela je tabela oddanih dopustov ki še niso odobreni ali zavrnjeni. 
+       Tabela zajema tudi gumb za odobritev ali zavrnitev dopusta.
                 
-            V drugi tabeli pa so podatki o odobrenom dopustu ampak samo če je zadji dan dopusta posle današnjeg datuma!
-                Tabela zajema tudi gumb za zavrnitev dopusta.
+   V drugi tabeli pa so podatki o odobrenom dopustu ampak samo če je zadji dan dopusta posle današnjeg datuma!
+       Tabela zajema tudi gumb za zavrnitev dopusta.
                 
-            V tretji tabeli pa so zavrnjene vloge dopustov ampak samo če je prvi dan dopusta pred današnjim datumom.
-                Tabela zajema tudi gumb za odobritev dopusta.
+   V tretji tabeli pa so zavrnjene vloge dopustov ampak samo če je prvi dan dopusta pred današnjim datumom.
+       Tabela zajema tudi gumb za odobritev dopusta.
                 
-        #### 3 stolpec
+   _ 3 stolpec
 
-            V tretjem stolpcu je form za urejanje dopusta in nadur za delavce ki se prikaže ob kliku na button "Submit".
-                 V prvem input oziroma select polju se izbere ime delavca, v drugem se vpiše število lanskega dopusta, 
-                 v tretjem pa letošnji dopust in na koncu v  četrtem polju upišemo število nadur delavca. 
+   V tretjem stolpcu je form za urejanje dopusta in nadur za delavce ki se prikaže ob kliku na button "Submit".
+       V prvem input oziroma select polju se izbere ime delavca, v drugem se vpiše število lanskega dopusta, 
+       v tretjem pa letošnji dopust in na koncu v  četrtem polju upišemo število nadur delavca. 
 
-    ### Users
+5. Users
 
         Stran users je razdeljena v 2 stolpca.
 
-        #### 1 stolpec
+   _ 1 stolpec
 
-            V prvem stolpcu je tabela s podatki korisnikov ki se lahko prijavijo na spletno stran-
-            Tabela zajema podatke kot so username, role, Edit ter Delete.
+    V prvem stolpcu je tabela s podatki korisnikov ki se lahko prijavijo na spletno stran-
+       Tabela zajema podatke kot so username, role, Edit ter Delete.
 
-            S klikom na delete izbrišemo korisnika iz baze podatkov (People).
-            Edit gumb pa nas preusmeri na users edit page kjer imamo 2 opciji. Lahko spremenimo username ali pa role.
+   S klikom na delete izbrišemo korisnika iz baze podatkov (People).
+   Edit gumb pa nas preusmeri na users edit page kjer imamo 2 opciji. Lahko spremenimo username ali pa role.
 
-        #### 2 stolpec
+   _ 2 stolpec
 
-            Drugi stolpec zajema tabelo v kateri so shranjeni vsi zaposleni in tisti ki so včasih bili zaposleni v podjetju.
+   Drugi stolpec zajema tabelo v kateri so shranjeni vsi zaposleni in tisti ki so včasih bili zaposleni v podjetju.
+    V tabeli so prikazani podatki kot so ime,priimek, zaposlitveni status ter trenutni status (active, inactive) ter
+    gumb edit.
 
-            V tabeli so pikazani podatki kot so ime,priimek, zaposlitveni status ter trenutni status (active, inactive) ter gumb edit.
-            Zaposleni ki imajo status activen so zeleno označeni na drugi strani pa neactivni so označeni z rdečo pozadino.
+   Zaposleni ki imajo status activen so zeleno označeni na drugi strani pa neactivni so označeni z rdečim ozadjem.
 
-            Edit pa nas preusmeri na stran employee/edit kjer lahko spremenimo podatke zaposlenog kot so ime,priimek, zaposlitveni status in trenutni status zaposlenog v podjetju.
+   Edit pa nas preusmeri na stran employee/edit kjer lahko spremenimo podatke zaposlenog kot so ime,priimek, zaposlitveni         status in trenutni status zaposlenog v podjetju.
             
-    ### Add employee
+6. Add employee
 
-        Add employee stran je stran ki zajema form za dodavanje novega zaposlenga. Podatke ki jih je potrebno vnest so Ime,priimek,geslo, zaposlitveni status ter trenutni status.
+   Add employee stran je stran ki zajema form za dodavanje novega zaposlenga. Podatke ki jih je potrebno vnest so                 Ime,priimek,geslo, zaposlitveni status ter trenutni status.
 
-    ### Add user
+7. Add user
 
-        Na add user strani imamo from z username-om, password-om ter Role.
+   Na add user strani imamo form z username-om, password-om ter Role.
         
 
 # Baza podatkov
@@ -123,11 +124,11 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
     Za bazo podatkov sem uporabljal Mongoose. Število baz ki jih uporabljam je 8.
     Baze podatkov ki jih uporabljam:
 
-### Costs - V bazo podatkov se shranjujejo računi od porabljenega denarja od interne prodaje blaga.
-                  Podatki ki se shranjujejo v bazo so:
-                     * Datum računa,
-                     * Kupljeni produkti,
-                     * Končni znesek računa;
+1. Costs - V bazo podatkov se shranjujejo računi od porabljenega denarja od interne prodaje blaga.
+                 _ Podatki ki se shranjujejo v bazo so:
+                     _ Datum računa,
+                     _ Kupljeni produkti,
+                     _ Končni znesek računa;
 
 
 ### Employees - Shranjevanje podatkov zaposlenih delavcev.
