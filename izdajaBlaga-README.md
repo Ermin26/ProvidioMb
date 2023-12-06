@@ -69,36 +69,35 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
                 
 4. Vacations
 
-    Stran je razdeljena v 3 stolpca. 
-   - First nested object
-   - second
-   - third
+    Stran je razdeljena v 3 stolpca.
+   
+   - 1 stolpec
+     Na vacation strani so prikazani podatki o dopustih vseh delavcih. Prvi stolpec oziroma na levi strani
+         (če ste na računalniku) na vrhu bo tabela s podatki o dopustih kot so,
+         ime delavca ter lanski in letošnji dopust ter število koriščenega in preostalega dopusta. 
+
+     Spodaj bo za vsakega delavca posebej tabela v kateri so prikazani odobreni dopusti s prikazanim
+         začetkom in koncem dopusta ter številom dni.
+    
+   - 2 stolpec
+     V drugem stolpcu so 3 tabele. Prva tabela je tabela oddanih dopustov ki še niso odobreni ali zavrnjeni. 
+       Tabela zajema tudi gumb za odobritev ali zavrnitev dopusta.
+                
+     V drugi tabeli pa so podatki o odobrenom dopustu ampak samo če je zadji dan dopusta posle današnjeg datuma!
+       Tabela zajema tudi gumb za zavrnitev dopusta.
+                
+     V tretji tabeli pa so zavrnjene vloge dopustov ampak samo če je prvi dan dopusta pred današnjim datumom.
+       Tabela zajema tudi gumb za odobritev dopusta.
+     
+   - 3 stolpec
+      V tretjem stolpcu je form za urejanje dopusta in nadur za delavce ki se prikaže ob kliku na button "Submit".
+       V prvem input oziroma select polju se izbere ime delavca, v drugem se vpiše število lanskega dopusta, 
+       v tretjem pa letošnji dopust in na koncu v  četrtem polju upišemo število nadur delavca. 
 
    Stran je razdeljena v 3 stolpca. 
 
-   _ 1 stolpec
-        
-    Na vacation strani so prikazani podatki o dopustih vseh delavcih. Prvi stolpec oziroma na levi strani (če ste na                 računalniku) na vrhu bo tabela s podatki o dopustih kot so,
-         ime delavca ter lanski in letošnji dopust ter število koriščenega in preostalega dopusta. 
 
-   Spodaj bo za vsakega delavca posebej tabela v kateri so prikazani odobreni dopusti s prikazanim začetkom in koncem             dopusta ter številom dni.
-                
-   _ 2 stolpec
-        
-   V drugem stolpcu so 3 tabele. Prva tabela je tabela oddanih dopustov ki še niso odobreni ali zavrnjeni. 
-       Tabela zajema tudi gumb za odobritev ali zavrnitev dopusta.
-                
-   V drugi tabeli pa so podatki o odobrenom dopustu ampak samo če je zadji dan dopusta posle današnjeg datuma!
-       Tabela zajema tudi gumb za zavrnitev dopusta.
-                
-   V tretji tabeli pa so zavrnjene vloge dopustov ampak samo če je prvi dan dopusta pred današnjim datumom.
-       Tabela zajema tudi gumb za odobritev dopusta.
-                
-   _ 3 stolpec
-
-   V tretjem stolpcu je form za urejanje dopusta in nadur za delavce ki se prikaže ob kliku na button "Submit".
-       V prvem input oziroma select polju se izbere ime delavca, v drugem se vpiše število lanskega dopusta, 
-       v tretjem pa letošnji dopust in na koncu v  četrtem polju upišemo število nadur delavca. 
+   
 
 6. Users
 
