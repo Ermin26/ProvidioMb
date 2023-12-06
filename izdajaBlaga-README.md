@@ -99,11 +99,10 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
    
 
 6. Users
+
+   Stran users je razdeljena v 2 stolpca.
    
-
-        Stran users je razdeljena v 2 stolpca.
-
-   _ 1 stolpec
+   - 1 stolpec
 
     V prvem stolpcu je tabela s podatki korisnikov ki se lahko prijavijo na spletno stran-
        Tabela zajema podatke kot so username, role, Edit ter Delete.
