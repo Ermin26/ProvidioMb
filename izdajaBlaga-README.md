@@ -94,12 +94,12 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
        V prvem input oziroma select polju se izbere ime delavca, v drugem se vpiše število lanskega dopusta, 
        v tretjem pa letošnji dopust in na koncu v  četrtem polju upišemo število nadur delavca. 
 
-   Stran je razdeljena v 3 stolpca. 
 
 
    
 
 6. Users
+   
 
         Stran users je razdeljena v 2 stolpca.
 
@@ -121,11 +121,11 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
    Edit pa nas preusmeri na stran employee/edit kjer lahko spremenimo podatke zaposlenog kot so ime,priimek, zaposlitveni         status in trenutni status zaposlenog v podjetju.
             
-7. Add employee
+8. Add employee
 
    Add employee stran je stran ki zajema form za dodavanje novega zaposlenga. Podatke ki jih je potrebno vnest so                 Ime,priimek,geslo, zaposlitveni status ter trenutni status.
 
-8. Add user
+9. Add user
 
    Na add user strani imamo form z username-om, password-om ter Role.
         
