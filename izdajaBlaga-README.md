@@ -68,7 +68,11 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
        opcijo za printanje podatkov ki ste jih dobili kot rezultat vašega iskanja.
                 
 4. Vacations
+
+    Stran je razdeljena v 3 stolpca. 
    - First nested object
+   - second
+   - third
 
    Stran je razdeljena v 3 stolpca. 
 
