@@ -189,7 +189,7 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 # Avtor
 
-    ## Ermin Joldić
+## Ermin Joldić
 
 
 # Kontakt
