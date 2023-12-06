@@ -130,12 +130,12 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 
 ### Employees - Shranjevanje podatkov zaposlenih delavcev.
-                 #### Podatki ki se shranjujejo so:
-                     ##### username,
-                     ##### lastname,
-                     ##### password,
-                     ##### status,
-                     ##### vrsta zaposliteve;
+#### Podatki ki se shranjujejo so:
+##### username,
+##### lastname,
+##### password,
+##### status,
+##### vrsta zaposliteve;
                  
 ### People - V to bazo so shranjeni podatki oseb ki se lahko prijavijo na spletno stran "Izdaja blaga" in eventualno pregledajo ali spremenijo podatke.
              #### Podatki ki se shranjujejo so:
