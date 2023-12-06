@@ -13,18 +13,19 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 ## Tehnologije
 
-**HTML **
-**CSS **
-**Bootstrap **   
-**JavaScript ** 
-**Node.js **
-**EJS-MATE **
-**Express **
-**Nodemailer ** ** Dotenv **
-**Flash **
-**Method-override **
-**Passport **
-**Mongoose **
+    * HTML
+    * CSS
+    * Bootstrap   
+    * JavaScript 
+    * Node.js
+    * Ejs-mate 
+    * Express 
+    * Nodemailer 
+    * Dotenv 
+    * Flash 
+    * Method-override 
+    * Passport 
+    * Mongoose 
     
 
 
@@ -119,70 +120,70 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 # Baza podatkov
 
-    Za bazo podatkov sem uporabljal MongoDB. Število baz ki jih uporabljam je 8.
+    Za bazo podatkov sem uporabljal Mongoose. Število baz ki jih uporabljam je 8.
     Baze podatkov ki jih uporabljam:
 
-### Costs -     V bazo podatkov se shranjujejo računi od porabljenega denarja od interne prodaje blaga.
-                 #### Podatki ki se shranjujejo v bazo so:
-                     ##### Datum računa,
-                     ##### Kupljeni produkti,
-                     ##### Končni znesek računa;
+### Costs - V bazo podatkov se shranjujejo računi od porabljenega denarja od interne prodaje blaga.
+                  Podatki ki se shranjujejo v bazo so:
+                     * Datum računa,
+                     * Kupljeni produkti,
+                     * Končni znesek računa;
 
 
 ### Employees - Shranjevanje podatkov zaposlenih delavcev.
-#### Podatki ki se shranjujejo so:
-##### username,
-##### lastname,
-##### password,
-##### status,
-##### vrsta zaposliteve;
+     Podatki ki se shranjujejo so:
+        * username,
+        * lastname,
+        * password,
+        * status,
+        * vrsta zaposliteve;
                  
 ### People - V to bazo so shranjeni podatki oseb ki se lahko prijavijo na spletno stran "Izdaja blaga" in eventualno pregledajo ali spremenijo podatke.
-             #### Podatki ki se shranjujejo so:
-                 ##### username,
-                 ##### role,
-                 ##### password;
+              Podatki ki se shranjujejo so:
+                 * username,
+                 * role,
+                 * password;
 
 ### Users - V to bazo so shranjeni vsi podatki kadar se doda novi račun.
-          ####  Podatki ki se shranjujejo so:
-                  ##### izdal,
-                  ##### kupec,
-                  ##### datum prodaje,
-                  ##### koledarski teden,
-                  ##### leto,
-                  ##### mesec,
-                  ##### številka v tekočem letu,
-                  ##### številka v tekočem mesecu,
-                  ##### datum plačila,
-                  ##### plačano (boolean),
-                  ##### products - nested array object :
-                      ##### ime produkta,
-                      ##### količina,
-                      ##### cena,
-                      ##### 1 izdelek na teden,
-                      ##### skupna cena,
+            Podatki ki se shranjujejo so:
+                  * izdal,
+                  * kupec,
+                  * datum prodaje,
+                  * koledarski teden,
+                  * leto,
+                  * mesec,
+                  * številka v tekočem letu,
+                  * številka v tekočem mesecu,
+                  * datum plačila,
+                  * plačano (boolean),
+                  * products - nested array object :
+                      * ime produkta,
+                      * količina,
+                      * cena,
+                      * 1 izdelek na teden,
+                      * skupna cena,
 
 ### Vacations - V to bazo so shranjeni podatki zaposlenog ter število ur, dopust iz preteklega in tekočega leta ter oddane vloge za dopust.
-                #### Podatki ki se shranjujejo so:
-                    ##### delavec
-                    ##### lanski dopust
-                    ##### letošnji dopust
-                    ##### koriščen dopust
-                    ##### nadure
-                    ##### oddane vloge za dopust NESTED OBJECTS kjer se shranjujejo vse oddane vloge:
-                        ##### 1 dan dopusta,
-                        ##### zadnji dan dopusta,
-                        ##### število dni,
-                        ##### status (default "pending"),
-                        ##### datum oddaje vloge
+                 Podatki ki se shranjujejo so:
+                    * delavec
+                    * lanski dopust
+                    * letošnji dopust
+                    * koriščen dopust
+                    * nadure
+                    * oddane vloge za dopust NESTED OBJECTS kjer se shranjujejo vse oddane vloge:
+                        * 1 dan dopusta,
+                        * zadnji dan dopusta,
+                        * število dni,
+                        * status (default "pending"),
+                        * datum oddaje vloge
                         
 ### Notifications - V to bazo podatkov so shranjeni podatki o obvestilih. Obvestila so prikazana na spletni strani kadar user odda vlogo za dopust.
-                     #### Podatki ki se shranjujejo so:
-                         ##### Ime in priimek delavca,
-                         ##### id delavca
-                         ##### id dopust objecta
-                         ##### število dni
-                         ##### status (default "false") se spremeni kadar šef odobri ali ne odobri dopust.
+                      Podatki ki se shranjujejo so:
+                         * Ime in priimek delavca,
+                         * id delavca
+                         * id dopust objecta
+                         * število dni
+                         * status (default "false") se spremeni kadar šef odobri ali ne odobri dopust.
 
 ### Session - session podatki kadar se korisnik prijavi na spletno stran.
 
@@ -194,20 +195,20 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 # Kontakt
 
-    ## Ermin Joldić,
-    ## +38640415987
-    ## erminjoldic26@gmail.com
-    ## https://www.linkedin.com/in/ermin-joldić-a6774729a
+    * Ermin Joldić,
+    * +38640415987
+    * erminjoldic26@gmail.com
+    * https://www.linkedin.com/in/ermin-joldić-a6774729a
 
 
 # Dodatni Nasveti
     ## Za kakršnokoli spreminjanje podatkov na spletni strani je mogoče samo za korisnike čigav role == Admin ali Moderator.
 
-    Visitor role ima dostop do pogleda strani in lahko testira req, post forms in kot rezultat bo dobil flash msg z info sporočilom
-        da je urejanje dovoljeno samo za Admina ali moderatora.
+    Visitor role ima dostop do pogleda strani in lahko testira req, post forms in kot 
+    rezultat bo dobil flash msg z info sporočilom da je urejanje dovoljeno samo za Admina ali moderatora.
 
 ## Za testiranje spletne strani se lahko prijavite:
 
-    ### username: test1
-    ### geslo: test1
+     username: test1
+     geslo: test1
 
