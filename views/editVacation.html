@@ -148,7 +148,6 @@
                                                                 <%= holiday.applyDate %>
                                                             </strong>
                                                         </td>
-                                                        <% if(currentUser.role !='visitor' ) {%>
                                                             <td>
                                                                 <form action="/vacation/approve/<%=vac.id %>"
                                                                     method="post">
@@ -169,14 +168,7 @@
                                                                     <button class="btn btn-danger">REJECT</button>
                                                                 </form>
                                                             </td>
-                                                            <% }else {%>
-                                                                <td><button
-                                                                        class="btn btn-sm btn-danger">FORBIDEN</button>
-                                                                </td>
-                                                                <td><button
-                                                                        class="btn btn-sm btn-danger">FORBIDEN</button>
-                                                                </td>
-                                                                <% } %>
+                                                            
                                                     </tr>
                                                     <% } %>
 
