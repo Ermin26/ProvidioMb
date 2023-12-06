@@ -8,24 +8,23 @@ V bazo podatkov se shranjujejo podatki o delavcu, produktu, datumu prevzetja/pla
 ## Funkcionalnosti
 
 Na spletni strani je možno dodati, urediti ali izbrisati račun. 
-Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in tednu prevzetja. 
+Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in tednu prevzetja.
 
 
 ## Tehnologije
 
- ** HTML **
- ** CSS **
- ** Bootstrap **   
- ** JavaScript ** 
- ** Node.js **
- ** EJS-MATE **
- ** Express **
- ** Nodemailer **
- ** Dotenv **
- ** Flash **
- ** Method-override **
- ** Passport **
- ** Mongoose **
+**HTML **
+**CSS **
+**Bootstrap **   
+**JavaScript ** 
+**Node.js **
+**EJS-MATE **
+**Express **
+**Nodemailer ** ** Dotenv **
+**Flash **
+**Method-override **
+**Passport **
+**Mongoose **
     
 
 
@@ -33,11 +32,12 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 ## Uporaba
      ### Domaća stran
      
-         Domaća stran je narejena za dodavanje računa. Korisnik naredi novi račun tako, da s klikom na gumb "Dodaj izdelek" doda
+         Domaća stran je narejena za dodavanje računov. Korisnik naredi novi račun tako, da s klikom na gumb "Dodaj izdelek" doda
           vrstico v katero vpiše ime izdelka, količino, ceno, "ddv" (interni ddv), z checkboxom označi, če je izdelek brezplačen in
           potem s klikom na gumb "Zaključi" aktivira JS za izračun cene za ta produkt. 
   
          Korisnik lahko doda neomejeno število produktov na ta način. 
+         
          Ko je korisnik končal z dodavanjem produktov s klikom na gumb "Plačaj" aktivira JS za izračun cene za celoten račun.
 
          Z gumbom "Print" sharani podatke v bazo podatkov in eventualno printa račun na formatu A4.
