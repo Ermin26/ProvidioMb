@@ -13,19 +13,19 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 ## Tehnologije
 
-** HTML **
-** CSS **
-** Bootstrap **   
-** JavaScript ** 
-** Node.js **
-** EJS-MATE **
-** Express **
-** Nodemailer **
-** Dotenv **
-** Flash **
-** Method-override **
-** Passport **
-** Mongoose **
+ ** HTML **
+ ** CSS **
+ ** Bootstrap **   
+ ** JavaScript ** 
+ ** Node.js **
+ ** EJS-MATE **
+ ** Express **
+ ** Nodemailer **
+ ** Dotenv **
+ ** Flash **
+ ** Method-override **
+ ** Passport **
+ ** Mongoose **
     
 
 
