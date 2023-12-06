@@ -33,36 +33,43 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 ## Uporaba
 1. Domaća stran
      
-         Domaća stran je narejena za dodavanje računov. Korisnik naredi novi račun tako, da s klikom na gumb "Dodaj             izdelek" doda
-          vrstico v katero vpiše ime izdelka, količino, ceno, "ddv" (interni ddv), z checkboxom označi, če je izdelek brezplačen in
-          potem s klikom na gumb "Zaključi" aktivira JS za izračun cene za ta produkt. 
+   Domaća stran je narejena za dodavanje računov. Korisnik naredi novi račun tako,da s klikom na
+       gumb "Dodaj izdelek" doda vrstico v katero vpiše ime izdelka, količino, ceno, "ddv" (interni ddv),
+       z checkboxom označi, če je izdelek brezplačen in potem s klikom na gumb "Zaključi"
+       aktivira JS za izračun cene za ta produkt. 
   
-         Korisnik lahko doda neomejeno število produktov na ta način. 
+   Korisnik lahko doda neomejeno število produktov na ta način. 
          
-         Ko je korisnik končal z dodavanjem produktov s klikom na gumb "Plačaj" aktivira JS za izračun cene za celoten račun.
+   Ko je korisnik končal z dodavanjem produktov s klikom na gumb "Plačaj"
+       aktivira JS za izračun cene za celoten račun.
 
-         Z gumbom "Print" sharani podatke v bazo podatkov in eventualno printa račun na formatu A4.
+   Z gumbom "Print" sharani podatke v bazo podatkov in eventualno printa račun na formatu A4.
 
-2. "All bills" stran 
+3. "All bills" stran 
 
-        Po kliku na "all bills" (vsi računi) boste preusmereni na stran "all bils" kjer bojo prikazani vsi računi v navbar-u pa boste meli dodatna 2 gumba za prikaz plačanih ali ne plačanih računov.
-        Vsaka vrstica/račun je hiper povezava do pogleda v podatke izbranega računa. Po kliku na eden od računov boste preusmereni na stran kjer bodo prikazani podatki za izbrani račun.
-        Tudi boste meli gumbe za Edit, Delete ali pa Print računa. S klikom na gumb DELETE boste izbrisali račun in potem dobili tudi obvestilo o tem ter boste preusmereni na stranicu z vsemi računi.
-        S klikom na print boste seveda meli opcijo za printat račun.
+   Po kliku na "all bills" (vsi računi) boste preusmereni na stran "all bils" kjer bojo prikazani vsi računi,
+       v navbar-u pa boste meli dodatna 2 gumba za prikaz plačanih ali ne plačanih računov.
+   
+   Vsaka vrstica/račun je hiper povezava do pogleda v podatke izbranega računa.
+   Po kliku na eden od računov boste preusmereni na stran kjer bodo prikazani podatki za izbrani račun.
+   Boste meli tudi gumbe za Edit, Delete ali pa Print računa.
 
-        z klikom na EDIT boste preusmereni na stran edit kjer boste lahko spremenili podatke o produktih ali pa podatke o izdaji in plačilu.
+   S klikom na gumb DELETE boste izbrisali račun in potem dobili tudi obvestilo o tem ter boste preusmereni na stranicu z          vsemi računi. S klikom na print boste seveda meli opcijo za printat račun.
+
+   Z klikom na EDIT boste preusmereni na stran edit kjer boste lahko spremenili podatke o produktih ali
+       pa podatke o izdaji in plačilu.
     
-3. Search Employee
+5. Search Employee
 
-Na search strani lahko vpišete ime delavca in kot rezultat boste dobili seznam produktov ki jih je slednji kupil. Če pa         dodate še ime produkta boste dobili še eno tabelo na levi strani v kateri bo ime produkta ter 
-    kolikokrat ga je delavec v kupil. 
+    Na search strani lahko vpišete ime delavca in kot rezultat boste dobili seznam produktov ki jih je slednji kupil.
+    Če pa dodate še ime produkta v input polju za produkte boste dobili še eno tabelo na levi strani v kateri bo ime                produkta ter kolikokrat ga je delavec v kupil. 
             
-Po kliku na submit boste imeli na voljo opcije za prikaz vseh (default) ali ne plačanih računov ter opcijo za printanje 
-                podatkov ki ste jih dobili kot rezultat vašega iskanja.
+    Po kliku na submit boste imeli na voljo opcije za prikaz vseh (default) ali ne plačanih računov ter
+       opcijo za printanje podatkov ki ste jih dobili kot rezultat vašega iskanja.
                 
 4. Vacations
 
-        Stran je razdeljena v 3 stolpca. 
+   Stran je razdeljena v 3 stolpca. 
 
    _ 1 stolpec
         
