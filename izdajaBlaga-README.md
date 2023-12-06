@@ -1,19 +1,19 @@
 # Izdaja blaga ( Interna )
 
-# Kratek opis
+## Kratek opis
 
 Spletna stran je narejena samo za interno izdajo blaga in se uporablja za beleženje blaga ki ga je kupil zaposleni.
 V bazo podatkov se shranjujejo podatki o delavcu, produktu, datumu prevzetja/plačila, številka računa v tekočem letu, številka računa v tekočem mesecu ter cene produktov in skupne cene računov.
 
-# Funkcionalnosti
+## Funkcionalnosti
 
 Na spletni strani je možno dodati, urediti ali izbrisati račun. 
 Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in tednu prevzetja. 
 
 
-# Tehnologije
+## Tehnologije
 
-    ### HTML
+    ** HTML
     ### CSS
     ### Bootstrap
     ### JavaScript
