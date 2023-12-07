@@ -132,7 +132,7 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 ## Baza podatkov
 
-    Za bazo podatkov sem uporabljal Mongoose. Število baz ki jih uporabljam je 8.
+   Za bazo podatkov sem uporabljal Mongoose. Število baz ki jih uporabljam je 7.
     Baze podatkov ki jih uporabljam:
 
 1. Costs - V bazo podatkov se shranjujejo računi od porabljenega denarja od interne prodaje blaga.
@@ -196,7 +196,7 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
      - število dni
      - status (default "false") se spremeni kadar šef odobri ali ne odobri dopust.
 
-## Session - session podatki kadar se korisnik prijavi na spletno stran.
+7. Session - session podatki kadar se korisnik prijavi na spletno stran.
 
 
 ## Avtor
