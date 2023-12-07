@@ -218,6 +218,6 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 ## Za testiranje spletne strani se lahko prijavite:
 
-     username: test1
-     geslo: test1
+   * username: test1
+   * geslo: test1
 
