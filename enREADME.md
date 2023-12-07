@@ -97,7 +97,7 @@
    On the add user page, there is a form with a username, password, and role.
 
 ## Database
-  For the database, I used Mongoose. I use a total of 8 databases:
+  For the database, I used Mongoose. I use a total of 7 databases:
   
    1. Costs - This database stores invoices for the internal sale of goods.
 
