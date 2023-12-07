@@ -141,59 +141,59 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
      - Končni znesek računa;
 
 2. Employees - Shranjevanje podatkov zaposlenih delavcev.
-   -Podatki ki se shranjujejo so:
-    - username,
-    - lastname,
-    - password,
-    - status,
-    - vrsta zaposliteve;
+   - Podatki ki se shranjujejo so:
+     - username,
+     - lastname,
+     - password,
+     - status,
+     - vrsta zaposliteve;
                  
 3. People - V to bazo so shranjeni podatki oseb ki se lahko prijavijo na spletno stran "Izdaja blaga" in eventualno pregledajo ali spremenijo podatke.
-   -Podatki ki se shranjujejo so:
-    - username,
-    - role,
-    - password;
+   - Podatki ki se shranjujejo so:
+     - username,
+     - role,
+     - password;
 
-### Users - V to bazo so shranjeni vsi podatki kadar se doda novi račun.
-            Podatki ki se shranjujejo so:
-                  * izdal,
-                  * kupec,
-                  * datum prodaje,
-                  * koledarski teden,
-                  * leto,
-                  * mesec,
-                  * številka v tekočem letu,
-                  * številka v tekočem mesecu,
-                  * datum plačila,
-                  * plačano (boolean),
-                  * products - nested array object :
-                      * ime produkta,
-                      * količina,
-                      * cena,
-                      * 1 izdelek na teden,
-                      * skupna cena,
+4. Users - V to bazo so shranjeni vsi podatki kadar se doda novi račun.
+   - Podatki ki se shranjujejo so:
+     - izdal,
+     - kupec,
+     - datum prodaje,
+     - koledarski teden,
+     - leto,
+     - mesec,
+     - številka v tekočem letu,
+     - številka v tekočem mesecu,
+     - datum plačila,
+     - plačano (boolean),
+     - products - nested array object :
+       - ime produkta,
+       - količina,
+       - cena,
+       - 1 izdelek na teden (boolean),
+       - skupna cena,
 
-### Vacations - V to bazo so shranjeni podatki zaposlenog ter število ur, dopust iz preteklega in tekočega leta ter oddane vloge za dopust.
-                 Podatki ki se shranjujejo so:
-                    * delavec
-                    * lanski dopust
-                    * letošnji dopust
-                    * koriščen dopust
-                    * nadure
-                    * oddane vloge za dopust NESTED OBJECTS kjer se shranjujejo vse oddane vloge:
-                        * 1 dan dopusta,
-                        * zadnji dan dopusta,
-                        * število dni,
-                        * status (default "pending"),
-                        * datum oddaje vloge
+5. Vacations - V to bazo so shranjeni podatki zaposlenog ter število ur, dopust iz preteklega in tekočega leta ter oddane vloge za dopust.
+   - Podatki ki se shranjujejo so:
+     - delavec
+     - lanski dopust
+     - letošnji dopust
+     - koriščen dopust
+     - nadure
+     - oddane vloge za dopust NESTED OBJECTS kjer se shranjujejo vse oddane vloge:
+       - 1 dan dopusta,
+       - zadnji dan dopusta,
+       - število dni,
+       - status (default "pending"),
+       - datum oddaje vloge
                         
-### Notifications - V to bazo podatkov so shranjeni podatki o obvestilih. Obvestila so prikazana na spletni strani kadar user odda vlogo za dopust.
-                      Podatki ki se shranjujejo so:
-                         * Ime in priimek delavca,
-                         * id delavca
-                         * id dopust objecta
-                         * število dni
-                         * status (default "false") se spremeni kadar šef odobri ali ne odobri dopust.
+6. Notifications - V to bazo podatkov so shranjeni podatki o obvestilih. Obvestila so prikazana na spletni strani kadar user odda vlogo za dopust.
+   - Podatki ki se shranjujejo so:
+     - Ime in priimek delavca,
+     - id delavca
+     - id dopust objecta
+     - število dni
+     - status (default "false") se spremeni kadar šef odobri ali ne odobri dopust.
 
 ### Session - session podatki kadar se korisnik prijavi na spletno stran.
 
