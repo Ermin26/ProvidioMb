@@ -18,7 +18,6 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 * Bootstrap   
 * JavaScript 
 * Node.js
-* Ejs-mate 
 * Express 
 * Nodemailer 
 * Dotenv 
