@@ -135,25 +135,24 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
     Baze podatkov ki jih uporabljam:
 
 1. Costs - V bazo podatkov se shranjujejo računi od porabljenega denarja od interne prodaje blaga.
-   _ Podatki ki se shranjujejo v bazo so:
-     _ Datum računa,
-     _ Kupljeni produkti,
-     _ Končni znesek računa;
+   - Podatki ki se shranjujejo v bazo so:
+     - Datum računa,
+     - Kupljeni produkti,
+     - Končni znesek računa;
 
-
-### Employees - Shranjevanje podatkov zaposlenih delavcev.
-     Podatki ki se shranjujejo so:
-        * username,
-        * lastname,
-        * password,
-        * status,
-        * vrsta zaposliteve;
+2. Employees - Shranjevanje podatkov zaposlenih delavcev.
+   -Podatki ki se shranjujejo so:
+    - username,
+    - lastname,
+    - password,
+    - status,
+    - vrsta zaposliteve;
                  
-### People - V to bazo so shranjeni podatki oseb ki se lahko prijavijo na spletno stran "Izdaja blaga" in eventualno pregledajo ali spremenijo podatke.
-              Podatki ki se shranjujejo so:
-                 * username,
-                 * role,
-                 * password;
+3. People - V to bazo so shranjeni podatki oseb ki se lahko prijavijo na spletno stran "Izdaja blaga" in eventualno pregledajo ali spremenijo podatke.
+   -Podatki ki se shranjujejo so:
+    - username,
+    - role,
+    - password;
 
 ### Users - V to bazo so shranjeni vsi podatki kadar se doda novi račun.
             Podatki ki se shranjujejo so:
