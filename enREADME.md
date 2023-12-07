@@ -47,9 +47,9 @@
 
 3. Search Employee
 
-   On the search page, you can enter the employee's name, and as a result, you will get a list of products purchased by that employee. Adding the product name in the input field will display another table on the left showing the product name and the number of times the employee purchased it.
+   On the search page, you can enter the employee's name, and as a result, you will get a list of products purchased by that employee. Adding the product name in the input field will display another table on the left          showing the product name and the number of times the employee purchased it.
 
-  After clicking submit, you can choose to display all (default) or unpaid invoices and an option to print the search results.
+   After clicking submit, you can choose to display all (default) or unpaid invoices and an option to print the search results.
 
 4. Vacations
 
