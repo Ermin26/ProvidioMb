@@ -2,7 +2,7 @@
 
 ## Kratek opis
 
-Spletna stran je narejena samo za interno izdajo blaga in se uporablja za beleženje blaga ki ga je kupil zaposleni.
+Spletna stran je narejena za interno izdajo blaga in se uporablja za beleženje blaga ki ga je kupil zaposleni.
 V bazo podatkov se shranjujejo podatki o delavcu, produktu, datumu prevzetja/plačila, številka računa v tekočem letu, številka računa v tekočem mesecu ter cene produktov in skupne cene računov.
 
 ## Funkcionalnosti
@@ -88,6 +88,8 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
                 
      V tretji tabeli pa so zavrnjene vloge dopustov ampak samo če je prvi dan dopusta pred današnjim datumom.
        Tabela zajema tudi gumb za odobritev dopusta.
+
+     Z klikom na gumb za odobritev/zavrnitev dopusta se tudi updejta število dopustov zaposlenega.
      
    - 3 stolpec
       V tretjem stolpcu je form za urejanje dopusta in nadur za delavce ki se prikaže ob kliku na button "Submit".
@@ -129,7 +131,7 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
    Na add user strani imamo form z username-om, password-om ter Role.
         
 
-# Baza podatkov
+## Baza podatkov
 
     Za bazo podatkov sem uporabljal Mongoose. Število baz ki jih uporabljam je 8.
     Baze podatkov ki jih uporabljam:
@@ -195,26 +197,23 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
      - število dni
      - status (default "false") se spremeni kadar šef odobri ali ne odobri dopust.
 
-### Session - session podatki kadar se korisnik prijavi na spletno stran.
+## Session - session podatki kadar se korisnik prijavi na spletno stran.
 
 
-# Avtor
-
-## Ermin Joldić
-
-
-# Kontakt
-
-    * Ermin Joldić,
-    * +38640415987
-    * erminjoldic26@gmail.com
-    * https://www.linkedin.com/in/ermin-joldić-a6774729a
+## Avtor
+  ### Ermin Joldić
 
 
-# Dodatni Nasveti
-    ## Za kakršnokoli spreminjanje podatkov na spletni strani je mogoče samo za korisnike čigav role == Admin ali Moderator.
+## Kontakt
+  * Ermin Joldić,
+  * +38640415987
+  * erminjoldic26@gmail.com
 
-    Visitor role ima dostop do pogleda strani in lahko testira req, post forms in kot 
+
+## Dodatni Nasveti
+  ### Za kakršnokoli spreminjanje podatkov na spletni strani je mogoče samo za korisnike čigav role == Admin ali Moderator.
+
+    Visitor role ima dostop do pogleda strani in lahko testira post forms in kot 
     rezultat bo dobil flash msg z info sporočilom da je urejanje dovoljeno samo za Admina ali moderatora.
 
 ## Za testiranje spletne strani se lahko prijavite:
