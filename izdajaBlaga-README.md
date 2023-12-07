@@ -1,4 +1,4 @@
-# Izdaja blaga ( Interna )
+# Izdaja blaga
 
 ## Kratek opis
 
