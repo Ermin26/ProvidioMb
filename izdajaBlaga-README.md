@@ -103,26 +103,26 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
    Stran users je razdeljena v 2 stolpca.
    
    - 1 stolpec
-
-    V prvem stolpcu je tabela s podatki korisnikov ki se lahko prijavijo na spletno stran-
+       V prvem stolpcu je tabela s podatki korisnikov ki se lahko prijavijo na spletno stran-
        Tabela zajema podatke kot so username, role, Edit ter Delete.
 
-   S klikom na delete izbrišemo korisnika iz baze podatkov (People).
-   Edit gumb pa nas preusmeri na users edit page kjer imamo 2 opciji. Lahko spremenimo username ali pa role.
+       S klikom na delete izbrišemo korisnika iz baze podatkov (People).
+       Edit gumb pa nas preusmeri na users edit page kjer imamo 2 opciji. Lahko spremenimo username ali pa role.
+     
+   - 2 stolpec
 
-   _ 2 stolpec
+       Drugi stolpec zajema tabelo v kateri so shranjeni vsi zaposleni in tisti ki so včasih bili zaposleni v podjetju.
+       V tabeli so prikazani podatki kot so ime,priimek, zaposlitveni status ter trenutni status (active, inactive) ter
+        gumb edit.
 
-   Drugi stolpec zajema tabelo v kateri so shranjeni vsi zaposleni in tisti ki so včasih bili zaposleni v podjetju.
-    V tabeli so prikazani podatki kot so ime,priimek, zaposlitveni status ter trenutni status (active, inactive) ter
-    gumb edit.
+       Zaposleni ki imajo status activen so zeleno označeni na drugi strani pa neactivni so označeni z rdečim ozadjem.
 
-   Zaposleni ki imajo status activen so zeleno označeni na drugi strani pa neactivni so označeni z rdečim ozadjem.
-
-   Edit pa nas preusmeri na stran employee/edit kjer lahko spremenimo podatke zaposlenog kot so ime,priimek, zaposlitveni         status in trenutni status zaposlenog v podjetju.
+       Edit pa nas preusmeri na stran employee/edit kjer lahko spremenimo podatke zaposlenog kot so ime,priimek, zaposlitveni status in
+         trenutni status zaposlenog v podjetju.
             
 8. Add employee
 
-   Add employee stran je stran ki zajema form za dodavanje novega zaposlenga. Podatke ki jih je potrebno vnest so                 Ime,priimek,geslo, zaposlitveni status ter trenutni status.
+   Add employee stran je stran ki zajema form za dodavanje novega zaposlenga. Podatke ki jih je potrebno vnest so Ime,priimek,geslo, zaposlitveni status ter trenutni status.
 
 9. Add user
 
@@ -135,10 +135,10 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
     Baze podatkov ki jih uporabljam:
 
 1. Costs - V bazo podatkov se shranjujejo računi od porabljenega denarja od interne prodaje blaga.
-                 _ Podatki ki se shranjujejo v bazo so:
-                     _ Datum računa,
-                     _ Kupljeni produkti,
-                     _ Končni znesek računa;
+   _ Podatki ki se shranjujejo v bazo so:
+     _ Datum računa,
+     _ Kupljeni produkti,
+     _ Končni znesek računa;
 
 
 ### Employees - Shranjevanje podatkov zaposlenih delavcev.
