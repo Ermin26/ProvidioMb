@@ -112,15 +112,16 @@
         - lastname,
         - password,
         - status,
-        - 
         - employment type;
-    3. People - This database stores data for individuals who can log in to the "Goods Issue" website and possibly view or modify data.
+   
+   3. People - This database stores data for individuals who can log in to the "Goods Issue" website and possibly view or modify data.
 
        - Data stored include:
          - username,
          - role,
          - password;
-    4. Users - This database stores all data when adding a new invoice.
+   
+   4. Users - This database stores all data when adding a new invoice.
 
        - Data stored include:
          - Issuer,
@@ -139,8 +140,9 @@
            - Price,
            - One product per week (boolean),
            - Total price;
-           - 
-    5. Vacations - This database stores data for employees, including the number of hours, vacation from the previous and current year, and submitted vacation applications.
+   
+   
+   5. Vacations - This database stores data for employees, including the number of hours, vacation from the previous and current year, and submitted vacation applications.
 
        - Data stored include:
          - Employee,
@@ -163,6 +165,8 @@
         - Vacation object id,
         - Number of days,
         - Status (default "false," changes when the boss approves or disapproves the vacation).
+   
+   
    7. Session
       Session data is used when a user logs in to the website.
 
@@ -170,9 +174,9 @@
    ### Ermin Joldić
 
 ## Contact
-   ### Ermin Joldić,
-   ### +38640415987
-   ### erminjoldic26@gmail.com
+   - Ermin Joldić,
+   - +38640415987
+   - erminjoldic26@gmail.com
 
 ## Additional Tips
    For any data modification on the website, only users whose role == Admin or Moderator have access.
