@@ -211,8 +211,7 @@ Lahko se tudi spremenio podatki o kupljenih/izdanih izdelki, datumu, mesecu in t
 
 ## Dodatni Nasveti
   ### Za kakršnokoli spreminjanje podatkov na spletni strani je mogoče samo za korisnike čigav role == Admin ali Moderator.
-      
-      Visitor role ima dostop do pogleda strani in lahko testira post forms in kot 
+       Visitor role ima dostop do pogleda strani in lahko testira post forms in kot 
        rezultat bo dobil flash msg z info sporočilom da je urejanje dovoljeno samo za Admina ali moderatora.
 
 ## Za testiranje spletne strani se lahko prijavite:
