@@ -170,10 +170,10 @@ app.use((req, res, next) => {
 
 
 app.get('/', async (req, res) => {
-    checkDetails();
+    await checkDetails();
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}`, "year": `${year}` }).sort({ "numPerMonth": 'descending' }).limit(1)
-    
+    console.log(perYear, perMonth)
     const notifications = await Notifications.find({ status: 'false' });
     if (perYear.length && perMonth.length) {
         const newBill = perYear[0].numPerYear + 1;
@@ -188,7 +188,7 @@ app.get('/', async (req, res) => {
         }
     } else {
         currentMonth.push(month)
-        const newBill = perYear[0].numPerYear + 1;
+        const newBill = 1;
         const billNew = 1;
         res.render('index', { date, year, month, billNew, newBill, currentWeek, notifications })
     }
