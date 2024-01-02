@@ -27,7 +27,6 @@ const Costs = require('./models/costs');
 const Employers = require('./models/employees');
 const Vacation = require('./models/vacation');
 const Notifications = require('./models/notifications');
-const { findByIdAndDelete } = require('./models/models');
 const nodemailer = require('nodemailer');
 
 const db_URL = process.env.DB_URL
