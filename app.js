@@ -390,13 +390,13 @@ app.post('/holidays', async (req, res) => {
         }
         if (ifExistsUser.length) {
             for (user of ifExistsUser) {
-                const userEdit = await Vacation.findByIdAndUpdate(user.id, { lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}` })
+                const userEdit = await Vacation.findByIdAndUpdate(user.id, { lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}`,usedHolidays: '0'  })
                 userEdit.save()
             }
             req.flash('success', `Data for user ${data.user} successfully updated`);
             res.redirect('/vacation')
         } else {
-            const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}` })
+            const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}`,usedHolidays: '0' })
             userData.save();
             req.flash('success', `Successfully added data for ${data.user}`)
             res.redirect('/vacation')
