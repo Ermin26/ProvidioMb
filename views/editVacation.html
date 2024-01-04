@@ -64,7 +64,7 @@
                     <div class="table-responsive">
                         <% for(let employe of employees) {%>
                             <% let userName = employe.username + ' ' + employe.lastname%>
-                            <% if(currentUser.role != 'visitor' || currentUser == 'jan') {%>
+                            <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                 <caption><h2><%= userName %></h2></caption>
                             <% }else{%>
                                 <caption><h2>Not available for visitors</h2></caption>
