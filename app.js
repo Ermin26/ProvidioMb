@@ -380,14 +380,11 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
 app.post('/holidays', async (req, res) => {
     const data = req.body;
     const ifExistsUser = await Vacation.find({ user: `${data.user}` });
-    if(req.user.role === 'visitor'){
+    if(req.user.role === 'visitor' && req.user.username != 'jan'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation');
     }
     else{
-        if(req.user.username === 'test1'){
-            req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
-        }
         if (ifExistsUser.length) {
             for (user of ifExistsUser) {
                 const userEdit = await Vacation.findByIdAndUpdate(user.id, { lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}`,usedHolidays: '0'  })
