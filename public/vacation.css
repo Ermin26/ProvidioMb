@@ -17,12 +17,13 @@ body {
         overflow: hidden;
     }
 
-    div#middle {
-        background-color: aquamarine;
+    #middle {
+        background-color: cyan;
         height: 100vh;
         overflow-y: auto;
+        margin-bottom: 15vh;
     }
-    div#left{
+    #left{
         height: 100vh;
         overflow-y: auto;
         margin-bottom: 10vh;
