@@ -278,7 +278,7 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    if(req.user.role === 'visitor'){
+    if(req.user.role === 'visitor' && req.user.username != 'jan'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation');
     }
@@ -333,7 +333,7 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
-    if(req.user.role === 'visitor'){
+    if(req.user.role === 'visitor' && req.user.username != 'jan'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation')
     }
@@ -357,7 +357,7 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
     const used = vacation.usedHolidays;
-    if(req.user.role === 'visitor'){
+    if(req.user.role === 'visitor' && req.user.username != 'jan'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation');
     }
@@ -380,7 +380,7 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
 app.post('/holidays', async (req, res) => {
     const data = req.body;
     const ifExistsUser = await Vacation.find({ user: `${data.user}` });
-    if(req.user.role === 'visitor' && req.user.username != 'jan'){
+    if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation');
     }
