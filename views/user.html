@@ -23,7 +23,7 @@
                     <% if(currentUser.role != 'visitor' || currentUser === 'jan') {%>
                         <%= userData.buyer %>
                         Bill ID: <%= userData._id %>
-                        <% }else{ %>
+                        <% }else if(currentUser.role == 'visitor' || currentUser != 'jan'){ %>
                             Name: <br>
                             <strong>Not available for visitors</strong>
                             <% } %> <br>
