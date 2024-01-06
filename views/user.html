@@ -20,10 +20,10 @@
         <div id="hideOnPrint" class="text-center">
             <%- include('../flashError') %>
                 <h1 class="mt-3 text-center">
-                    <% if(currentUser.role != 'visitor' || currentUser === 'jan') {%>
+                    <% if(currentUser.username == 'jan' || currentUser.role != 'visitor') {%>
                         <%= userData.buyer %>
                         Bill ID: <%= userData._id %>
-                        <% }else if(currentUser.role == 'visitor' || currentUser != 'jan'){ %>
+                        <% }else if(currentUser.role == 'visitor' && currentUser != 'jan'){ %>
                             Name: <br>
                             <strong>Not available for visitors</strong>
                             <% } %> <br>
@@ -52,7 +52,7 @@
                     <% for(product of userData.products) {%>
                         <tr>
                             <td class="fs-4 text-info">
-                                <% if(currentUser.role != 'visitor' || currentUser === 'jan') {%>
+                                <% if(currentUser.username == 'jan' || currentUser.role != 'visitor') {%>
                                 <%= userData.buyer %>
                                 <% }else{ %>
                                     <p>Not available for visitors</p>
