@@ -71,20 +71,20 @@
                             <% } %>
                             <table class="mb-5 table table-bordered holidayTable bg-success">
                             <thead>
-                                <th scope="col" class="p-0 align-middle">Start date</th>
-                                <th scope="col" class="p-0 align-middle">End date</th>
-                                <th scope="col" class="p-0 align-middle">Status</th>
-                                <th scope="col" class="p-0 align-middle">Days</th>
+                                <th scope="col" class="ps-0 pe-0 align-middle">Start date</th>
+                                <th scope="col" class="ps-0 pe-0 align-middle">End date</th>
+                                <th scope="col" class="ps-0 pe-0 align-middle">Status</th>
+                                <th scope="col" class="ps-0 pe-0 align-middle">Days</th>
                             </thead>
                             <tbody>
                                 <% for(let user of vacation) {%>
                                 <% for(let usedVac of user.pendingHolidays) {%>
                                     <% if(usedVac.status == 'Approved' && user.user == userName) {%>
                                         <tr>
-                                    <td scope="col" class="p-0 align-middle"><strong><%= usedVac.startDate %></strong></td>
-                                    <td scope="col" class="p-0 align-middle"><strong><%= usedVac.endDate %></strong></td>
-                                    <td scope="col" class="p-0 align-middle"><strong><%= usedVac.status %></strong></td>
-                                    <td scope="col" class="p-0 align-middle"><strong><%= usedVac.days %></strong></td>
+                                    <td scope="col" class="ps-0 pe-0 align-middle"><strong><%= usedVac.startDate %></strong></td>
+                                    <td scope="col" class="ps-0 pe-0 align-middle"><strong><%= usedVac.endDate %></strong></td>
+                                    <td scope="col" class="ps-0 pe-0 align-middle"><strong><%= usedVac.status %></strong></td>
+                                    <td scope="col" class="ps-0 pe-0 align-middle"><strong><%= usedVac.days %></strong></td>
                                 </tr>
                                 <% } %>
                         <% } %>
