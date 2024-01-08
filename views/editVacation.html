@@ -14,9 +14,9 @@
 <body>
     <%- include('../layouts/boilerplate.ejs') %>
         <%- include('../flashError') %>
-            <div id="section" class="row row-cols-3 m-0 p-0 mt-5">
-                <div id="left" class="col-3 text-center ms-auto me-auto če ne gre me izbrisi">
-                    <div id="usersQtyHolidays text-center ms-auto me-auto">
+            <div id="section" class="row row-cols-3 m-0 p-0 mt-2">
+                <div id="left" class="col-3 text-center ms-auto me-auto">
+                    <div id="usersQtyHolidays" class="text-center ms-auto me-auto">
                         <div class="caption mt-2">
                             <h2 class="mb-3">Info about users holidays</h2>
                         </div>
@@ -71,20 +71,20 @@
                             <% } %>
                             <table class="mb-5 table table-bordered holidayTable bg-success">
                             <thead>
-                                <th scope="col">Start date</th>
-                                <th scope="col">End date</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Days</th>
+                                <th scope="col" class="p-0 align-middle">Start date</th>
+                                <th scope="col" class="p-0 align-middle">End date</th>
+                                <th scope="col" class="p-0 align-middle">Status</th>
+                                <th scope="col" class="p-0 align-middle">Days</th>
                             </thead>
                             <tbody>
                                 <% for(let user of vacation) {%>
                                 <% for(let usedVac of user.pendingHolidays) {%>
                                     <% if(usedVac.status == 'Approved' && user.user == userName) {%>
                                         <tr>
-                                    <td scope="col"><strong><%= usedVac.startDate %></strong></td>
-                                    <td scope="col"><strong><%= usedVac.endDate %></strong></td>
-                                    <td scope="col"><strong><%= usedVac.status %></strong></td>
-                                    <td scope="col"><strong><%= usedVac.days %></strong></td>
+                                    <td scope="col" class="p-0 align-middle"><strong><%= usedVac.startDate %></strong></td>
+                                    <td scope="col" class="p-0 align-middle"><strong><%= usedVac.endDate %></strong></td>
+                                    <td scope="col" class="p-0 align-middle"><strong><%= usedVac.status %></strong></td>
+                                    <td scope="col" class="p-0 align-middle"><strong><%= usedVac.days %></strong></td>
                                 </tr>
                                 <% } %>
                         <% } %>
@@ -97,21 +97,21 @@
                 </div>
 
                 <div id="middle" class="col-6">
-                    <div class="container text-center">
+                    <div class="text-center p-0 ms-auto me-auto">
                         <!--REQUESTED HOLIDAYS-->
                         <div class="col mt-5 mb-5">
                             <caption class="mt-5">
                                 <h2>Users holidays requests</h2>
                             </caption>
                             <div id="reqTable" class="row table-responsive">
-                                <table id="tableReq" class="table table-info table-hover mt-4 mb-5">
+                                <table id="tableReq" class="table table-info table-hover mt-4 mb-5 p-0 ms-auto me-auto">
                                     <thead id="reqTableHead">
                                         <th>Employee</th>
                                         <th>Start</th>
                                         <th>End</th>
                                         <th>Days</th>
                                         <th>Status</th>
-                                        <th>Apply Date</th>
+                                        <th>Applyed</th>
                                         <th>Approve</th>
                                         <th>Reject</th>
                                     </thead>
@@ -180,21 +180,21 @@
                         </div>
 
                         <!--APPROVED HOLIDAYS-->
-                        <div class="col mt-5 mb-5">
-                            <caption class="mt-5">
+                        <div class="col mb-5">
+                            <caption>
                                 <h2>
                                     Approved holidays
                                 </h2>
                             </caption>
                             <div id="approvedTable" class="row">
-                                <table id="tableApproved" class="table table-success table-hover mt-4 mb-5">
+                                <table id="tableApproved" class="table table-success table-hover mt-4 mb-5 p-0 ms-auto me-auto">
                                     <thead id="approvedHead">
                                         <th>Employee</th>
                                         <th>Start</th>
                                         <th>End</th>
                                         <th>Days</th>
                                         <th>Status</th>
-                                        <th>Apply Date</th>
+                                        <th>Applyed</th>
                                         <th>Reject</th>
                                     </thead>
                                     <tbody>
@@ -266,21 +266,21 @@
                         </div>
 
                         <!--REJECTED HOLIDAYS-->
-                        <div class="col mt-5 mb-5">
+                        <div class="col mb-5">
                             <caption>
-                                <h2 class="mt-5">
+                                <h2>
                                     Rejected holidays
                                 </h2>
                             </caption>
                             <div id="rejectedTable" class="row">
-                                <table id="tableRejected" class="table table-danger table-hover mt-4 mb-5">
+                                <table id="tableRejected" class="table table-danger table-hover mt-4 mb-5 p-0 ms-auto me-auto">
                                     <thead id="rejectedHead">
                                         <th>Employee</th>
                                         <th>Start</th>
                                         <th>End</th>
                                         <th>Days</th>
                                         <th>Status</th>
-                                        <th>Apply Date</th>
+                                        <th>Applyed</th>
                                         <th>Approve</th>
                                     </thead>
                                     <tbody>
