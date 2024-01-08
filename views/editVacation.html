@@ -97,14 +97,14 @@
                 </div>
 
                 <div id="middle" class="col-6">
-                    <div class="text-center p-0 ms-auto me-auto">
+                    <div class="text-center p-0 ms-auto me-auto mt-5 h-100 w-100">
                         <!--REQUESTED HOLIDAYS-->
-                        <div class="col mt-5 mb-5">
-                            <caption class="mt-5">
+                        <div class="col mt-2 mb-3">
+                            <caption>
                                 <h2>Users holidays requests</h2>
                             </caption>
-                            <div id="reqTable" class="row table-responsive">
-                                <table id="tableReq" class="table table-info table-hover mt-4 mb-5 p-0 ms-auto me-auto">
+                            <div id="reqTable" class="row table-responsive w-100 ms-auto me-auto">
+                                <table id="tableReq" class="table table-info table-hover p-0 ms-auto me-auto">
                                     <thead id="reqTableHead">
                                         <th>Employee</th>
                                         <th>Start</th>
@@ -120,7 +120,7 @@
                                             <% for(holiday of vac.pendingHolidays) {%>
                                                 <% if(holiday.status=='Pending' ) {%>
                                                     <tr>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                             <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                                                 <%= vac.user %>
                                                                 <% }else{ %>
@@ -128,27 +128,27 @@
                                                                     <% } %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.startDate %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.endDate %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.days %>
                                                             </strong>
                                                         </td>
-                                                        <td class="bg-warning"><strong>
+                                                        <td class="align-middle bg.warning"><strong>
                                                                 <%= holiday.status %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.applyDate %>
                                                             </strong>
                                                         </td>
-                                                            <td>
+                                                            <td class="align-middle">
                                                                 <form action="/vacation/approve/<%=vac.id %>"
                                                                     method="post">
                                                                     <input type="text" name="holidayId"
@@ -160,7 +160,7 @@
                                                                     </button>
                                                                 </form>
                                                             </td>
-                                                            <td>
+                                                            <td class="align-middle">
                                                                 <form action="/vacation/reject/<%=vac.id %>"
                                                                     method="post">
                                                                     <input type="text" name="holidayId"
@@ -180,14 +180,14 @@
                         </div>
 
                         <!--APPROVED HOLIDAYS-->
-                        <div class="col mb-5">
+                        <div class="col mt-5 mb-5">
                             <caption>
                                 <h2>
                                     Approved holidays
                                 </h2>
                             </caption>
-                            <div id="approvedTable" class="row">
-                                <table id="tableApproved" class="table table-success table-hover mt-4 mb-5 p-0 ms-auto me-auto">
+                            <div id="approvedTable" class="row w-100 ms-auto me-auto">
+                                <table id="tableApproved" class="table table-success table-hover mt-4 mb-5 p-0 ms-auto me-auto w-100">
                                     <thead id="approvedHead">
                                         <th>Employee</th>
                                         <th>Start</th>
@@ -211,7 +211,7 @@
                                                         <% secondDateFormat=new Date(dateParts[2],dateParts[1]-1,dateParts[0])%>
                                                         <% if(secondDateFormat > currentDate) {%>
                                                     <tr>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                             <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                                                 <%= vac.user %>
                                                                 <% }else{ %>
@@ -219,27 +219,27 @@
                                                                     <% } %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.startDate %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.endDate %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.days %>
                                                             </strong>
                                                         </td>
-                                                        <td class=""><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.status %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.applyDate %>
                                                             </strong>              
                                                         <% if(currentUser.role=='admin' ) {%>
-                                                            <td>
+                                                            <td class="align-middle">
                                                                 <form action="/vacation/rejectAfter/<%=vac.id %>"
                                                                     method="post">
                                                                     <input type="text" name="holidayId"
@@ -250,7 +250,7 @@
                                                                 </form>
                                                             </td>
                                                             <% }else {%>
-                                                                <td><button
+                                                                <td class="align-middle"><button
                                                                         class="btn btn-sm bg-danger text-light">FORBIDEN</button>
                                                                 </td>
                                                                 <% } %>
@@ -272,8 +272,8 @@
                                     Rejected holidays
                                 </h2>
                             </caption>
-                            <div id="rejectedTable" class="row">
-                                <table id="tableRejected" class="table table-danger table-hover mt-4 mb-5 p-0 ms-auto me-auto">
+                            <div id="rejectedTable" class="row w-100 m-0 p-0 ms-auto me-auto">
+                                <table id="tableRejected" class="table table-danger table-hover mt-4 mb-5 p-0 w-100 ms-auto me-auto">
                                     <thead id="rejectedHead">
                                         <th>Employee</th>
                                         <th>Start</th>
@@ -300,7 +300,7 @@
                                                         <% secondDateFormat=new Date(dateParts[2],dateParts[1]-1,dateParts[0])%>
                                                         <% if(secondDateFormat > currentDate) {%>
                                                     <tr>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                             <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                                                 <%= vac.user %>
                                                                 <% }else{ %>
@@ -308,28 +308,28 @@
                                                                     <% } %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.startDate %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.endDate %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.days %>
                                                             </strong>
                                                         </td>
-                                                        <td class=""><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.status %>
                                                             </strong>
                                                         </td>
-                                                        <td><strong>
+                                                        <td class="align-middle"><strong>
                                                                 <%= holiday.applyDate %>
                                                             </strong>
                                                         </td>
                                                         <% if(currentUser.role=='admin' ) {%>
-                                                            <td>
+                                                            <td class="align-middle">
                                                                 <form action="/vacation/approve/<%=vac.id %>"
                                                                     method="post">
                                                                     <input type="text" name="holidayId"
@@ -340,7 +340,7 @@
                                                                 </form>
                                                             </td>
                                                             <% }else {%>
-                                                                <td><button
+                                                                <td class="align-middle"><button
                                                                         class="btn btn-danger btn-sm">FORBIDEN</button>
                                                                 </td>
                                                                 <% } %>
