@@ -19,12 +19,12 @@ body {
 
     #middle {
         background-color: cyan;
-        height: 100vh;
+        max-height: 100%;
         overflow-y: auto;
         margin-bottom: 15vh;
     }
     #left{
-        height: 100vh;
+        height: auto;
         overflow-y: auto;
         margin-bottom: 10vh;
     }
