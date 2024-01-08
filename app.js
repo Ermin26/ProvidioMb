@@ -172,7 +172,6 @@ app.get('/', async (req, res) => {
     await checkDetails();
     const perYear = await User.find({ "year": `${year}` }).sort({ "numPerYear": "descending" }).limit(1)
     const perMonth = await User.find({ "month": `${month}`, "year": `${year}` }).sort({ "numPerMonth": 'descending' }).limit(1)
-    console.log(perYear, perMonth)
     const notifications = await Notifications.find({ status: 'false' });
     if (perYear.length && perMonth.length) {
         const newBill = perYear[0].numPerYear + 1;
@@ -271,7 +270,7 @@ app.get('/vacation', isLoged, async (req, res) => {
     const notifications = await Notifications.find({ status: 'false' });
     let checkDate = month + '/'+ todayDate.getDate().toString() + '/' + year
     let myDate = todayDate.getDate().toString() + '/'+ month + '/' + year
-    res.render('editVacation', { employees, vacation, notifications, checkDate, myDate });
+    res.render('editVacation', { employees, vacation, notifications, checkDate, myDate, vacationInfo: JSON.stringify(vacation) });
 })
 
 app.post('/vacation/approve/:id', isLoged, async (req, res) => {
@@ -387,13 +386,13 @@ app.post('/holidays', async (req, res) => {
     else{
         if (ifExistsUser.length) {
             for (user of ifExistsUser) {
-                const userEdit = await Vacation.findByIdAndUpdate(user.id, { lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}`,usedHolidays: '0'  })
+                const userEdit = await Vacation.findByIdAndUpdate(user.id, { lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}`,usedHolidays: `${data.usedHolidays}`  })
                 userEdit.save()
             }
             req.flash('success', `Data for user ${data.user} successfully updated`);
             res.redirect('/vacation')
         } else {
-            const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}`,usedHolidays: '0' })
+            const userData = await new Vacation({ user: `${data.user}`, lastYearHolidays: `${data.lastYearHolidays}`, holidays: `${data.holidays}`, overtime: `${data.overtime}`,usedHolidays: `${data.usedHolidays}` })
             userData.save();
             req.flash('success', `Successfully added data for ${data.user}`)
             res.redirect('/vacation')
