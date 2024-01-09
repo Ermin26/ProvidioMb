@@ -9,8 +9,17 @@ body {
 a {
     text-decoration: none;
 }
-
-
+#col1,#col2{
+    max-height: 90vh;
+    overflow-y: auto;
+}
+#cashTable{
+    margin-top: 72px;
+    font-weight: 700;
+}
+#bills{
+    margin-bottom: 15vh;
+}
 @media (max-width: 3000px) {
     #btn-func {
         margin: 3px;
@@ -29,7 +38,7 @@ a {
     #table-data,
     #table-head {
         position: sticky;
-        top: 65px;
+        top: 0;
     }
 
     #myBtn {

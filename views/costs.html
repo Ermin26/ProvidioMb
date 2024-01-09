@@ -19,12 +19,58 @@
     <%- include('../flashError.ejs') %>
         <!-- <div class="container text-center">-->
         <div id="cols" class="row row-cols-2">
-            <div id="col1" class="col-8 text-center">
-                <div class="addBills mt-5 mb-5">
-                    <button class="btn btn-primary" onclick="showInputForm()">Add new bill</button>
+
+            <div id="col2" class="col-4 p-0 ms-auto me-auto">
+                <table id="cashTable" class="table table-dark p-2 ms-auto me-auto text-center">
+                    <thead>
+                    <tr>
+                        <th>Earned</th>
+                        <th>Spended</th>
+                        <th>Neto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                            <td class="bg-info"><% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                                <strong id="payed"> </strong> &euro;</h4>
+                                <% }else {%>
+                                        <strong>/</strong>
+                                    <% } %>
+                            </td>
+                            <td class="bg-danger"><% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                        <strong id="spended"></strong> &euro;</h4>
+                        <% }else {%>
+                                <strong>/</strong>
+                            <% } %>
+                        </td>
+                        <td class="bg-success"><% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                            <strong id="cash"></strong> &euro;</h2>
+                            <% }else {%>
+                                    <strong>/</strong>
+                                <% } %>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+                <table id="hide">
+                    <tr>
+                        <thead>
+                            <th>Price</th>
+                        </thead>
+                    </tr>
+                    <% for(price of payed) {%>
+                        <tr>
+                            <td>
+                                <%= price%>
+                            </td>
+                        </tr>
+                        <% } %>
+                </table>
+                <div class="addBills mt-5 mb-5 ms-auto me-auto text-center">
+                    <button id="showFormBtn" class="btn btn-primary" onclick="showInputForm()">Add new bill</button>
                 </div>
                 <div id="hideMe">
-                    <div id="addBillForm" class="col d-flex bg-info justify-content-center">
+                    <div id="addBillForm" class="col d-flex shadow text-center justify-content-center">
                         <form action="/addCosts" method="post">
                             <div class="mb-2 text-center">
                                 <label for="date" class="form-label">Bill Date:</label><br>
@@ -48,6 +94,9 @@
                         </form>
                     </div>
                 </div>
+            </div>
+
+            <div id="col1" class="col-8 text-center">
 
                 <% if(!allCosts.length) {%>
                     <h1>Nothing to show yet. Add some bills.</h1>
@@ -124,41 +173,7 @@
                         </div>
             </div>
 
-            <div id="col2" class="col-4 ms-auto me-auto">
-                <div class="total mt-5 text-start ms-4 p-2 ms-auto me-auto" id="costsInfo">
-                    <h4 class="mt-2 mb-2"> Total Payed: <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
-                        <strong id="payed" class="ms-3"> </strong> &euro;</h4>
-                        <% }else {%>
-                                <strong>/</strong>    
-                            <% } %>
-                    <h4 class="mt-2 mb-2">Total Spend: <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
-                        <strong id="spended" class="ms-3"></strong> &euro;</h4>
-                        <% }else {%>
-                                <strong>/</strong>
-                            <% } %>
-                    <h2 class="mt-2 mb-2">Total Cash: <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
-                        <strong id="cash" class=""></strong> &euro;</h2>
-                        <% }else {%>
-                                <strong>/</strong>
-                            <% } %>
-                </div>
-                <table id="hide">
-                    <tr>
-                        <thead>
-                            <th>Price</th>
-                        </thead>
-                    </tr>
-                    <% for(price of payed) {%>
-                        <tr>
-                            <td>
-                                <%= price%>
-                            </td>
-                        </tr>
-                        <% } %>
-                </table>
-            </div>
         </div>
-        <!-- </div> -->
 
 
         <script>
@@ -167,6 +182,7 @@
             document.getElementById("hide").style.display = "none";
             function showInputForm() {
                 document.getElementById("hideMe").style.display = "block";
+                document.getElementById("showFormBtn").style.display = "none";
             }
 
             let totalTable = document.getElementById('hide')
@@ -179,7 +195,6 @@
                 }
                 document.getElementById("payed").innerText = cash.toFixed(2);
                 document.getElementById("payed").style.color = 'white'
-                document.getElementById("payed").style.backgroundColor = 'lightgreen'
             }
 
             let myTable = document.getElementById('tableOfCosts')
@@ -199,7 +214,6 @@
                 }
                 document.getElementById('spend').innerText = pay.toFixed(2);
                 document.getElementById('spended').innerText = pay.toFixed(2);
-                document.getElementById('spended').style.backgroundColor = 'red'
                 document.getElementById('spended').style.color = 'white'
             }
 
@@ -208,7 +222,6 @@
             let cash = parseFloat(payed) - parseFloat(spended)
             document.getElementById('cash').innerHTML = cash.toFixed(2);
             document.getElementById('cash').style.color = 'white';
-            document.getElementById('cash').style.backgroundColor = 'green';
             function notAllowed() {
                 window.alert('Not Allowed. Only Admin or Moderator can add bill.');
             }

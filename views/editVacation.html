@@ -20,13 +20,14 @@
                         <div class="caption mt-2">
                             <h2 class="mb-3">Info about users holidays</h2>
                         </div>
-                        <table id="infoHolidays" class="table table-active table-hover text-center">
+                        <table id="infoHolidays" class="table table-active table-hover text-center w-100">
                             <thead>
                                 <th>User</th>
                                 <th>Last year</th>
                                 <th>This year</th>
                                 <th>Used</th>
                                 <th>Remaining</th>
+                                <th>Hours</th>
                             </thead>
                             <tbody>
                                 <% for (status of employees) {%>
@@ -54,6 +55,9 @@
                                         </td>
                                         <td id="preostalo">
                                         </td>
+                                        <td>
+                                            <%= user.overtime %>
+                                        </td>
                                     </tr>
                                         <% } %>
                                     <% } %>
@@ -61,6 +65,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <!-- USED HOLIDAYS, TABLES FOR EVERY USER-->
                     <div class="table-responsive">
                         <% for(let employe of employees) {%>
                             <% let userName = employe.username + ' ' + employe.lastname%>
@@ -97,7 +102,7 @@
                 </div>
 
                 <div id="middle" class="col-6 shadow">
-                    <div class="text-center p-0 ms-auto me-auto mt-5 w-100">
+                    <div class="text-center p-0 ms-auto me-auto w-100">
                         <!--REQUESTED HOLIDAYS-->
                         <div class="col mt-2 mb-3">
                             <caption>
@@ -359,8 +364,8 @@
                     </div>
                 </div>
 
-                <div id="right" class="col-3 mt-5 mb-5 shadow">
-                    <div id="addUser" class="bg-info">
+                <div id="right" class="col-3 mb-5 shadow">
+                    <div id="addUser" class="shadow mt-5 rounded-5">
                         <caption>
                             <h1 class="text-center">
                                 Edit users vacation
@@ -403,14 +408,14 @@
                                     <input class="w-50 ms-auto me-auto text-center" type="text" name="overtime"
                                         id="overtime" value="0">
                                 </div>
-                                    <div class="submit">
+                                    <div class="submit m-2 p-2">
                                         <button class="btn btn-success">Submit</button>
                                     </div>
 
                             </form>
                         </div>
                     </div>
-                    <div id="div" class="mb-5 text-center">
+                    <div id="div" class="mt-5 mb-5 text-center">
                         <h3>Update employee holiday data.</h3>
                         <button class="btn btn-primary" onclick="editEmployeeHolidayData()">Submit</button>
                     </div>
@@ -453,8 +458,6 @@
                         }
                     }
                 }
-
-
 
             </script>
 
