@@ -10,7 +10,7 @@
     position: sticky;
     justify-content: end;
     margin-right: 10px;
-    top: 50px;
+    top: 66px;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -20,4 +20,10 @@
     width: fit-content;
     margin: 2px;
     font-weight: 700;
+}
+
+@media print{
+    #userInfo,.name,.role{
+        display:none !important;
+    }
 }

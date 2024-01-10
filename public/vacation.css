@@ -3,6 +3,9 @@
 .holidayTable{
     table-layout: fixed;
 }
+#section,#left,#middle,#right{
+    height: 86vh;
+}
 .table-responsive{
     margin-bottom: 10vh;
 }
@@ -12,12 +15,12 @@
     }
 
     #middle {
-        min-height: 100vh;
+        max-height: 100vh;
         overflow-y: auto;
         margin-bottom: 15vh;
     }
     #left{
-        height: 100vh;
+        max-height: 100vh;
         overflow-y: auto;
         margin-bottom: 10vh;
     }
@@ -30,64 +33,6 @@
     }
 
 }
-/*
-@media (max-width: 1200px) {
-    #section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-
-    #left {
-        width: 100%;
-    }
-
-    #right {
-        width: 100%;
-        margin-bottom: 50vh;
-    }
-
-    #middle {
-        display: flex;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .container {
-        margin: 0;
-        column-gap: 0;
-        max-width: 100%;
-
-    }
-
-    #reqTable,
-    #approvedTable,
-    #rejectedTable {
-        display: flex;
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: auto;
-    }
-
-    #tableReq,
-    #tableApproved,
-    #tableRejected {
-        overflow-x: auto;
-    }
-
-    #reqTableHead,
-    #approvedHead,
-    #rejectedHead {
-        overflow-x: auto;
-    }
-}
-*/
 
 @media (max-width: 1505px) {
     html {
@@ -111,7 +56,7 @@
 
     #right {
         width: 100%;
-        margin-bottom: 50vh;
+        height: auto;
     }
 
     #middle {

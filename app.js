@@ -195,7 +195,7 @@ app.get('/', async (req, res) => {
 
 app.get('/users', isLoged, async (req, res) => {
     const users = await People.find({})
-    const employees = await Employers.find({})
+    const employees = await Employers.find({}).sort({"employmentStatus": "ascending"})
     const notifications = await Notifications.find({ status: 'false' });
     res.render('allUsers', { users, employees, notifications })
 });
@@ -294,7 +294,6 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
                 await vacation.pendingHolidays[i].status.push('Approved');
                 await vacation.save();
                 const dopust = await Vacation.findById(id);
-                console.log("This is dopust",dopust.pendingHolidays[i])
                 let transporter = nodemailer.createTransport({
                     service: "gmail",
                     auth: {

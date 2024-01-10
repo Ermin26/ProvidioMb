@@ -100,7 +100,6 @@ a {
     #table-head,
     #costsInfo {
         position: sticky;
-        top: 60px;
     }
 }
 

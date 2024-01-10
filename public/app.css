@@ -350,8 +350,8 @@ li span {
         margin-left: 7px;
     }
 
-
 }
+
 
 @media print {
     * {
@@ -376,8 +376,11 @@ li span {
     #zaključi,
     #placaj,
     #hideOnPrint,
-    #hiderow, #rowDelete, #successAlert, #errorAlert, #userInfo {
+    #hiderow, #rowDelete, #successAlert, #errorAlert{
         display: none;
+    }
+    #userInfo,.name,.role{
+        display:none !important;
     }
 
     .container {
