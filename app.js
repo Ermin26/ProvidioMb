@@ -195,7 +195,7 @@ app.get('/', async (req, res) => {
 
 app.get('/users', isLoged, async (req, res) => {
     const users = await People.find({})
-    const employees = await Employers.find({}).sort({"employmentStatus": "ascending"})
+    const employees = await Employers.find({}).sort({"status": "ascending"})
     const notifications = await Notifications.find({ status: 'false' });
     res.render('allUsers', { users, employees, notifications })
 });
@@ -424,7 +424,7 @@ app.get('/add', isLoged, async (req, res) => {
     res.render('add', { notifications })
 })
 app.post('/addEmploye', isLoged, async (req, res) => {
-    const { username, lastname, password, emplStatus, status } = req.body;
+    const { username, lastname, password, emplStatus, status, email } = req.body;
     const checkUser = await Employers.find({ username: `${username}` });
     if(req.user.role === 'visitor'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
@@ -432,7 +432,7 @@ app.post('/addEmploye', isLoged, async (req, res) => {
     }
     else{
         if (!checkUser.length) {
-            const user = await new Employers({ username: username, lastname: lastname, employmentStatus: emplStatus, status: status });
+            const user = await new Employers({ username: username, lastname: lastname, employmentStatus: emplStatus, status: status, email: email });
             const addedUser = await Employers.register(user, password);
             req.flash('success', 'Successfully added new employee')
             res.redirect('/users')

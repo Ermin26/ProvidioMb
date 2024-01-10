@@ -33,11 +33,15 @@
                             value="<% if(currentUser.role !== 'visitor' || currentUser.username == 'jan') {%><%= employee.username %><% }else {%> / <% } %>">
                     </div>
 
-                    <div class="mb-2"></div>
+                    <div class="mb-2">
                     <label for="lastname">Lastname</label><br>
                     <input type="text" name="employers[lastname]" id="lastname" class="text-center"
                         value="<% if(currentUser.role !== 'visitor' || currentUser.username == 'jan') {%> <%= employee.lastname %> <% }else {%> / <% } %>">
-
+                    </div>
+                    <div class="mb-2">
+                        <label for="email">email</label><br>
+                        <input type="email" name="employers[email]" id="email"value="<% if(currentUser.role !== 'visitor' || currentUser.username == 'jan') {%> <%= employee.email %> <% }else {%> / <% } %>">
+                    </div>
                     <div class="mb-2">
                         <label for="emplStatus">Employment status:</label><br>
                         <select class="form-select form-select-sm w-25 ms-auto me-auto" id="emplStatus"
