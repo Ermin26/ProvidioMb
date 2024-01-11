@@ -30,13 +30,13 @@
                     <div class="mb-2">
                         <label for="username">Username</label><br>
                         <input type="text" class="text-center" name="employers[username]" id="username"
-                            value="<% if(currentUser.role !== 'visitor' || currentUser.username == 'jan') {%><%= employee.username %><% }else {%> / <% } %>">
+                            value="<% if(currentUser.role !== 'visitor' || currentUser.username == 'jan') {%><%=employee.username%><% }else {%> / <% } %>">
                     </div>
 
                     <div class="mb-2">
                     <label for="lastname">Lastname</label><br>
                     <input type="text" name="employers[lastname]" id="lastname" class="text-center"
-                        value="<% if(currentUser.role !== 'visitor' || currentUser.username == 'jan') {%> <%= employee.lastname %> <% }else {%> / <% } %>">
+                        value="<% if(currentUser.role !== 'visitor' || currentUser.username == 'jan') {%><%=employee.lastname%><% }else {%> / <% } %>">
                     </div>
                     <div class="mb-2">
                         <label for="email">email</label><br>

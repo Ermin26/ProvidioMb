@@ -33,7 +33,7 @@
                                 <% for (status of employees) {%>
                                     <% let users = status.username + ' ' + status.lastname%>
                                     <% for(user of vacation) {%>
-                                    <% if(status.status === 'active' && status.employmentStatus === 'zaposlen/a' && users == user.user  ) {%>
+                                    <% if(status.status === 'active' && status.employmentStatus === 'zaposlen/a' && users === user.user  ) {%>
                                     <tr>
                                         <td>
                                             <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
@@ -104,11 +104,11 @@
                 <div id="middle" class="col-6 shadow">
                     <div class="text-center p-0 ms-auto me-auto w-100">
                         <!--REQUESTED HOLIDAYS-->
-                        <div class="col mt-2 mb-3">
+                        <div class="col mt-2 mb-3 shadow">
                             <caption>
                                 <h2>Users holidays requests</h2>
                             </caption>
-                            <div id="reqTable" class="row table-responsive w-100 ms-auto me-auto">
+                            <div id="reqTable" class="row m-5 w-100 ms-auto me-auto">
                                 <table id="tableReq" class="table table-info table-hover p-0 ms-auto me-auto">
                                     <thead id="reqTableHead">
                                         <th>Employee</th>
@@ -173,7 +173,6 @@
                                                                     <button class="btn btn-danger">REJECT</button>
                                                                 </form>
                                                             </td>
-                                                            
                                                     </tr>
                                                     <% } %>
 
@@ -182,16 +181,66 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div id="hoursTable" class="row w-100 ms-auto me-auto">
+                                <caption>
+                                    <h2>User hours requests</h2>
+                                </caption>
+                                <table class="table table-info table-bordered p-0 ms-auto me-auto">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee</th>
+                                            <th>Date</th>
+                                            <th>Hours</th>
+                                            <th>Days</th>
+                                            <th>Approve</th>
+                                            <th>Reject</th>
+                                        </tr>
+                                    </thead>
+                                        <tbody>
+                                            <% for(hours of vacation) {%>
+                                                <% for(hour of hours.hours) {%>
+                                                    <% if(hour.status == 'Pending') {%>
+                                                    <tr>
+                                                        <td class="align-middle"><strong><%= hours.user %></strong></td>
+                                                        <td class="align-middle"><strong><%= hour.date %></strong></td>
+                                                        <td class="align-middle"><strong><%= hour.hours %></strong></td>
+                                                        <td class="align-middle"><strong><%= hour.days %></strong></td>
+                                                        <td class="align-middle"><form action="/hours/approve/<%=hours.id %>"
+                                                            method="post">
+                                                            <input type="text" name="hourId"
+                                                                value="<%= hour.id %>" hidden>
+                                                            <input type="number" name="hours"
+                                                                value="<%= hour.hours %>" hidden>
+                                                            <button class="btn btn-success">
+                                                                Approve
+                                                            </button>
+                                                        </form></td>
+                                                        <td class="align-middle"><form action="/hours/reject/<%=hours.id %>"
+                                                            method="post">
+                                                            <input type="text" name="hourId"
+                                                                value="<%= hour.id %>" hidden>
+                                                            <button class="btn btn-danger">REJECT</button>
+                                                        </form></td>
+                                                    </tr>
+                                                <% } %>
+                                                <% } %>
+                                            <% } %>
+                                        </tbody>
+
+                                </table>
+
+                            </div>
                         </div>
 
                         <!--APPROVED HOLIDAYS-->
-                        <div class="col mt-5 mb-5">
+                        <div class="col mt-5 mb-5 shadow">
                             <caption>
                                 <h2>
                                     Approved holidays
                                 </h2>
                             </caption>
-                            <div id="approvedTable" class="row w-100 ms-auto me-auto">
+                            <div id="approvedTable" class="row m-5 w-100 ms-auto me-auto">
                                 <table id="tableApproved" class="table table-success table-hover mt-4 mb-5 p-0 ms-auto me-auto w-100">
                                     <thead id="approvedHead">
                                         <th>Employee</th>
@@ -268,16 +317,61 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div id="approvedHoursTable" class="row w-100 ms-auto me-auto">
+                            <caption>
+                                <h2>Approved hours requests</h2>
+                            </caption>
+                            <table class="table table-success table-bordered p-0 ms-auto me-auto">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Date</th>
+                                        <th>Hours</th>
+                                        <th>Days</th>
+                                        <th>Reject</th>
+                                    </tr>
+                                    <tbody>
+                                        <% for(hours of vacation) {%>
+                                            <% for(hour of hours.hours) {%>
+                                                <% if(hour.status == 'Approved') {%>
+                                                <tr>
+                                                    <td class="align-middle"><strong>
+                                                        <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                                                            <%= hours.user %>
+                                                            <% }else{ %>
+                                                                <p>Not available for users</p>
+                                                                <% } %>
+                                                        </strong></td>
+                                                    <td class="align-middle"><strong><%= hour.date %></strong></td>
+                                                    <td class="align-middle"><strong><%= hour.hours %></strong></td>
+                                                    <td class="align-middle"><strong><%= hour.days %></strong></td>
+                                                    <td class="align-middle"><form action="/hours/rejectAfterApprove/<%=hours.id %>"
+                                                        method="post">
+                                                        <input type="text" name="hourId"
+                                                            value="<%= hour.id %>" hidden>
+                                                        <button class="btn btn-danger">REJECT</button>
+                                                    </form></td>
+                                                </tr>
+                                            <% } %>
+                                            <% } %>
+                                        <% } %>
+                                    </tbody>
+                                </thead>
+
+                            </table>
+
+                            </div>
                         </div>
 
                         <!--REJECTED HOLIDAYS-->
-                        <div class="col mb-5">
+                        <div class="col mb-5 shadow">
                             <caption>
                                 <h2>
                                     Rejected holidays
                                 </h2>
                             </caption>
-                            <div id="rejectedTable" class="row w-100 m-0 p-0 ms-auto me-auto">
+                            <div id="rejectedTable" class="row m-5 w-100 m-0 p-0 ms-auto me-auto">
                                 <table id="tableRejected" class="table table-danger table-hover mt-4 mb-5 p-0 w-100 ms-auto me-auto">
                                     <thead id="rejectedHead">
                                         <th>Employee</th>
@@ -335,10 +429,10 @@
                                                         </td>
                                                         <% if(currentUser.role=='admin' ) {%>
                                                             <td class="align-middle">
-                                                                <form action="/vacation/approve/<%=vac.id %>"
+                                                                <form action="/hours/approve/<%=vac.id %>"
                                                                     method="post">
-                                                                    <input type="text" name="holidayId"
-                                                                        value="<%= holiday.id %>" hidden>
+                                                                    <input type="text" name="hourId"
+                                                                        value="<%= hour.id %>" hidden>
                                                                     <button class="btn btn-success">
                                                                         Approve
                                                                     </button>
@@ -359,6 +453,54 @@
                                                             <% } %>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div id="rejectedHoursTable" class="row w-100 ms-auto me-auto">
+                            <caption>
+                                <h2>Rejected hours requests</h2>
+                            </caption>
+                            <table class="table table-danger table-bordered p-0 ms-auto me-auto">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Date</th>
+                                        <th>Hours</th>
+                                        <th>Days</th>
+                                        <th>Approve</th>
+                                    </tr>
+                                    <tbody>
+                                        <% for(hours of vacation) {%>
+                                            <% for(hour of hours.hours) {%>
+                                                <% if(hour.status == 'Rejected') {%>
+                                                <tr>
+                                                    <td class="align-middle"><strong>
+                                                        <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
+                                                            <%= hours.user %>
+                                                            <% }else{ %>
+                                                                <p>Not available for users</p>
+                                                                <% } %>
+                                                        </strong></td>
+                                                    <td class="align-middle"><strong><%= hour.date %></strong></td>
+                                                    <td class="align-middle"><strong><%= hour.hours %></strong></td>
+                                                    <td class="align-middle"><strong><%= hour.days %></strong></td>
+                                                    <td class="align-middle"><form action="/hours/approve/<%=hours.id %>"
+                                                        method="post">
+                                                        <input type="text" name="hourId"
+                                                            value="<%= hour.id %>" hidden>
+                                                        <input type="number" name="hours"
+                                                            value="<%= hour.hours %>" hidden>
+                                                        <button class="btn btn-success">
+                                                            Approve
+                                                        </button>
+                                                    </form></td>
+                                                </tr>
+                                                <% } %>
+                                            <% } %>
+                                        <% } %>
+                                    </tbody>
+                                </thead>
+
+                            </table>
+
                             </div>
                         </div>
                     </div>

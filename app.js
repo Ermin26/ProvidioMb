@@ -32,6 +32,7 @@ const nodemailer = require('nodemailer');
 
 const db_URL = process.env.DB_URL
 const yoo = process.env.YOO
+const yoo2 = process.env.textUser
 mongoose.connect(db_URL);
 
 const db = mongoose.connection;
@@ -332,7 +333,108 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     }
 
 })
+app.post('/hours/approve/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const hourId = req.body.hourId;
+    const vacation = await Vacation.findById(id);
+    const name = vacation.user.split(' ');
+    const employee = await Employers.find({ username: `${name[0]}`, lastname: { $regex: `${name[1]}`, $options: 'i' }})
+    if(req.user.role === 'visitor' && req.user.username != 'jan'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect('/vacation');
+    }
+    else{
+        const notifications = await HoursNot.deleteOne({hours_id: `${hourId}`});
+        const used = vacation.overtime;
+        for (let i = 0; i < vacation.hours.length; i++) {
+            if (hourId === vacation.hours[i].id) {
+                const newUsed = parseInt(used) - parseInt(vacation.hours[i].hours[0])
+                const updateUsedHolidays = await Vacation.findByIdAndUpdate(id, { overtime: `${newUsed}` })
+                updateUsedHolidays.save();
+                //await vacation.usedHolidays = vacation.pendingHolidays[i].days
+                await vacation.hours[i].status.pop()
+                await vacation.hours[i].status.push('Approved');
+                await vacation.save();
+                const dopust = await Vacation.findById(id);
+                let transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                        user: "mb.providio@gmail.com",
+                        pass: `${yoo2}`,
+                    },
+                    tls: {
+                        rejectUnauthorized: false,
+                    }
+                });
 
+                let mailOptions = {
+                    from: "mb.providio@gmail.com",
+                    to: `mb2.providio@gmail.com, ${employee[0].email}`,
+                    subject: "DOPUST",
+                    text: `Odobreno korištenje ur za ${dopust.user}, od ${dopust.hours[i].date}, ${dopust.hours[i].hours} ur. Odobril ${req.user.username}!`,
+                };
+
+                transporter.sendMail(mailOptions, function (err, success) {
+                    if (err) {
+                        console.log(err.message);
+                    } else {
+                        console.log("Email sended");
+                    }
+                })
+                res.redirect('/vacation')
+            }
+        }
+    }
+})
+
+app.post('/hours/reject/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const hourId = req.body.hourId;
+    const vacation = await Vacation.findById(id);
+    const name = vacation.user.split(' ');
+    const employee = await Employers.find({ username: `${name[0]}`, lastname: { $regex: `${name[1]}`, $options: 'i' }})
+    if(req.user.role === 'visitor' && req.user.username != 'jan'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect('/vacation')
+    }
+    else{
+        const forDelete = await hoursNot.deleteOne({ hours_id: `${hourId}` });
+        for (let i = 0; i < vacation.hours.length; i++) {
+            if (hourId === vacation.hours[i].id) {
+                await vacation.hours[i].status.pop()
+                await vacation.hours[i].status.push('Rejected');
+                await vacation.save();
+                let transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                        user: "mb.providio@gmail.com",
+                        pass: `${yoo2}`,
+                    },
+                    tls: {
+                        rejectUnauthorized: false,
+                    }
+                });
+
+                let mailOptions = {
+                    from: "mb.providio@gmail.com",
+                    to: `${employee[0].email}`,
+                    subject: "URE",
+                    text: `Korištenje ur od ${vacation.hours[i].date}, ${vacation.hours[i].hours} ur žal ni odobreno.Lep Pozdrav, ${req.user.username}!`,
+                };
+
+                transporter.sendMail(mailOptions, function (err, success) {
+                    if (err) {
+                        console.log(err.message);
+                    } else {
+                        console.log("Email sended");
+                    }
+                })
+                res.redirect('/vacation')
+            }
+        }
+    }
+
+})
 
 app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
@@ -356,6 +458,56 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
 
 })
 
+app.post('/hours/rejectAfterApprove/:id', isLoged, async (req, res) => {
+    const { id } = req.params;
+    const hourId = req.body.hourId;
+    const vacation = await Vacation.findById(id);
+    const used = vacation.overtime;
+    const name = vacation.user.split(' ');
+    const employee = await Employers.find({ username: `${name[0]}`, lastname: { $regex: `${name[1]}`, $options: 'i' }})
+    if(req.user.role === 'visitor' && req.user.username != 'jan'){
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+        res.redirect('/vacation');
+    }
+    else{
+        for (let i = 0; i < vacation.hours.length; i++) {
+            if (hourId === vacation.hours[i].id) {
+                const newUsed = parseInt(used) + parseInt(vacation.hours[i].hours)
+                const updateUsedHolidays = await Vacation.findByIdAndUpdate(id, { overtime: `${newUsed}` })
+                updateUsedHolidays.save();
+                await vacation.hours[i].status.pop()
+                await vacation.hours[i].status.push('Rejected');
+                await vacation.save();
+                let transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                        user: "mb.providio@gmail.com",
+                        pass: `${yoo2}`,
+                    },
+                    tls: {
+                        rejectUnauthorized: false,
+                    }
+                });
+
+                let mailOptions = {
+                    from: "mb.providio@gmail.com",
+                    to: `${employee[0].email}`,
+                    subject: "URE",
+                    text: `Korištenje ur od ${vacation.hours[i].date}, ${vacation.hours[i].hours} ur, žal ni odobreno.Lep Pozdrav <br> ${req.user.username}!`,
+                };
+
+                transporter.sendMail(mailOptions, function (err, success) {
+                    if (err) {
+                        console.log(err.message);
+                    } else {
+                        console.log("Email sended");
+                    }
+                })
+                res.redirect('/vacation')
+            }
+        }
+    }
+})
 
 app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
     const { id } = req.params;
