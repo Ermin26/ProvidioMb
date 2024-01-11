@@ -263,8 +263,6 @@ app.delete('/users/:id', isLoged, async (req, res) => {
     res.redirect('/users')
 })
 
-
-
 app.get('/register', isLoged, async (req, res) => {
     const notifications = await Notifications.find({ status: 'false' });
     const hoursNot = await HoursNot.find({status: 'false' });
@@ -285,6 +283,8 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
+    const name = vacation.user.split(' ');
+    const employee = await Employers.find({ username: `${name[0]}`, lastname: { $regex: `${name[1]}`, $options: 'i' }})
     if(req.user.role === 'visitor' && req.user.username != 'jan'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation');
@@ -301,12 +301,11 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
                 await vacation.pendingHolidays[i].status.pop()
                 await vacation.pendingHolidays[i].status.push('Approved');
                 await vacation.save();
-                const dopust = await Vacation.findById(id);
                 let transporter = nodemailer.createTransport({
                     service: "gmail",
                     auth: {
-                        user: "jolda.ermin@gmail.com",
-                        pass: `${yoo}`,
+                        user: "mb.providio@gmail.com",
+                        pass: `${yoo2}`,
                     },
                     tls: {
                         rejectUnauthorized: false,
@@ -315,9 +314,9 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
 
                 let mailOptions = {
                     from: "jolda.ermin@gmail.com",
-                    to: "mb2.providio@gmail.com",
+                    to: `mb2.providio@gmail.com, ${employee[0].email}`,
                     subject: "DOPUST",
-                    text: `Odobren dopust za ${dopust.user}, od ${dopust.pendingHolidays[i].startDate} - ${dopust.pendingHolidays[i].endDate}. Vloga odana dne - ${dopust.pendingHolidays[i].applyDate}.`,
+                    text: `Odobren dopust za ${vacation.user}, od ${vacation.pendingHolidays[i].startDate} - ${vacation.pendingHolidays[i].endDate}. Vloga odana dne - ${vacation.pendingHolidays[i].applyDate}. Lep pozdrav, ${req.user.username}!`,
                 };
 
                 transporter.sendMail(mailOptions, function (err, success) {
@@ -440,6 +439,8 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
+    const name = vacation.user.split(' ');
+    const employee = await Employers.find({ username: `${name[0]}`, lastname: { $regex: `${name[1]}`, $options: 'i' }})
     if(req.user.role === 'visitor' && req.user.username != 'jan'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
         res.redirect('/vacation')
@@ -451,6 +452,31 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
                 await vacation.pendingHolidays[i].status.pop()
                 await vacation.pendingHolidays[i].status.push('Rejected');
                 await vacation.save();
+                let transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                        user: "mb.providio@gmail.com",
+                        pass: `${yoo2}`,
+                    },
+                    tls: {
+                        rejectUnauthorized: false,
+                    }
+                });
+
+                let mailOptions = {
+                    from: "jolda.ermin@gmail.com",
+                    to: `mb2.providio@gmail.com, ${employee[0].email}`,
+                    subject: "DOPUST",
+                    text: `Dopust za ${vacation.user}, od ${vacation.pendingHolidays[i].startDate} - ${vacation.pendingHolidays[i].endDate}. Vloga odana dne - ${vacation.pendingHolidays[i].applyDate}, žal ni odobren. Lep podrav, ${req.user.username}!`,
+                };
+
+                transporter.sendMail(mailOptions, function (err, success) {
+                    if (err) {
+                        console.log(err.message);
+                    } else {
+                        console.log("Email sended");
+                    }
+                });
                 res.redirect('/vacation')
             }
         }
@@ -513,6 +539,8 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
     const { id } = req.params;
     const holId = req.body.holidayId;
     const vacation = await Vacation.findById(id);
+    const name = vacation.user.split(' ');
+    const employee = await Employers.find({ username: `${name[0]}`, lastname: { $regex: `${name[1]}`, $options: 'i' }})
     const used = vacation.usedHolidays;
     if(req.user.role === 'visitor' && req.user.username != 'jan'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
@@ -527,6 +555,31 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
                 await vacation.pendingHolidays[i].status.pop()
                 await vacation.pendingHolidays[i].status.push('Rejected');
                 await vacation.save();
+                let transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                        user: "mb.providio@gmail.com",
+                        pass: `${yoo2}`,
+                    },
+                    tls: {
+                        rejectUnauthorized: false,
+                    }
+                });
+
+                let mailOptions = {
+                    from: "jolda.ermin@gmail.com",
+                    to: `mb2.providio@gmail.com, ${employee[0].email}`,
+                    subject: "DOPUST",
+                    text: `Dopust za ${vacation.user}, od ${vacation.pendingHolidays[i].startDate} - ${vacation.pendingHolidays[i].endDate}. Vloga odana dne - ${vacation.pendingHolidays[i].applyDate}, žal ni odobren. Lep podrav, ${req.user.username}!`,
+                };
+
+                transporter.sendMail(mailOptions, function (err, success) {
+                    if (err) {
+                        console.log(err.message);
+                    } else {
+                        console.log("Email sended");
+                    }
+                });
                 res.redirect('/vacation')
             }
         }

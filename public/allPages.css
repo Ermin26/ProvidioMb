@@ -21,7 +21,55 @@
     margin: 2px;
     font-weight: 700;
 }
+#notificationIcon{
+    display: inline-flex;
+    position: relative;
+    padding: 0;
+    left: 310px;
+    align-items: center;
+    justify-content: center;
+    top: 13px;
+}
+#notificationIcon:hover{
+    cursor: pointer;
+}
+#notificationIcon >svg{
+    margin-top: 5px;
+}
+#notNumber{
+    position: relative;
+    top: -10px;
+    right: 8px;
+    background-color: red;
+    width: 14px;
+    border-radius: 50%;
+    text-align: center;
+}
+#notNum{
+    margin: 0;
+    padding: 1px;
+    width: 100%;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+}
 
+#notifications{
+    visibility:hidden;
+}
+#notificationIcon:hover~#notifications, #notifications:hover{ 
+    cursor: pointer;
+    visibility: visible;
+    display:block;
+    position: relative;
+    top: 5px;
+    right: 5%;
+    width: fit-content;
+    background-color: white;
+    list-style: none;
+}
 @media print{
     #userInfo,.name,.role{
         display:none !important;

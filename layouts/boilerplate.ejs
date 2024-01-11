@@ -48,59 +48,60 @@
                 </li>
 
                 <% if(currentUser) {%>
-                    <li class="nav-item dropdown dropstart ms-auto me-right mt-2 p-0">
+                    <li class="nav-item dropdown dropstart ms-auto me-right p-0" style="max-height:50px">
                         <% if(notifications.length || hoursNot.length) {%>
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                            <div id="notificationIcon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red"
                                     class="bi bi-bell" viewBox="0 0 22 22">
                                     <path
                                         d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                                 </svg>
-                                <sab class="text-light">
-                                    <% if(notifications.length > 0) {%> <%= notifications.length %> <% }else {%> <%= hoursNot.length %> <% } %>
-                                </sab>
-
-                            </button>
+                                <div id="notNumber" class="text-light">
+                                  <p id="notNum"><%if(hoursNot.length > 0 && notifications.length > 0){%><%=hoursNot.length%> + <%= notifications.length %><%} else if(notifications.length > 0 && !hoursNot.length) {%> <%= notifications.length %> <% }else if(!notifications.length && hoursNot.length > 0){%> <%= hoursNot.length %> <% } %></p>
+                                </div>
+                            </div>
                             <% }else{ %>
-                                <button class="btn btn-primary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                                <div id="notification">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white"
                                         class="bi bi-bell" viewBox="0 0 22 22">
                                         <path
                                             d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                                     </svg>
-
-                                </button>
+                                    <div id="notNumber" class="text-light">
+                                      <p id="notNum"></p>
+                                    </div>
+                                </div>
                                 <% } %>
-                                    <ul id="notifications" class="dropdown-menu">
-                                        <% if(notifications.length) {%>
+                                <ul id="notifications" class="p-0">
+                                        <% if(notifications.length && hoursNot.length) {%>
+                                            <% for(not of notifications) {%>
+                                                <a href="/vacation"> yoo
+                                                    <li class="p-2">User: <%= not.username %>, days: <%= not.days %>.
+                                                    </li>
+                                                </a>
+                                            <% } %>
+                                            <% for(hour of hoursNot) {%>
+                                                <a href="/vacation"> ooo
+                                                    <li class="p-2">User: <%= hour.username %>, datum: <%= hour.startDate %>, hours: <%= hour.hours %>.
+                                                    </li>
+                                                </a>
+                                            <% } %>
+                                        <% }else if(notifications.length && !hoursNot.length){ %>
                                             <% for(not of notifications) {%>
                                                 <a href="/vacation">
-                                                    <li>User: <%= not.username %>, days: <%= not.days %>.
+                                                    <li class="p-2">User: <%= not.username %>, days: <%= not.days %>.
                                                     </li>
                                                 </a>
                                             <% } %>
-                                        <% }else if(notifications.length && hoursNot.length){ %>
-                                            <a href="/vacation">
-                                                <li>User: <%= not.username %>, days: <%= not.days %>.
-                                                </li>
-                                            </a>
+                                        <% }else if(hoursNot.length && !notifications.length){ %>
                                             <% for(not of hoursNot) {%>
                                                 <a href="/vacation">
-                                                    <li>User: <%= not.username %>, datum: <%= not.startDate %>, hours: <%= not.hours %>.
+                                                    <li class="p-2">User: <%= not.username %>, datum: <%= not.startDate %>, hours: <%= not.hours %>.
                                                     </li>
                                                 </a>
                                             <% } %>
-                                        <% }else{ %>
-                                            <% for(not of hoursNot) {%>
-                                                <a href="/vacation">
-                                                    <li>User: <%= not.username %>, datum: <%= not.startDate %>, hours: <%= not.hours %>.
-                                                    </li>
-                                                </a>
-                                            <% } %>
-                                        <% }%>
-                                    </ul>
+                                            <% }%>
+                                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout"><button class="btn btn-outline-info ms-1 p-1"> Log
