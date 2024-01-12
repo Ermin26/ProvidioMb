@@ -102,7 +102,7 @@
                 </div>
 
                 <div id="middle" class="col-6 shadow">
-                    <div class="text-center p-0 ms-auto me-auto w-100">
+                    <div id="middleCol" class="text-center p-0 ms-auto me-auto w-100">
                         <!--REQUESTED HOLIDAYS-->
                         <div class="col mt-2 mb-3 shadow">
                             <caption>
@@ -429,10 +429,10 @@
                                                         </td>
                                                         <% if(currentUser.role=='admin' ) {%>
                                                             <td class="align-middle">
-                                                                <form action="/hours/approve/<%=vac.id %>"
+                                                                <form action="/vacation/approve/<%=vac.id %>"
                                                                     method="post">
-                                                                    <input type="text" name="hourId"
-                                                                        value="<%= hour.id %>" hidden>
+                                                                    <input type="text" name="holidayId"
+                                                                        value="<%= holiday.id %>" hidden>
                                                                     <button class="btn btn-success">
                                                                         Approve
                                                                     </button>

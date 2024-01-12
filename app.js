@@ -313,7 +313,7 @@ app.post('/vacation/approve/:id', isLoged, async (req, res) => {
                 });
 
                 let mailOptions = {
-                    from: "jolda.ermin@gmail.com",
+                    from: "mb.providio@gmail.com",
                     to: `mb2.providio@gmail.com, ${employee[0].email}`,
                     subject: "DOPUST",
                     text: `Odobren dopust za ${vacation.user}, od ${vacation.pendingHolidays[i].startDate} - ${vacation.pendingHolidays[i].endDate}. Vloga odana dne - ${vacation.pendingHolidays[i].applyDate}. Lep pozdrav, ${req.user.username}!`,
@@ -397,7 +397,7 @@ app.post('/hours/reject/:id', isLoged, async (req, res) => {
         res.redirect('/vacation')
     }
     else{
-        const forDelete = await hoursNot.deleteOne({ hours_id: `${hourId}` });
+        const forDelete = await HoursNot.deleteOne({ hours_id: `${hourId}` });
         for (let i = 0; i < vacation.hours.length; i++) {
             if (hourId === vacation.hours[i].id) {
                 await vacation.hours[i].status.pop()
@@ -464,7 +464,7 @@ app.post('/vacation/reject/:id', isLoged, async (req, res) => {
                 });
 
                 let mailOptions = {
-                    from: "jolda.ermin@gmail.com",
+                    from: "mb.providio@gmail.com",
                     to: `mb2.providio@gmail.com, ${employee[0].email}`,
                     subject: "DOPUST",
                     text: `Dopust za ${vacation.user}, od ${vacation.pendingHolidays[i].startDate} - ${vacation.pendingHolidays[i].endDate}. Vloga odana dne - ${vacation.pendingHolidays[i].applyDate}, žal ni odobren. Lep podrav, ${req.user.username}!`,
@@ -567,7 +567,7 @@ app.post('/vacation/rejectAfter/:id', isLoged, async (req, res) => {
                 });
 
                 let mailOptions = {
-                    from: "jolda.ermin@gmail.com",
+                    from: "mb.providio@gmail.com",
                     to: `mb2.providio@gmail.com, ${employee[0].email}`,
                     subject: "DOPUST",
                     text: `Dopust za ${vacation.user}, od ${vacation.pendingHolidays[i].startDate} - ${vacation.pendingHolidays[i].endDate}. Vloga odana dne - ${vacation.pendingHolidays[i].applyDate}, žal ni odobren. Lep podrav, ${req.user.username}!`,

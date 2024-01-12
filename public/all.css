@@ -19,7 +19,63 @@ a {
     margin: 2px;
     font-weight: 700;
 }
+#notificationIcon{
+    display: inline-flex;
+    position: relative;
+    padding: 0;
+    align-items: center;
+    top: 7px;
+}
+#notificationIcon:hover{
+    cursor: pointer;
+}
+#notificationIcon >svg{
+    margin-top: 5px;
+}
+#notNumber{
+    position: relative;
+    top: -10px;
+    right: 8px;
+    background-color: red;
+    width: 14px;
+    border-radius: 50%;
+    text-align: center;
+}
+#notNum{
+    margin: 0;
+    padding: 1px;
+    width: 100%;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+}
 
+#notifications{
+    visibility:hidden;
+}
+#notifications a{
+    text-decoration: none;
+    color:black;
+}
+
+#notificationIcon:hover~#notifications, #notifications:hover{ 
+    cursor: pointer;
+    visibility: visible;
+    display:block;
+    position: relative;
+    top: 5px;
+    right: 5%;
+    width: fit-content;
+    background-color: white;
+    list-style: none;
+    text-align: start;
+}
+#notifications li:hover{
+    background-color: rgb(161, 161, 161);
+    box-shadow: inset 0px 10px 10px 5px rgb(209, 208, 208);
+}
 @media (max-width: 3000px) {
     #btn-func {
         margin: 3px;

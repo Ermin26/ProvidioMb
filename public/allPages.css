@@ -25,9 +25,7 @@
     display: inline-flex;
     position: relative;
     padding: 0;
-    left: 310px;
     align-items: center;
-    justify-content: center;
     top: 13px;
 }
 #notificationIcon:hover{
@@ -59,6 +57,11 @@
 #notifications{
     visibility:hidden;
 }
+#notifications a{
+    text-decoration: none;
+    color:black;
+}
+
 #notificationIcon:hover~#notifications, #notifications:hover{ 
     cursor: pointer;
     visibility: visible;
@@ -69,6 +72,11 @@
     width: fit-content;
     background-color: white;
     list-style: none;
+    text-align: start;
+}
+#notifications li:hover{
+    background-color: rgb(161, 161, 161);
+    box-shadow: inset 0px 10px 10px 5px rgb(209, 208, 208);
 }
 @media print{
     #userInfo,.name,.role{
