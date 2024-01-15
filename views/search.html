@@ -15,9 +15,9 @@
 <body>
     <%- include('../layouts/boilerplate.ejs') %>
 
-        <div class="row row-cols-2" id="row" style="height: 100vh;">
-            <div class="col-3" id="search" style="border-right: 2px solid black; height: auto;">
-                <div class="ms-3 text-center border-bottom border-3 border-dark">
+        <div class="row row-cols-2" id="row">
+            <div class="col-3 p-0 border-end border-bottom border-3 border-dark" id="search">
+                <div class="ms-3 text-center">
                     <h1 class="mt-1">Search employee</h1>
                     <form class="text-center" action="/search" method="post">
                         <div class="form-group mt-3 w-50 ms-auto me-auto">

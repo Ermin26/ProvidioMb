@@ -18,10 +18,10 @@
     <%- include('../layouts/boilerplate.ejs') %>
     <%- include('../flashError.ejs') %>
         <!-- <div class="container text-center">-->
-        <div id="cols" class="row row-cols-2">
+        <div id="cols" class="row row-cols-2 w-100 ms-auto me-auto">
 
             <div id="col2" class="col-4 p-0 ms-auto me-auto">
-                <table id="cashTable" class="table table-dark p-2 ms-auto me-auto text-center">
+                <table id="cashTable" class="table table-dark p-2 ms-auto me-auto text-center align-middle">
                     <thead>
                     <tr>
                         <th>Earned</th>
@@ -70,8 +70,8 @@
                     <button id="showFormBtn" class="btn btn-primary" onclick="showInputForm()">Add new bill</button>
                 </div>
                 <div id="hideMe">
-                    <div id="addBillForm" class="col d-flex shadow text-center justify-content-center">
-                        <form action="/addCosts" method="post">
+                    <div id="addBillForm" class="col p-3 d-flex shadow text-center justify-content-center">
+                        <form action="/addCosts" method="post" class="w-75 p-4 shadow">
                             <div class="mb-2 text-center">
                                 <label for="date" class="form-label">Bill Date:</label><br>
                                 <input type="date" id="date" class="form-control text-center" name="date"
@@ -96,7 +96,7 @@
                 </div>
             </div>
 
-            <div id="col1" class="col-8 text-center">
+            <div id="col1" class="col-8 text-center p-0">
 
                 <% if(!allCosts.length) {%>
                     <h1>Nothing to show yet. Add some bills.</h1>
@@ -107,9 +107,9 @@
 
                         <div id="bills">
 
-                            <table id="tableOfCosts" class="table table-dark table-hover">
+                            <table id="tableOfCosts" class="table table-dark table-hover align-middle">
                                 <tr>
-                                    <thead id="table-data">
+                                    <thead id="table-data" class="align-middle">
                                         <th>#</th>
                                         <th>Bill date</th>
                                         <th>Total price &euro;</th>

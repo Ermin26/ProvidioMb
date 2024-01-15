@@ -116,8 +116,8 @@
     </div>
 </nav>
 <% if(currentUser) {%>
-<div id="userInfo" class="row shadow d-flex flex-row flex-nowrap">
-    <div class="name btn btn-primary">User: <%= currentUser.username %></div>
-    <div class="role btn btn-primary">Role: <%= currentUser.role %></div>
+<div id="userInfo" class="row d-flex flex-row flex-nowrap">
+    <div class="name btn btn-sm btn-primary">User: <%= currentUser.username %></div>
+    <div class="role btn btn-sm btn-primary">Role: <%= currentUser.role %></div>
 </div>
 <% } %>

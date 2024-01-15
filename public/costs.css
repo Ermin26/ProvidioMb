@@ -1,16 +1,9 @@
-html {
-    overflow-x: hidden;
-}
-
-body {
-    overflow-x: hidden;
-}
 
 a {
     text-decoration: none;
 }
 #col1,#col2{
-    max-height: 90vh;
+    max-height: 85vh;
     overflow-y: auto;
 }
 #cashTable{
@@ -100,14 +93,14 @@ a {
     #table-head,
     #costsInfo {
         position: sticky;
+        top: 0px;
     }
 }
 
 @media (max-width: 767px) {
     #cols {
         display: flex;
-        flex-direction: column-reverse;
-        margin-bottom: 10vh;
+        flex-direction: column;
     }
 
     #col1,
@@ -131,7 +124,6 @@ a {
     #bills {
         display: inline-flex;
         width: 100%;
-        overflow-x: auto;
 
     }
 

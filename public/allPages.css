@@ -14,7 +14,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: rgba(209, 210, 211, 0.781);
+    background-color: rgb(209, 210, 211);
+    box-shadow: inset 0px 0px 20px 5px rgba(107, 107, 107, 0.973)
 }
 .name,.role{
     width: fit-content;
@@ -62,7 +63,7 @@
     color:black;
 }
 
-#notificationIcon:hover~#notifications, #notifications:hover{ 
+#notificationIcon:hover~#notifications, #notifications:hover{
     cursor: pointer;
     visibility: visible;
     display:block;
@@ -81,5 +82,11 @@
 @media print{
     #userInfo,.name,.role{
         display:none !important;
+    }
+}
+
+@media screen and (max-width: 767px){
+    #userInfo{
+        top: 59px;
     }
 }

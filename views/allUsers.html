@@ -15,19 +15,21 @@
     <%- include('../layouts/boilerplate.ejs') %>
         <%- include('../flashError') %>
             <div class="containerr">
-                <div id="row" class="row row-cols-2 w-100">
+                <div id="row" class="row row-cols-2 ms-auto me-auto w-100">
 
                     <div id="col" class="col1 col text-center">
                         <div class="users mt-3">
                             <div>
                                 <h1>All Users</h1>
                             </div>
-                            <table class="table table-info table-hover ">
+                            <table class="table table-info table-hover table-bordered border-dark align-middle">
                                 <thead>
-                                    <th>Username</th>
-                                    <th>Role</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Role</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <% for(user of users) {%>
@@ -60,14 +62,16 @@
                                 <h1>All Employees</h1>
                             </div>
                             <div id="tableEmployee">
-                                <table id="employeeTable" class="table">
-                                    <thead id="employeeThead">
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Last name</th>
-                                        <th>Employment status</th>
-                                        <th>Status</th>
-                                        <th>Edit</th>
+                                <table id="employeeTable" class="table table-bordered border-dark align-middle">
+                                    <thead id="employeeThead" class="align-middle">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Last name</th>
+                                            <th>Employment status</th>
+                                            <th>Status</th>
+                                            <th>Edit</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <% for(employee of employees) {%>
