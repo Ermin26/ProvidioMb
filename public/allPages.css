@@ -5,17 +5,18 @@
 #navbar{
     position: sticky;
     top: 0;
+    height: 62px;
+    padding: 0;
 }
 #userInfo{
     position: sticky;
     justify-content: end;
     margin-right: 10px;
-    top: 66px;
+    top: 62px;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: rgb(209, 210, 211);
-    box-shadow: inset 0px 0px 20px 5px rgba(107, 107, 107, 0.973)
+    background-color: rgba(209, 210, 211);
 }
 .name,.role{
     width: fit-content;

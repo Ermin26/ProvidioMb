@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="/allPages.css">
     <link rel="stylesheet" href="/all.css">
     <title>Selled Products</title>
 </head>
 
 <body>
 
-    <nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-dark text-light sticky-top">
+    <nav id="navbar" class="navbar navbar-dark navbar-expand-lg bg-dark text-light sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">New Bill</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -65,7 +66,7 @@
                         </ul>
                     </li>
                     <% if(currentUser) {%>
-                        <li class="nav-item dropdown dropstart ms-auto me-right mt-1 p-1">
+                        <li class="nav-item dropdown dropstart ms-auto me-right p-0 text-end" style="max-height:50px; max-width: 50px">
                             <% if(notifications.length || hoursNot.length) {%>
                                 <div id="notificationIcon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red"
@@ -123,7 +124,7 @@
                                     <% } %>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout"><button class="btn btn-outline-info"> Log
+                            <a class="nav-link" href="/logout"><button class="btn btn-outline-info p-1"> Log
                                     out</button></a>
                         </li>
                         <% }else {%>
@@ -138,8 +139,8 @@
     </nav>
     <% if(currentUser) {%>
         <div id="userInfo" class="row shadow d-flex flex-row flex-nowrap">
-            <div class="name btn btn-primary">User: <%= currentUser.username %></div>
-            <div class="role btn btn-primary">Role: <%= currentUser.role %></div>
+            <div class="name btn btn-primary btn-sm">User: <%= currentUser.username %></div>
+            <div class="role btn btn-primary btn-sm">Role: <%= currentUser.role %></div>
         </div>
         <% } %>
 
@@ -185,7 +186,7 @@
 
                     <% for(let data of userData) { %>
                         <% for(let product of data.products) {%>
-                            <tr class="m-1">
+                            <tr class="m-1 align-middle">
 
                                 <% if(!data.payDate) {%>
                                     <% if(currentUser.username == 'jan' || currentUser.role != 'visitor') {%>
@@ -296,13 +297,12 @@
 
     <div id="placano" class="text-center">
         <table id="payed" class="table table-dark table-hover caption-top mb-0">
-            <thead class="" id="table-head">
+            <thead class="align-middle" id="table-head">
                 <th>User</th>
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Total &euro;</th>
                 <th>1<sup>st</sup> / Week</th>
-                <th>Payed</th>
                 <th>Week</th>
                 <th>Sold Date</th>
                 <th>Pay Date</th>
@@ -310,11 +310,9 @@
             </thead>
             <tbody>
                 <% if(payData.length) {%>
-
-
                     <% for(let user of payData) { %>
                         <% for(product of user.products) {%>
-                            <tr class="fs-4">
+                            <tr class="fs-4 align-middle">
                                 <% if(currentUser.role == 'visitor' && currentUser.username !='jan') {%>
                                     <td class="bg-warning"><a href="/all/<%= userData._id%>"><strong>Not available for visitors</strong></a></td>
                                     <% }else {%>
@@ -339,9 +337,6 @@
                                         <% } else { %>
                                             <img src="../notPay.jpg" alt="">
                                             <% } %>
-                                </td>
-                                <td>
-                                    <img src="../payed.jpg" alt="">
                                 </td>
                                 <td>
                                     <%= user.kt %>
@@ -389,16 +384,14 @@
     <div id="niPlacano" class="text-center mb-0">
         <table id="notpayed" class="table table-dark table-hover mb-0">
 
-            <thead class="" id="table-head">
+            <thead class="align-middle" id="table-head">
                 <th>User</th>
                 <th>Product</th>
                 <th>Bill ID</th>
                 <th>Quantity</th>
                 <th>Total &euro;</th>
-                <th>Payed</th>
                 <th>Week</th>
                 <th>Sold Date</th>
-                <th>Pay Date</th>
                 <th>Issued by</th>
             </thead>
             <tbody class="text-danger">
@@ -407,7 +400,7 @@
 
                     <% for(let users of notPayData) { %>
                         <% for(product of users.products) {%>
-                            <tr>
+                            <tr class="align-middle">
                                 <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                 <td class="fs-4">
                                     <a href="/all/<%= users._id%>">
@@ -431,22 +424,11 @@
                                 <td class="fs-4" value="<%= product.total %>">
                                     <%= product.total %> &euro;
                                 </td>
-
-                                <td>
-                                    <img src="../notPay.jpg" alt="">
-                                </td>
                                 <td>
                                     <%= users.kt %>
                                 </td>
                                 <td>
                                     <%= users.soldDate %>
-                                </td>
-                                <td>
-                                    <% if(users.payDate){ %>
-                                        <%= users.payDate %>
-                                            <% } else{%>
-                                                Not payed
-                                                <% } %>
                                 </td>
                                 <% if(currentUser.role != 'visitor' || currentUser.username == 'jan') {%>
                                 <td>

@@ -8,11 +8,11 @@ a {
     position: sticky;
     justify-content: end;
     margin-right: 10px;
-    top: 70px;
+    top: 62px;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: rgba(209, 210, 211, 0.781);
+    background-color: rgba(209, 210, 211);
 }
 .name,.role{
     width: fit-content;
@@ -30,11 +30,11 @@ a {
     cursor: pointer;
 }
 #notificationIcon >svg{
-    margin-top: 5px;
+    margin-top: 12px;
 }
 #notNumber{
     position: relative;
-    top: -10px;
+    top: -6px;
     right: 8px;
     background-color: red;
     width: 14px;
@@ -65,8 +65,9 @@ a {
     visibility: visible;
     display:block;
     position: relative;
-    top: 5px;
-    right: 5%;
+    text-wrap: nowrap;
+    top: 0px;
+    right: 360%;
     width: fit-content;
     background-color: white;
     list-style: none;
@@ -74,7 +75,66 @@ a {
 }
 #notifications li:hover{
     background-color: rgb(161, 161, 161);
-    box-shadow: inset 0px 10px 10px 5px rgb(209, 208, 208);
+    box-shadow: inset 0px 5px 10px 5px rgb(209, 208, 208);
+}
+#btn-func {
+    margin: 3px;
+}
+
+.caption {
+    margin-left: 10px;
+}
+
+#allUsers,
+#placano,
+#niPlacano {
+    display: inline-flex;
+
+
+}
+
+#table-data,
+#table-head {
+    position: sticky;
+    top: 104px;
+}
+#myBtn {
+    display: none;
+    position: fixed;
+    margin-bottom: 2px;
+    top: 200px;
+    right: 5px;
+    z-index: 99;
+    font-size: 36px;
+    border: 1px solid rgb(71, 222, 249);
+    outline: none;
+    background-color: rgba(10, 13, 45, 0.986);
+    color: rgb(71, 222, 249);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+#bottom {
+    display: none;
+    position: fixed;
+    top: 265px;
+    right: 5px;
+    z-index: 99;
+    font-size: 36px;
+    border: 1px solid rgb(71, 222, 249);
+    outline: none;
+    background-color: rgba(10, 13, 45, 0.986);
+    color: rgb(71, 222, 249);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+#myBtn:hover,
+#bottom:hover {
+    background-color: rgb(68, 202, 119);
+    color: black;
 }
 @media (max-width: 3000px) {
     #btn-func {
@@ -96,7 +156,7 @@ a {
     #table-data,
     #table-head {
         position: sticky;
-        top: 112px;
+        top: 104px;
     }
 
     #myBtn {
@@ -155,69 +215,12 @@ a {
         overflow-x: auto;
     }
 
-    #all {
-        width: 100%;
-        overflow-x: auto;
-    }
-
     #table-data,
     #table-head {
         position: sticky;
-        top: 15px;
+        top: 104;
 
     }
 }
 
-@media (max-width: 767px) {
-    .caption {
-        margin-left: 10px;
-    }
-
-    #allUsers,
-    #placano,
-    #niPlacano {
-        display: inline-flex;
-        overflow-x: auto;
-    }
-
-    #all {
-        width: 100%;
-        overflow-x: auto;
-    }
-/*
-    #table-data,
-    #table-head {
-        position: sticky;
-        top: 15px;
-    }
-    */
-}
-
-@media (max-width: 450px) {
-    .caption {
-        margin-top: 60px;
-        margin-left: 5px;
-    }
-
-    #allUsers,
-    #placano,
-    #niPlacano {
-        display: inline-flex;
-        width: 100%;
-        overflow-x: auto;
-
-    }
-
-    #all {
-        width: 100%;
-        height: auto;
-        overflow-x: auto;
-    }
-/*
-    #table-data,
-    #table-head {
-        position: sticky;
-        top: 65px;
-    }
-    */
-}
+*/
