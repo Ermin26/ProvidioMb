@@ -218,9 +218,7 @@ a {
     #table-data,
     #table-head {
         position: sticky;
-        top: 104;
+        top: 0;
 
     }
 }
-
-*/
