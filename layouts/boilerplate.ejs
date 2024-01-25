@@ -65,27 +65,27 @@
                                 <% if(notifications.length && hoursNot.length) {%>
                                     <% for(not of notifications) {%>
                                         <a href="/vacation">
-                                            <li class="p-2">User: <%= not.username %>, days: <%= not.days %>.
+                                            <li class="p-2"><%= not.username %> requested <%= not.days %> day/s of vacation/s.
                                             </li>
                                         </a>
                                     <% } %>
                                     <% for(hour of hoursNot) {%>
                                         <a href="/vacation">
-                                            <li class="p-2">User: <%= hour.username %>, datum: <%= hour.startDate %>, hours: <%= hour.hours %>.
+                                            <li class="p-2"><%= hour.username %> requested hours use on datum: <%= hour.startDate %>, hours: <%= hour.hours %>.
                                             </li>
                                         </a>
                                     <% } %>
                                 <% }else if(notifications.length && !hoursNot.length){ %>
                                     <% for(not of notifications) {%>
                                         <a href="/vacation">
-                                            <li class="p-2">User: <%= not.username %>, days: <%= not.days %>.
+                                            <li class="p-2"><%= not.username %> requested <%= not.days %> day/s of vacation/s.
                                             </li>
                                         </a>
                                     <% } %>
                                 <% }else if(hoursNot.length && !notifications.length){ %>
                                     <% for(not of hoursNot) {%>
                                         <a href="/vacation">
-                                            <li class="p-2">User: <%= not.username %>, datum: <%= not.startDate %>, hours: <%= not.hours %>.
+                                            <li class="p-2"><%= not.username %> requested hours use on <%= not.startDate %>, hours: <%= not.hours %>.
                                             </li>
                                         </a>
                                     <% } %>
