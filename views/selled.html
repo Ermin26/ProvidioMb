@@ -15,7 +15,7 @@
 <body>
 
     <nav id="navbar" class="navbar navbar-dark navbar-expand-lg bg-dark text-light sticky-top">
-        <div class="container-fluid">
+        <div class="container-fluid bg-dark">
             <a class="navbar-brand" href="/">New Bill</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,30 +23,30 @@
             </button>
             <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
                 <ul class="navbar-nav d-flex w-100">
-                    <li id="vsi" class="nav-item ms-1 mt-2">
+                    <li id="vsi" class="nav-item m-1">
                         <button class="btn btn-primary p-1" id="btn-func" onclick="allBills()">All bills</button>
                     </li>
 
-                    <li id="placali" class="nav-item ms-1 mt-2">
+                    <li id="placali" class="nav-item m-1">
                         <button class="btn btn-success p-1" id="btn-func" onclick="payedBills()">Payed</button>
                     </li>
-                    <li id="nePlacali" class="nav-item ms-1 mt-2">
+                    <li id="nePlacali" class="nav-item m-1">
                         <button class="btn btn-danger p-1" id="btn-func" onclick="notPayedBills()">Not Payed</button>
                     </li>
                     </li>
-                    <li class="nav-item ms-2 mt-2">
+                    <li class="nav-item m-1">
                         <a href="/search"><button class="btn btn-outline-info p-1 text-light" id="btn-func">Search
                                 User</button></a>
                     </li>
-                    <li class="nav-item ms-2 mt-2">
+                    <li class="nav-item m-1">
                         <a href="/costs"><button class="btn btn-danger p-1" id="btn-func">Costs</button></a>
                     </li>
-                    <li class="nav-item ms-2 mt-2">
+                    <li class="nav-item m-1">
                         <a href="/vacation"><button class="btn btn-info p-1" id="btn-func">
                                 Vacation</button></a>
                     </li>
 
-                    <li class="nav-item dropdown ms-1 mt-2 p-1">
+                    <li class="nav-item dropdown m-1 p-1">
                         <a href="/users"><button type="button" class="btn btn-info p-1">Users</button></a>
                         <button type="button" class="btn btn-info dropdown-toggle  dropdown-toggle-split p-1"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,7 +66,7 @@
                         </ul>
                     </li>
                     <% if(currentUser) {%>
-                        <li class="nav-item dropdown dropstart ms-auto me-right p-0 text-end" style="max-height:50px; max-width: 50px">
+                        <li id="iconLi" class="nav-item dropdown dropstart ms-auto me-right p-0 text-end">
                             <% if(notifications.length || hoursNot.length) {%>
                                 <div id="notificationIcon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red"
@@ -85,27 +85,27 @@
                                     <% if(notifications.length && hoursNot.length) {%>
                                         <% for(not of notifications) {%>
                                             <a href="/vacation">
-                                                <li class="p-2">User: <%= not.username %>, days: <%= not.days %>.
+                                                <li class="p-2"><%= not.username %> requested <%= not.days %> days vacations.
                                                 </li>
                                             </a>
                                         <% } %>
                                         <% for(hour of hoursNot) {%>
                                             <a href="/vacation">
-                                                <li class="p-2">User: <%= hour.username %>, datum: <%= hour.startDate %>, hours: <%= hour.hours %>.
+                                                <li class="p-2"><%= hour.username %> requested <%= hour.hours %> hour/s on <%= hour.startDate %>.
                                                 </li>
                                             </a>
                                         <% } %>
                                     <% }else if(notifications.length && !hoursNot.length){ %>
                                         <% for(not of notifications) {%>
                                             <a href="/vacation">
-                                                <li class="p-2">User: <%= not.username %>, days: <%= not.days %>.
+                                                <li class="p-2"><%= not.username %> requested <%= not.days %> days vacations.
                                                 </li>
                                             </a>
                                         <% } %>
                                     <% }else if(hoursNot.length && !notifications.length){ %>
                                         <% for(not of hoursNot) {%>
                                             <a href="/vacation">
-                                                <li class="p-2">User: <%= not.username %>, datum: <%= not.startDate %>, hours: <%= not.hours %>.
+                                                <li class="p-2"><%= hour.username %> requested <%= hour.hours %> hour/s on <%= hour.startDate %>.
                                                 </li>
                                             </a>
                                         <% } %>
@@ -123,12 +123,12 @@
                                     
                                     <% } %>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item m-1">
                             <a class="nav-link" href="/logout"><button class="btn btn-outline-info p-1"> Log
                                     out</button></a>
                         </li>
                         <% }else {%>
-                            <li class="nav-item ms-auto mt-1">
+                            <li class="nav-item ms-auto m-1">
                                 <a class="nav-link" href="/login"><button class="btn btn-outline-info ms-1 p-1"> Log
                                         In</button></a>
                             </li>
@@ -447,8 +447,6 @@
                                             <td></td>
                                             <td></td>
                                             <td id="total"></td>
-                                            <td></td>
-                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>

@@ -189,7 +189,7 @@ app.get('/', async (req, res) => {
         }
     } else {
         currentMonth.push(month)
-        const newBill = 1;
+        const newBill = perYear[0].numPerYear + 1;
         const billNew = 1;
         res.render('index', { date, year, month, billNew, newBill, currentWeek, notifications,hoursNot })
     }

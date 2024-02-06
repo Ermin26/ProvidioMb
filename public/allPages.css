@@ -23,12 +23,21 @@
     margin: 2px;
     font-weight: 700;
 }
+
+.navbar-nav{
+    align-items: center;
+}
+#iconLi{
+    max-height: 50px;
+    width: 50px;
+    margin: 1px;
+}
 #notificationIcon{
     display: inline-flex;
     position: relative;
     padding: 0;
     align-items: center;
-    top: 13px;
+    top: 4px;
 }
 #notificationIcon:hover{
     cursor: pointer;
@@ -58,6 +67,11 @@
 
 #notifications{
     visibility:hidden;
+    position: absolute;
+    text-wrap: nowrap;
+    width: 320px;
+    margin-left: -260px;
+    margin-top: 0px;
 }
 #notifications a{
     text-decoration: none;
@@ -67,14 +81,15 @@
 #notificationIcon:hover~#notifications, #notifications:hover{
     cursor: pointer;
     visibility: visible;
-    display:block;
-    position: relative;
-    top: 5px;
-    right: 5%;
+    position: absolute;
     width: fit-content;
-    background-color: white;
+    text-wrap: nowrap;
+    margin-left: -260px;
+    margin-top: 0px;
     list-style: none;
+    background-color: white;
     text-align: start;
+    border: 1px solid black;
 }
 #notifications li:hover{
     background-color: rgb(161, 161, 161);
@@ -86,8 +101,20 @@
     }
 }
 
-@media screen and (max-width: 767px){
+@media (max-width: 992px){
+    
+    
+}
+
+@media (max-width: 767px){
     #userInfo{
         top: 59px;
     }
+    .navbar-nav{
+        align-items: start;
+    }
+    #notificationIcon:hover~#notifications, #notifications:hover{
+        text-wrap: wrap;
+    }
+
 }

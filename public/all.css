@@ -2,6 +2,10 @@ html {
     overflow-x: hidden;
 }
 
+.navbar-nav{
+    align-items: center;
+}
+
 a {
     text-decoration: none;
 }#userInfo{
@@ -19,12 +23,17 @@ a {
     margin: 2px;
     font-weight: 700;
 }
+#iconLi{
+    max-height: 50px;
+    width: 50px;
+    margin: 1px;
+}
 #notificationIcon{
     display: inline-flex;
     position: relative;
     padding: 0;
     align-items: center;
-    top: 7px;
+    top: 2px;
 }
 #notificationIcon:hover{
     cursor: pointer;
@@ -54,24 +63,32 @@ a {
 
 #notifications{
     visibility:hidden;
+    position: absolute;
+    text-wrap: nowrap;
+    width: 300px;
+    margin-left: -250px;
+    margin-top: 0px;
 }
 #notifications a{
     text-decoration: none;
     color:black;
 }
 
-#notificationIcon:hover~#notifications, #notifications:hover{ 
+#notificationIcon:hover~#notifications, #notifications:hover{
     cursor: pointer;
+    box-sizing: border-box;
     visibility: visible;
-    display:block;
-    position: relative;
+    position: absolute;
+    top: 0;
     text-wrap: nowrap;
-    top: 0px;
-    right: 360%;
-    width: fit-content;
+    width: 300px;
+    margin-left: -250px;
     background-color: white;
     list-style: none;
     text-align: start;
+    list-style: none;
+    border: 1px solid black;
+    margin-top: 35px;
 }
 #notifications li:hover{
     background-color: rgb(161, 161, 161);
@@ -220,5 +237,14 @@ a {
         position: sticky;
         top: 0;
 
+    }
+}
+
+@media (max-width: 992px){
+    .navbar-nav{
+        align-items: start;
+    }
+    #notificationIcon:hover~#notifications, #notifications:hover{
+        text-wrap: wrap;
     }
 }
