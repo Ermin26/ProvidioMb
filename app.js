@@ -235,30 +235,41 @@ app.get('/users/edit/:id', isLoged, async (req, res) => {
     const user = await People.findById(id);
     const notifications = await Notifications.find({ status: 'false' });
     const hoursNot = await HoursNot.find({status: 'false' });
-    //console.log(user);
+    console.log(user.username);
     res.render('editUser', { user, notifications, hoursNot });
 })
 app.put('/users/:id', isLoged, async (req, res) => {
     const { id } = req.params;
-    if(req.user.role === 'visitor'){
+    if(req.user.role !== 'admin'){
         req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
     }
     else{
-        const user = await People.findByIdAndUpdate(id, { ...req.body.user });
-        await user.save();
-        req.flash('success', 'User data was successfully updated.');
+        const checkUser = await People.findById(id);
+        if(checkUser.username === 'ermin'){
+            req.flash('error', "You can't edit or delete me, motherfucker! This is my app!!";
+        }else{
+            const user = await People.findByIdAndUpdate(id, { ...req.body.user });
+            await user.save();
+            req.flash('success', 'User data was successfully updated.');
+        }
     }
     res.redirect(`/users`)
 })
 
 app.delete('/users/:id', isLoged, async (req, res) => {
     const { id } = req.params;
-    if(req.user.role === 'visitor'){
-        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
+    
+    if(req.user.role === 'admin'){
+        const checkUser = await People.findById(id);
+        if(checkUser.username === 'ermin'){
+            req.flash('error', "You can't edit or delete me, motherfucker! This is my app!!";
+        }else{
+            const user = await People.findByIdAndDelete(id);
+            req.flash('success', 'User was successfully deleted.');
+        }
     }
     else{
-        const user = await People.findByIdAndDelete(id);
-        req.flash('success', 'User was successfully deleted.');
+        req.flash('success', "User data was successfully updated. This is just info message, visitors can't add, update or delete any data from database.");
     }
     res.redirect('/users')
 })
