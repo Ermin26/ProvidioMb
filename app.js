@@ -246,7 +246,7 @@ app.put('/users/:id', isLoged, async (req, res) => {
     else{
         const checkUser = await People.findById(id);
         if(checkUser.username === 'ermin'){
-            req.flash('error', "You can't edit or delete me, motherfucker! This is my app!!";
+            req.flash('error', "You can't edit or delete me, motherfucker! This is my app!!");
         }else{
             const user = await People.findByIdAndUpdate(id, { ...req.body.user });
             await user.save();
@@ -262,7 +262,7 @@ app.delete('/users/:id', isLoged, async (req, res) => {
     if(req.user.role === 'admin'){
         const checkUser = await People.findById(id);
         if(checkUser.username === 'ermin'){
-            req.flash('error', "You can't edit or delete me, motherfucker! This is my app!!";
+            req.flash('error', "You can't edit or delete me, motherfucker! This is my app!!");
         }else{
             const user = await People.findByIdAndDelete(id);
             req.flash('success', 'User was successfully deleted.');
