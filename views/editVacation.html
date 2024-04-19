@@ -153,6 +153,7 @@
                                                                 <%= holiday.applyDate %>
                                                             </strong>
                                                         </td>
+                                                        <% if(currentUser.role=='admin' ) {%>
                                                             <td class="align-middle">
                                                                 <form action="/vacation/approve/<%=vac.id %>"
                                                                     method="post">
@@ -173,6 +174,11 @@
                                                                     <button class="btn btn-danger">REJECT</button>
                                                                 </form>
                                                             </td>
+                                                        <%}else {%>
+                                                        <td class="align-middle"><button
+                                                                        class="btn btn-sm bg-danger text-light">FORBIDEN</button>
+                                                                </td>
+                                                        <%}%>
                                                     </tr>
                                                     <% } %>
 
@@ -206,6 +212,7 @@
                                                         <td class="align-middle"><strong><%= hour.date %></strong></td>
                                                         <td class="align-middle"><strong><%= hour.hours %></strong></td>
                                                         <td class="align-middle"><strong><%= hour.days %></strong></td>
+                                                        <% if(currentUser.role=='admin' ) {%>
                                                         <td class="align-middle"><form action="/hours/approve/<%=hours.id %>"
                                                             method="post">
                                                             <input type="text" name="hourId"
@@ -222,6 +229,11 @@
                                                                 value="<%= hour.id %>" hidden>
                                                             <button class="btn btn-danger">REJECT</button>
                                                         </form></td>
+                                                        <%}else {%>
+                                                        <td class="align-middle"><button
+                                                                        class="btn btn-sm bg-danger text-light">FORBIDEN</button>
+                                                                </td>
+                                                        <%}%>
                                                     </tr>
                                                 <% } %>
                                                 <% } %>
@@ -346,12 +358,18 @@
                                                     <td class="align-middle"><strong><%= hour.date %></strong></td>
                                                     <td class="align-middle"><strong><%= hour.hours %></strong></td>
                                                     <td class="align-middle"><strong><%= hour.days %></strong></td>
+                                                    <% if(currentUser.role=='admin' ) {%>
                                                     <td class="align-middle"><form action="/hours/rejectAfterApprove/<%=hours.id %>"
                                                         method="post">
                                                         <input type="text" name="hourId"
                                                             value="<%= hour.id %>" hidden>
                                                         <button class="btn btn-danger">REJECT</button>
                                                     </form></td>
+                                                    <% }else {%>
+                                                        <td class="align-middle">
+                                                            <button class="btn btn-sm bg-danger text-light">FORBIDEN</button>
+                                                        </td>
+                                                    <% } %>
                                                 </tr>
                                             <% } %>
                                             <% } %>
@@ -482,6 +500,7 @@
                                                     <td class="align-middle"><strong><%= hour.date %></strong></td>
                                                     <td class="align-middle"><strong><%= hour.hours %></strong></td>
                                                     <td class="align-middle"><strong><%= hour.days %></strong></td>
+                                                    <% if(currentUser.role=='admin' ) {%>
                                                     <td class="align-middle"><form action="/hours/approve/<%=hours.id %>"
                                                         method="post">
                                                         <input type="text" name="hourId"
@@ -492,6 +511,11 @@
                                                             Approve
                                                         </button>
                                                     </form></td>
+                                                    <% }else {%>
+                                                        <td class="align-middle">
+                                                            <button class="btn btn-danger btn-sm">FORBIDEN</button>
+                                                        </td>
+                                                    <% } %>
                                                 </tr>
                                                 <% } %>
                                             <% } %>
