@@ -241,9 +241,6 @@ a {
 }
 
 @media (max-width: 992px){
-    .navbar-nav{
-        align-items: start;
-    }
     #notificationIcon:hover~#notifications, #notifications:hover{
         text-wrap: wrap;
     }
